@@ -1,5 +1,5 @@
 package fog.ethereal.util;
 
-public class Vector2 {
+public class VectorMD {
 
 }
