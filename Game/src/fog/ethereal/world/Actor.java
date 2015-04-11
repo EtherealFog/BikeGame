@@ -1,5 +1,6 @@
 package fog.ethereal.world;
 
+import fog.ethereal.util.Translation;
 import javafx.scene.canvas.GraphicsContext;
 
 

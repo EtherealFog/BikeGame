@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import fog.ethereal.util.Translation;
 import javafx.scene.canvas.GraphicsContext;
 
 public class World {
