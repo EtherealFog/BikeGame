@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import fog.ethereal.sprite.Actor;
+import fog.ethereal.util.Constants;
 import fog.ethereal.util.Translation;
 import javafx.scene.canvas.GraphicsContext;
 

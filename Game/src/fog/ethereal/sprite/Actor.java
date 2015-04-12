@@ -1,6 +1,7 @@
-package fog.ethereal.world;
+package fog.ethereal.sprite;
 
 import fog.ethereal.util.Translation;
+import fog.ethereal.world.Drawable;
 import javafx.scene.canvas.GraphicsContext;
 
 
