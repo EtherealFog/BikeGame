@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import fog.ethereal.sprite.Actor;
+import fog.ethereal.sprite.Sprite;
 import fog.ethereal.util.Constants;
 import fog.ethereal.util.Translation;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,7 +13,7 @@ public class World {
 	private Translation pos;
 	private Dimension maxSize;
 	private Dimension size;
-	private ArrayList<Actor> actors;
+	private ArrayList<Sprite> sprites;
 	
 	public World(Dimension maxSize) {
 		pos = new Translation(0, 0);
@@ -25,17 +25,11 @@ public class World {
 		maxSize = Constants.DEFAULT_SIZE;
 	}
 	
-	public void draw(GraphicsContext g) {
-		actors.parallelStream()
-			.filter((Actor a) -> a.canDraw(pos))
-			.forEach((Actor a) -> a.draw(pos, g));
-	}
-	
-	public void add(Actor a) {
+	public void add(Sprite a) {
 		Translation aPos = a.getAbsPos();
 		Rectangle bounds = new Rectangle(maxSize);
 		if(bounds.contains(aPos.getX(), aPos.getY())) {
-			actors.add(a);
+			sprites.add(a);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package fog.ethereal.sprite;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import fog.ethereal.util.Projection;
 import fog.ethereal.util.VectorCT;
@@ -7,9 +8,14 @@ import fog.ethereal.world.Platform;
 
 
 
-public class Wheel extends ImageView{
+public class Wheel extends Sprite{
 	private double radius;
 	private VectorCT center;
+	
+	public Wheel(Image i) {
+		super(i);
+		
+	}
 	
 	public double getRadius() {
 		return radius;
