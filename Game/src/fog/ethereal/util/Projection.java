@@ -10,7 +10,7 @@ public class Projection {
 	}
 	
 	public boolean overlaps(Projection other) {
-		return (!(other.getMax() < min && other.getMax() < max)) || (!(max < other.getMin() && max < other.getMax()));
+		return (!(other.getMax() < min && other.getMax() < max)) && (!(max < other.getMin() && max < other.getMax()));
 	}
 	
 	public double getMin() {
