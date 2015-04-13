@@ -1,7 +1,7 @@
 package fog.ethereal.util;
 /**
  * Vector for cartesian coordinate system; 
- * origin as 'tail' of vector with (x, y) coordinates of head.
+ * origin(0, 0) as 'tail' of vector with (x, y) coordinates of head.
  */
 public class VectorCT {
 	private double x;
@@ -23,6 +23,10 @@ public class VectorCT {
 	
 	public VectorCT subtract(VectorCT other) {
 		return new VectorCT(other.getX() - x, other.getY() - y);
+	}
+	
+	public double dot(VectorCT other) {
+		return x * other.getX() + y * other.getY();
 	}
 	
 	public double getX() {

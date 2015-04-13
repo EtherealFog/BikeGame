@@ -11,8 +11,12 @@ public class Platform extends Line {
 	
 	public VectorCT getNormal() {
 		//Make a vector equivalent of this Platform
-		VectorCT edge = (new VectorCT(getStartX(), getStartY())).subtract(new VectorCT(getEndX(), getEndY()));
+		VectorCT edge = toVector();
 		//edge[x, y] -> edge.normal[-y, x]
 		return new VectorCT(-1 * edge.getY(), edge.getX());
+	}
+	
+	public VectorCT toVector() {
+		return (new VectorCT(getStartX(), getStartY())).subtract(new VectorCT(getEndX(), getEndY()));
 	}
 }
