@@ -21,6 +21,10 @@ public class VectorCT {
 		return md;
 	}
 	
+	public VectorCT subtract(VectorCT other) {
+		return new VectorCT(other.getX() - x, other.getY() - y);
+	}
+	
 	public double getX() {
 		return x;
 	}
