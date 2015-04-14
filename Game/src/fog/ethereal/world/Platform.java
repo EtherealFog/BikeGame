@@ -23,6 +23,6 @@ public class Platform extends Line {
 	}
 	
 	public boolean fitsWithin(Rectangle rect) {
-		return rect.contains(getStartX(), getStartY()) && rect.contains(getEndX(), getEndY());
+		return rect.contains(getStartX(), getStartY()) || rect.contains(getEndX(), getEndY());
 	}
 }

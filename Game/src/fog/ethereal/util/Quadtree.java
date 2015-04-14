@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fog.ethereal.sprite.Sprite;
-import fog.ethereal.sprite.Wheel;
 import fog.ethereal.world.Platform;
 
 public class Quadtree {
 	private int MAX_OBJECTS = 10;
-	private int MAX_LEVELS = 5;
+	private int MAX_LEVELS = 10;
  	private int level;
  	private List<Platform> objects;
 	private Rectangle bounds;
@@ -45,21 +44,21 @@ public class Quadtree {
 		nodes[3] = new Quadtree(level+1, new Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
 	}
 	
-	private int getIndex(Platform p) {
-		int index = -1;
+	private int[] getIndex(Platform p) {
+		int[] index = {-1, -1, -1, -1};
 		for(int i = 0; i < 4; i++) {
 			if(p.fitsWithin(nodes[i].getBounds())) {
-				return i + 1;
+				index[i] = i + 1;
 			}
 		}
 		return index;
 	}
 	
-	private int getIndex(Sprite s) {
-		int index = -1;
+	private int[] getIndex(Sprite s) {
+		int[] index = {-1, -1, -1, -1};
 		for(int i = 0; i < 4; i++) {
 			if(s.fitsWithin(nodes[i].getBounds())) {
-				return i + 1;
+				index[i] = i + 1;
 			}
 		}
 		return index;
@@ -71,9 +70,11 @@ public class Quadtree {
 	}
 	
 	public List<Platform> retrieve(List<Platform> platforms, Sprite s) {
-		int index = getIndex(s);
-		if(index != -1 && nodes[0] != null) {
-			nodes[index].retrieve(platforms, s);
+		int[] index = getIndex(s);
+		for(int i = 0; i < index.length; i++) {
+			if(index[i] != -1 && nodes[0] != null) {
+				nodes[index[i]].retrieve(platforms, s);
+			}
 		}
 		platforms.addAll(objects);
 		return platforms;
@@ -81,10 +82,11 @@ public class Quadtree {
 	
 	public void insert(Platform p) {
 		if(nodes[0] != null) {
-			int index = getIndex(p);
-			if(index != -1) {
-				nodes[index].insert(p);
-				return;
+			int[] index = getIndex(p);
+			for(int i = 0; i < index.length; i++) {
+				if(index[i] != -1) {
+					nodes[index[i]].insert(p);
+				}
 			}
 		}
 		objects.add(p);
@@ -92,14 +94,15 @@ public class Quadtree {
 			if(nodes[0] == null) {
 				split();
 			}
-			int i = 0;
-			while(i < objects.size()) {
-				int index = getIndex(objects.get(i));
-				if(index != -1) {
-					nodes[index].insert(objects.remove(i));
-				} else {
-					i++;
+			while(0 < objects.size()) {
+				Platform current = objects.get(0);
+				int[] index = getIndex(current);
+				for(int j = 0; j < index.length; j++) {
+					if(index[j] != -1) {
+						nodes[index[j]].insert(current);
+					}
 				}
+				objects.remove(0);
 			}
 		}
 	}

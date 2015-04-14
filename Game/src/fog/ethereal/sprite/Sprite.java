@@ -26,6 +26,6 @@ public class Sprite extends ImageView implements WorldObject{
 	
 	public boolean fitsWithin(Rectangle rect) {
 		Rectangle bounds = new Rectangle((int)getX(), (int)getY(), (int)getFitWidth(), (int)getFitHeight());
-		return rect.contains(bounds);
+		return rect.intersects(bounds);
 	}
 }
