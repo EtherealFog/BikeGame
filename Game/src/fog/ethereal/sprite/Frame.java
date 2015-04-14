@@ -6,7 +6,6 @@ public class Frame extends Sprite {
 
 	public Frame(Image i) {
 		super(i);
-		
 	}
 
 }

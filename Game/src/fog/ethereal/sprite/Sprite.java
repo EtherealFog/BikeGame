@@ -1,5 +1,7 @@
 package fog.ethereal.sprite;
 
+import java.awt.Rectangle;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import fog.ethereal.util.Translation;
@@ -20,5 +22,10 @@ public class Sprite extends ImageView implements WorldObject{
 	@Override
 	public void update(Translation t) {
 		
+	}
+	
+	public boolean fitsWithin(Rectangle rect) {
+		Rectangle bounds = new Rectangle((int)getX(), (int)getY(), (int)getFitWidth(), (int)getFitHeight());
+		return rect.contains(bounds);
 	}
 }
