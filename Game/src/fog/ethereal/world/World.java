@@ -31,14 +31,6 @@ public class World {
 		maxSize = Constants.DEFAULT_SIZE;
 	}
 	
-	public void add(Sprite a) {
-		Translation aPos = a.getAbsPos();
-		Rectangle bounds = new Rectangle(maxSize);
-		if(bounds.contains(aPos.getX(), aPos.getY())) {
-			sprites.add(a);
-		}
-	}
-	
 	public void setupGameLoop() {
 		Duration singleFrame = Constants.DEFAULT_FPS;
 		KeyFrame frame = new KeyFrame(singleFrame, 
