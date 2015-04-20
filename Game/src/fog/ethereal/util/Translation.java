@@ -1,4 +1,4 @@
-package fog.ethereal.world;
+package fog.ethereal.util;
 
 public class Translation {
 	private int x;
