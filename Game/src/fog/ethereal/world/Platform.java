@@ -34,4 +34,12 @@ public class Platform extends Line {
 	public boolean fitsWithin(Rectangle rect) {
 		return rect.contains(getStartX(), getStartY()) || rect.contains(getEndX(), getEndY());
 	}
+	
+	public BasicPlatform toBasicPlatform() {
+		return new BasicPlatform(getStartX(), getStartY(), getEndX(), getEndY());
+	}
+	
+	public String toString() {
+		return "(" + getStartX() + ", " + getStartY() + ") -> (" + getEndX() + ", " + getEndY() + ")";
+	}
 }

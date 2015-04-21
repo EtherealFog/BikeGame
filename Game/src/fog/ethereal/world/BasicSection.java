@@ -2,7 +2,6 @@ package fog.ethereal.world;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,7 +11,7 @@ public class BasicSection {
 	private ArrayList<BasicPlatform> platforms;
 	
 	public BasicSection() {
-		
+		platforms = new ArrayList<BasicPlatform>();
 	}
 	
 	public BasicSection(ArrayList<Point> points) {
@@ -26,8 +25,24 @@ public class BasicSection {
 	}
 	
 	@XmlElement(name = "platform")
-	public List<BasicPlatform> getPlatforms() {
+	public ArrayList<BasicPlatform> getPlatforms() {
 		return platforms;
 	}
 	
+	public void setPlatforms(ArrayList<BasicPlatform> platforms) {
+		this.platforms.clear();
+		this.platforms.addAll(platforms);
+	}
+	
+	public void addAll(ArrayList<BasicPlatform> platforms) {
+		this.platforms.addAll(platforms);
+	}
+	
+	public String toString() {
+		String temp = "Section: " + platforms.size() + " platforms:";
+		for(int i = 0; i < platforms.size(); i++) {
+			temp += "\n\tp" + i + ": " + platforms.get(i);
+		}
+		return temp;
+	}
 }

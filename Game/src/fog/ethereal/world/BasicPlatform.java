@@ -14,6 +14,13 @@ public class BasicPlatform {
 		this.endY = endY;
 	}
 	
+	public BasicPlatform() {
+		this.startX = 0;
+		this.startY = 0;
+		this.endX = 0;
+		this.endY = 0;
+	}
+	
 	public BasicPlatform(Point start, Point end) {
 		startX = start.getX();
 		startY = start.getY();
@@ -47,5 +54,29 @@ public class BasicPlatform {
 	@XmlElement(name = "endY")
 	public double getEndY() {
 		return endY;
+	}
+	
+	
+	public void setStartX(double x) {
+		this.startX = x;
+	}
+	
+	
+	public void setStartY(double y) {
+		this.startY = y;
+	}
+	
+	
+	public void setEndX(double x) {
+		this.endX = x;
+	}
+	
+	
+	public void setEndY(double y) {
+		this.endY = y;
+	}
+	
+	public String toString() {
+		return "(" + startX + ", " + startY + ") -> (" + endX + ", " + endY + ")";
 	}
 }

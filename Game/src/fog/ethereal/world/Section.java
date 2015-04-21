@@ -21,6 +21,14 @@ public class Section {
 		}
 	}
 	
+	public Section(BasicSection s) {
+		ArrayList<BasicPlatform> basics = s.getPlatforms();
+		platforms = new ArrayList<Platform>();
+		for(BasicPlatform bp: basics) {
+			platforms.add(new Platform(bp));
+		}
+	}
+	
 	public ArrayList<DragNode> getDragpoints() {
 		ArrayList<DragNode> nodes = new ArrayList<DragNode>();
 		nodes.add(new DragNode(null, platforms.get(0)));
@@ -34,5 +42,15 @@ public class Section {
 	@XmlElement(name = "platform")
 	public List<Platform> getPlatforms() {
 		return platforms;
+	}
+	
+	public BasicSection toBasicSection() {
+		BasicSection temp = new BasicSection();
+		ArrayList<BasicPlatform> temps = new ArrayList<BasicPlatform>();
+		for(Platform p: platforms) {
+			temps.add(p.toBasicPlatform());
+		}
+		temp.addAll(temps);
+		return temp;
 	}
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<level>
+    <name>TestLevelDupe</name>
+    <section>
+        <platform>
+            <endX>3.0</endX>
+            <endY>1.0</endY>
+            <startX>10.0</startX>
+            <startY>2.0</startY>
+        </platform>
+        <platform>
+            <endX>6.0</endX>
+            <endY>2.0</endY>
+            <startX>3.0</startX>
+            <startY>1.0</startY>
+        </platform>
+    </section>
+</level>

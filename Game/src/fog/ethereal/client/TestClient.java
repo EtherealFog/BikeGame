@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import fog.ethereal.util.LevelSaver;
 import fog.ethereal.world.BasicSection;
+import fog.ethereal.world.Level;
 import fog.ethereal.world.SaveableLevel;
 
 public class TestClient {
@@ -18,7 +19,11 @@ public class TestClient {
 		ArrayList<BasicSection> sections = new ArrayList<BasicSection>();
 		sections.add(new BasicSection(points));
 		l.addSections(sections);
+		System.out.println("Initial Level: " + l);
 		LevelSaver.save(l);
+		SaveableLevel temp = LevelSaver.load("TestLevel");
+		temp.setName("TestLevelDupe");
+		LevelSaver.save(temp);
 	}
 
 }
