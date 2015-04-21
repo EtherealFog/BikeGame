@@ -16,6 +16,10 @@ public class Platform extends Line {
 		super(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
 	}
 	
+	public Platform(BasicPlatform basic) {
+		this(basic.getStart(), basic.getEnd());
+	}
+	
 	public VectorCT getNormal() {
 		//Make a vector equivalent of this Platform
 		VectorCT edge = toVector();

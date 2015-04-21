@@ -15,6 +15,7 @@ public class Section {
 		if(points.size() < 2) {
 			throw new IllegalArgumentException("Arg 'points' must have size of at least 2.");
 		}
+		platforms = new ArrayList<Platform>();
 		for(int i = 1; i < points.size(); i++) {
 			platforms.add(new Platform(points.get(i - 1), points.get(i)));
 		}
