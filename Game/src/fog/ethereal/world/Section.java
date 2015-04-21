@@ -53,4 +53,12 @@ public class Section {
 		temp.addAll(temps);
 		return temp;
 	}
+	
+	public String toString() {
+		String temp = "Section: " + platforms.size() + " platforms:";
+		for(int i = 0; i < platforms.size(); i++) {
+			temp += "\n\tp" + i + ": " + platforms.get(i);
+		}
+		return temp;
+	}
 }

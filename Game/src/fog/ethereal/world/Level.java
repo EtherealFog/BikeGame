@@ -23,7 +23,8 @@ public class Level {
 	public Level(SaveableLevel sl) {
 		name = sl.getName();
 		sections = new ArrayList<Section>();
-		ArrayList<BasicSection> basics = new ArrayList<BasicSection>();
+		dragpoints = new ArrayList<DragNode>();
+		ArrayList<BasicSection> basics = (ArrayList<BasicSection>) sl.getSections();
 		for(BasicSection bs: basics) {
 			sections.add(new Section(bs));
 		}
@@ -62,6 +63,14 @@ public class Level {
 			bss.add(s.toBasicSection());
 		}
 		temp.addSections(bss);
+		return temp;
+	}
+	
+	public String toString() {
+		String temp = "Level: name = " + name;
+		for(int i = 0; i < sections.size(); i++) {
+			temp += "\n" + sections.get(i);
+		}
 		return temp;
 	}
 }

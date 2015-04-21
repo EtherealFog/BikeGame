@@ -23,6 +23,7 @@ public class TestClient {
 		LevelSaver.save(l);
 		SaveableLevel temp = LevelSaver.load("TestLevel");
 		temp.setName("TestLevelDupe");
+		System.out.println("Loaded Level:" + new Level(temp));
 		LevelSaver.save(temp);
 	}
 
