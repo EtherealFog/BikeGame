@@ -7,6 +7,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 
 import fog.ethereal.sprite.DragNode;
+import fog.ethereal.util.Translation;
 
 public class Section {
 	private ArrayList<Platform> platforms;
@@ -27,6 +28,10 @@ public class Section {
 		for(BasicPlatform bp: basics) {
 			platforms.add(new Platform(bp));
 		}
+	}
+	
+	public void update(Translation t) {
+		
 	}
 	
 	public ArrayList<DragNode> getDragpoints() {

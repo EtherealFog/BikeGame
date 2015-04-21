@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import javafx.scene.shape.Line;
+import fog.ethereal.util.Translation;
 import fog.ethereal.util.VectorCT;
 
 public class Platform extends Line {
@@ -20,6 +21,10 @@ public class Platform extends Line {
 		this(basic.getStart(), basic.getEnd());
 	}
 	
+	public void update(Translation t) {
+		
+	}
+	
 	public VectorCT getNormal() {
 		//Make a vector equivalent of this Platform
 		VectorCT edge = toVector();
@@ -31,8 +36,12 @@ public class Platform extends Line {
 		return (new VectorCT(getStartX(), getStartY())).subtract(new VectorCT(getEndX(), getEndY()));
 	}
 	
+	public boolean intersects(Rectangle rect) {
+		return rect.intersectsLine(getStartX(), getStartY(), getEndX(), getEndY());
+	}
+	
 	public boolean fitsWithin(Rectangle rect) {
-		return rect.contains(getStartX(), getStartY()) || rect.contains(getEndX(), getEndY());
+		return intersects(rect);
 	}
 	
 	public BasicPlatform toBasicPlatform() {

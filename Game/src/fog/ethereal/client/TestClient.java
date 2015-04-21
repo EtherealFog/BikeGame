@@ -1,30 +1,15 @@
 package fog.ethereal.client;
 
-import java.awt.Point;
-import java.util.ArrayList;
+import java.awt.Rectangle;
 
-import fog.ethereal.util.LevelSaver;
-import fog.ethereal.world.BasicSection;
-import fog.ethereal.world.Level;
-import fog.ethereal.world.SaveableLevel;
+import fog.ethereal.world.Platform;
 
 public class TestClient {
 
 	public static void main(String[] args) {
-		ArrayList<Point> points = new ArrayList<Point>();
-		points.add(new Point(10, 2));
-		points.add(new Point(3, 1));
-		points.add(new Point(6, 2));
-		SaveableLevel l = new SaveableLevel("TestLevel");
-		ArrayList<BasicSection> sections = new ArrayList<BasicSection>();
-		sections.add(new BasicSection(points));
-		l.addSections(sections);
-		System.out.println("Initial Level: " + l);
-		LevelSaver.save(l);
-		SaveableLevel temp = LevelSaver.load("TestLevel");
-		temp.setName("TestLevelDupe");
-		System.out.println("Loaded Level:" + new Level(temp));
-		LevelSaver.save(temp);
+		Rectangle rect = new Rectangle(0, 0, 100, 100);
+		Platform p = new Platform(25, 125, 110, 110);
+		System.out.println(p.intersects(rect));
 	}
 
 }

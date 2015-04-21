@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import fog.ethereal.sprite.DragNode;
+import fog.ethereal.util.Translation;
 import fog.ethereal.util.WorldObject;
 
 public class Level {
@@ -28,6 +29,10 @@ public class Level {
 		for(BasicSection bs: basics) {
 			sections.add(new Section(bs));
 		}
+	}
+	
+	public void update(Translation t) {
+		
 	}
 	
 	public void addDragpoints() {
