@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
+import fog.ethereal.util.Constants;
 import fog.ethereal.util.Translation;
 import fog.ethereal.util.VectorCT;
 
@@ -11,10 +13,12 @@ public class Platform extends Line {
 	
 	public Platform(double startX, double startY, double endX, double endY) {
 		super(startX, startY, endX, endY);
+		setStrokeWidth(Constants.DEFAULT_PLATFORM_WIDTH);
+		setStrokeLineCap(StrokeLineCap.ROUND);
 	}
 	
 	public Platform(Point startPoint, Point endPoint) {
-		super(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
+		this(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
 	}
 	
 	public Platform(BasicPlatform basic) {
