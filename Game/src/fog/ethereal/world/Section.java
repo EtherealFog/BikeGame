@@ -15,8 +15,17 @@ public class Section {
 		if(points.size() < 2) {
 			throw new IllegalArgumentException("Arg 'points' must have size of at least 2.");
 		}
+		platforms = new ArrayList<Platform>();
 		for(int i = 1; i < points.size(); i++) {
 			platforms.add(new Platform(points.get(i - 1), points.get(i)));
+		}
+	}
+	
+	public Section(BasicSection s) {
+		ArrayList<BasicPlatform> basics = s.getPlatforms();
+		platforms = new ArrayList<Platform>();
+		for(BasicPlatform bp: basics) {
+			platforms.add(new Platform(bp));
 		}
 	}
 	
@@ -33,5 +42,15 @@ public class Section {
 	@XmlElement(name = "platform")
 	public List<Platform> getPlatforms() {
 		return platforms;
+	}
+	
+	public BasicSection toBasicSection() {
+		BasicSection temp = new BasicSection();
+		ArrayList<BasicPlatform> temps = new ArrayList<BasicPlatform>();
+		for(Platform p: platforms) {
+			temps.add(p.toBasicPlatform());
+		}
+		temp.addAll(temps);
+		return temp;
 	}
 }

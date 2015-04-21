@@ -16,6 +16,10 @@ public class Platform extends Line {
 		super(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
 	}
 	
+	public Platform(BasicPlatform basic) {
+		this(basic.getStart(), basic.getEnd());
+	}
+	
 	public VectorCT getNormal() {
 		//Make a vector equivalent of this Platform
 		VectorCT edge = toVector();
@@ -29,5 +33,13 @@ public class Platform extends Line {
 	
 	public boolean fitsWithin(Rectangle rect) {
 		return rect.contains(getStartX(), getStartY()) || rect.contains(getEndX(), getEndY());
+	}
+	
+	public BasicPlatform toBasicPlatform() {
+		return new BasicPlatform(getStartX(), getStartY(), getEndX(), getEndY());
+	}
+	
+	public String toString() {
+		return "(" + getStartX() + ", " + getStartY() + ") -> (" + getEndX() + ", " + getEndY() + ")";
 	}
 }
