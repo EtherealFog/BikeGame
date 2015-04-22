@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import fog.ethereal.sprite.Sprite;
 import fog.ethereal.util.Constants;
+import fog.ethereal.util.Mode;
 import fog.ethereal.util.Translation;
 
 public abstract class World {
@@ -21,20 +22,29 @@ public abstract class World {
 	private Dimension size;
 	private ArrayList<Sprite> sprites;
 	private Scene surface;
+	private Mode currentMode;
 	private static Timeline gameLoop;
+	private final int fps;
+	private final Duration singleFrame;
 	
 	public World(Dimension maxSize) {
+		this(60, maxSize);
+	}
+	
+	public World(final int fps, Dimension maxSize) {
 		pos = new Translation(0, 0);
 		this.maxSize = maxSize;
+		this.fps = fps;
+		singleFrame = Duration.millis(1000/fps);
+		setupGameLoop();
 	}
 	
 	public World() {
-		pos = new Translation(0, 0);
-		maxSize = Constants.DEFAULT_SIZE;
+		this(60, Constants.DEFAULT_SIZE);
 	}
 	
 	public void setupGameLoop() {
-		Duration singleFrame = Constants.DEFAULT_FPS;
+		
 		KeyFrame frame = new KeyFrame(singleFrame, 
 			new EventHandler<ActionEvent>() {
 				@Override
