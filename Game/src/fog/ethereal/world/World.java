@@ -20,7 +20,6 @@ public abstract class World {
 	private Translation pos;
 	private Dimension maxSize;
 	private Dimension size;
-	private ArrayList<Sprite> sprites;
 	private Scene surface;
 	private Mode currentMode;
 	private static Timeline gameLoop;
@@ -37,6 +36,7 @@ public abstract class World {
 		this.fps = fps;
 		singleFrame = Duration.millis(1000/fps);
 		setupGameLoop();
+		currentMode = Mode.MENU;
 	}
 	
 	public World() {
