@@ -25,6 +25,11 @@ public class VectorCT {
 		return new VectorCT(other.getX() - x, other.getY() - y);
 	}
 	
+	public void set(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public double dot(VectorCT other) {
 		return x * other.getX() + y * other.getY();
 	}

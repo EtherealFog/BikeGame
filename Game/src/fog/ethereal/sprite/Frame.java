@@ -6,9 +6,11 @@ import javafx.scene.image.Image;
 import fog.ethereal.util.Translation;
 
 public class Frame extends Sprite {
-
-	public Frame(int type) {
+	private Bike parent;
+	
+	public Frame(int type, Bike parent) {
 		super(new Image("resources/assets/Frame" + type + ".png"));
+		this.parent = parent;
 	}
 
 	public Point getCenter() {

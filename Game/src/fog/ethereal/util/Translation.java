@@ -9,14 +9,16 @@ public class Translation {
 		this.y = y;
 	}
 	
-	public void set(int x, int y) {
+	public Translation set(int x, int y) {
 		this.x = x;
 		this.y = y;
+		return this;
 	}
 	
-	public void move(int dx, int dy) {
+	public Translation move(int dx, int dy) {
 		x += dx;
 		y += dy;
+		return this;
 	}
 	
 	public int getX() {
