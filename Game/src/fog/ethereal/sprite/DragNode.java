@@ -2,6 +2,10 @@ package fog.ethereal.sprite;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import fog.ethereal.world.Platform;
 
@@ -23,6 +27,7 @@ public class DragNode {
 			c = new Circle(p1.getEndX(), p1.getEndY(), DEFAULT_RADIUS);
 		}
 		setupHandlers();
+		c.setFill(getGrad());
 	}
 	
 	public void setupHandlers() {
@@ -48,6 +53,7 @@ public class DragNode {
 			@Override
 			public void handle(MouseEvent e) {
 				c.setRadius(DEFAULT_RADIUS * 2);
+				c.setFill(getGrad());
 			}
 		});
 		
@@ -55,6 +61,7 @@ public class DragNode {
 			@Override
 			public void handle(MouseEvent e) {
 				c.setRadius(DEFAULT_RADIUS);
+				c.setFill(getGrad());
 			}
 		});
 	}
@@ -71,5 +78,10 @@ public class DragNode {
 			throw new IllegalArgumentException("At least one of the two Platforms must not be null.");
 		}
 		this.p2 = p2;
+	}
+	
+	public RadialGradient getGrad() {
+		return new RadialGradient(0, 0, c.getCenterX(), c.getCenterY(), c.getRadius(), false, 
+				CycleMethod.NO_CYCLE, new Stop(0.0, Color.WHITE), new Stop(1.0, Color.GRAY));
 	}
 }
