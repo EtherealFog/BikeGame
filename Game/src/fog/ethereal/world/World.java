@@ -1,7 +1,6 @@
 package fog.ethereal.world;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -9,9 +8,10 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import fog.ethereal.sprite.Sprite;
 import fog.ethereal.util.Constants;
 import fog.ethereal.util.Mode;
 import fog.ethereal.util.Translation;
@@ -78,5 +78,11 @@ public abstract class World {
 	
 	public Scene getSurface() {
 		return surface;
+	}
+	
+	public abstract void setupKeyMappings(KeyCode accel, KeyCode brake, KeyCode right, KeyCode left);
+	
+	public void setupKeyMappings() {
+		setupKeyMappings(KeyCode.UP, KeyCode.DOWN, KeyCode.RIGHT, KeyCode.LEFT);
 	}
 }
