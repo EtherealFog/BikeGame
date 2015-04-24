@@ -37,7 +37,7 @@ public class Level {
 	
 	public void addDragpoints() {
 		for(Section s: sections) {
-			dragpoints.addAll(s.getDragpoints());
+			dragpoints.addAll(s.addDragpoints());
 		}
 	}
 	
