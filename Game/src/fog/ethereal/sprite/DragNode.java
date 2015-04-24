@@ -1,6 +1,7 @@
 package fog.ethereal.sprite;
 
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -83,5 +84,10 @@ public class DragNode {
 	public RadialGradient getGrad() {
 		return new RadialGradient(0, 0, c.getCenterX(), c.getCenterY(), c.getRadius(), false, 
 				CycleMethod.NO_CYCLE, new Stop(0.0, Color.WHITE), new Stop(1.0, Color.GRAY));
+	}
+	
+	public void addSelfTo(Group parent) {
+		parent.getChildren().add(c);
+		c.toFront();
 	}
 }

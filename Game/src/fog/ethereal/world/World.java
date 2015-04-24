@@ -23,6 +23,7 @@ public abstract class World {
 	private Scene surface;
 	private Mode currentMode;
 	private static Timeline gameLoop;
+	private static Timeline editLoop;
 	private final int fps;
 	private final Duration singleFrame;
 	
@@ -44,7 +45,6 @@ public abstract class World {
 	}
 	
 	public void setupGameLoop() {
-		
 		KeyFrame frame = new KeyFrame(singleFrame, 
 			new EventHandler<ActionEvent>() {
 				@Override
@@ -58,18 +58,60 @@ public abstract class World {
 		setGameLoop(tempLoop);
 	}
 	
+	public void setupEditLoop() {
+		KeyFrame frame = new KeyFrame(singleFrame, 
+			new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					
+					
+				}
+		});
+		Timeline tempLoop = new Timeline(frame);
+		tempLoop.setCycleCount(Animation.INDEFINITE);
+		setEditLoop(tempLoop);
+	}
+	
 	public abstract void initialize(final Stage primaryStage);
 	
-	public void beginGameLoop() {
+	public void playGameLoop() {
 		getGameLoop().play();
+	}
+	
+	public void pauseGameLoop() {
+		getGameLoop().pause();
+	}
+	
+	public void stopGameLoop() {
+		getGameLoop().stop();
+	}
+	
+	public void playEditLoop() {
+		getEditLoop().play();
+	}
+	
+	public void pauseEditLoop() {
+		getEditLoop().pause();
+	}
+	
+	public void stopEditLoop() {
+		getEditLoop().stop();
 	}
 	
 	public static Timeline getGameLoop() {
 		return gameLoop;
 	}
 	
+	public static Timeline getEditLoop() {
+		return editLoop;
+	}
+	
 	public static void setGameLoop(Timeline loop) {
 		gameLoop = loop;
+	}
+	
+	public static void setEditLoop(Timeline loop) {
+		editLoop = loop;
 	}
 	
 	public void setSurface(Scene surface) {
