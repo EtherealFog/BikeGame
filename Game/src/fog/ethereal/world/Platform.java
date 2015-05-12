@@ -8,8 +8,9 @@ import javafx.scene.shape.StrokeLineCap;
 import fog.ethereal.util.Constants;
 import fog.ethereal.util.Translation;
 import fog.ethereal.util.VectorCT;
+import fog.ethereal.util.WorldObject;
 
-public class Platform extends Line {
+public class Platform extends Line implements WorldObject{
 	
 	public Platform(double startX, double startY, double endX, double endY) {
 		super(startX, startY, endX, endY);

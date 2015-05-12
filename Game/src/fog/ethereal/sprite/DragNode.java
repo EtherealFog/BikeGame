@@ -8,9 +8,11 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
+import fog.ethereal.util.Translation;
+import fog.ethereal.util.WorldObject;
 import fog.ethereal.world.Platform;
 
-public class DragNode {
+public class DragNode implements WorldObject{
 	public static final double DEFAULT_RADIUS = 10;
 	private Platform p1;
 	private Platform p2;
@@ -89,5 +91,11 @@ public class DragNode {
 	public void addSelfTo(Group parent) {
 		parent.getChildren().add(c);
 		c.toFront();
+	}
+
+	@Override
+	public void update(Translation t) {
+		// TODO Auto-generated method stub
+		
 	}
 }
