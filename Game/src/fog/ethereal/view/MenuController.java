@@ -1,9 +1,11 @@
 package fog.ethereal.view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import fog.ethereal.world.BikeWorld;
@@ -16,6 +18,9 @@ public class MenuController {
 	
 	@FXML
 	private TableColumn<Level, Level> levelColumn;
+	
+	@FXML
+	private Label currentLevelNameLabel;
 	
 	private Level currentLevel;
 	
@@ -35,5 +40,10 @@ public class MenuController {
 				return cell;
 			}
 		});
+	}
+	
+	@FXML
+	public ImageView getCurrentImage() {
+		return new ImageView(currentLevel.getImage());
 	}
 }

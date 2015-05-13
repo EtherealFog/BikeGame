@@ -20,8 +20,8 @@ public class LevelTableCell extends TableCell<Level, Level> {
 		name = new Label();
 		name.setFont(Font.font("Arial", FontWeight.BOLD, 12));
 		thumbnail = new ImageView();
-		thumbnail.setFitWidth(180);
-		thumbnail.setFitHeight(100);
+		thumbnail.setFitWidth(200);
+		thumbnail.setFitHeight(110);
 		vb.getChildren().addAll(name, thumbnail);
 		setGraphic(vb);
 	}
