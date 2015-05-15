@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.canvas.*?>
@@ -62,17 +63,22 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="409.0">
                            <children>
-                              <ImageView fitHeight="200.0" fitWidth="380.0" layoutX="15.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="200.0" fitWidth="380.0" layoutX="15.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../resources/assets/notfound.png" />
+                                 </image></ImageView>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="200.0" layoutX="15.0" layoutY="46.0" stroke="#686868" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" width="380.0" />
-                              <Button layoutX="14.0" layoutY="260.0" mnemonicParsing="false" onAction="#startGame" prefHeight="50.0" prefWidth="180.0" />
-                              <Button layoutX="214.0" layoutY="260.0" mnemonicParsing="false" onAction="#editLevel" prefHeight="50.0" prefWidth="180.0" text="EDIT LEVEL" />
-                              <Label layoutX="60.0" layoutY="267.0" text="PLAY LEVEL" />
-                              <Label layoutX="52.0" layoutY="288.0" text="Best Time: --:--.--">
+                              <Button layoutX="14.0" layoutY="260.0" mnemonicParsing="false" onAction="#startGame" prefHeight="50.0" prefWidth="180.0">
+                                 <graphic>
+                                    <Label text="PLAY LEVEL" />
+                                 </graphic></Button>
+                              <Label layoutX="156.0" layoutY="28.0" text="Best Time: --:--.--">
                                  <font>
                                     <Font size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="currentLevelNameLabel" alignment="TOP_CENTER" layoutX="141.0" layoutY="-3.0" text="Level Name" AnchorPane.topAnchor="6.0">
+                              <Button layoutX="214.0" layoutY="260.0" mnemonicParsing="false" onAction="#editLevel" prefHeight="50.0" prefWidth="180.0" text="EDIT LEVEL" />
+                              <Label fx:id="currentLevelNameLabel" alignment="TOP_CENTER" layoutX="140.0" layoutY="1.0" text="Level Name" AnchorPane.topAnchor="1.0">
                                  <font>
                                     <Font name="System Bold" size="23.0" />
                                  </font>
