@@ -11,85 +11,93 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fog.ethereal.view.MenuController">
+<AnchorPane prefHeight="360.0" prefWidth="640.0" stylesheets="@Theme1.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fog.ethereal.view.MenuController">
    <children>
-      <MenuBar layoutX="40.0" layoutY="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-                  <MenuItem mnemonicParsing="false" text="Open">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="New">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-              <MenuItem mnemonicParsing="false" text="Quit" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <SplitPane dividerPositions="0.3495297805642633" layoutY="100.0" prefHeight="160.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <TableView fx:id="levelTable" layoutX="-7.0" layoutY="50.0" prefHeight="322.0" prefWidth="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn fx:id="levelColumn" prefWidth="185.0" text="Levels" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <ScrollPane layoutX="106.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="409.0">
-                           <children>
-                              <ImageView fitHeight="200.0" fitWidth="380.0" layoutX="15.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../resources/assets/notfound.png" />
-                                 </image></ImageView>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="200.0" layoutX="15.0" layoutY="46.0" stroke="#686868" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" width="380.0" />
-                              <Button layoutX="14.0" layoutY="260.0" mnemonicParsing="false" onAction="#startGame" prefHeight="50.0" prefWidth="180.0">
-                                 <graphic>
-                                    <Label text="PLAY LEVEL" />
-                                 </graphic></Button>
-                              <Label layoutX="156.0" layoutY="28.0" text="Best Time: --:--.--">
-                                 <font>
-                                    <Font size="12.0" />
-                                 </font>
-                              </Label>
-                              <Button layoutX="214.0" layoutY="260.0" mnemonicParsing="false" onAction="#editLevel" prefHeight="50.0" prefWidth="180.0" text="EDIT LEVEL" />
-                              <Label fx:id="currentLevelNameLabel" alignment="TOP_CENTER" layoutX="140.0" layoutY="1.0" text="Level Name" AnchorPane.topAnchor="1.0">
-                                 <font>
-                                    <Font name="System Bold" size="23.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar prefWidth="640.0" BorderPane.alignment="CENTER">
+               <menus>
+                  <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openLevel" text="Open">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#newLevel" text="New">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Quit" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Edit">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <SplitPane dividerPositions="0.3495297805642633" prefHeight="160.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <TableView fx:id="levelTable" layoutX="-7.0" layoutY="50.0" prefHeight="322.0" prefWidth="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="levelColumn" prefWidth="185.0" text="Levels" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <ScrollPane layoutX="106.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="409.0">
+                                 <children>
+                                    <ImageView fitHeight="200.0" fitWidth="380.0" layoutX="14.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../resources/assets/notfound.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="200.0" layoutX="14.0" layoutY="60.0" stroke="#686868" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" width="380.0" />
+                                    <Button layoutX="13.0" layoutY="270.0" mnemonicParsing="false" onAction="#startGame" prefHeight="50.0" prefWidth="180.0">
+                                       <graphic>
+                                          <Label text="PLAY LEVEL" />
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="157.0" layoutY="37.0" text="Best Time: --:--.--">
+                                       <font>
+                                          <Font size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="217.0" layoutY="270.0" mnemonicParsing="false" onAction="#editLevel" prefHeight="50.0" prefWidth="180.0" text="EDIT LEVEL" />
+                                    <Label fx:id="currentLevelNameLabel" alignment="TOP_CENTER" layoutX="137.0" layoutY="8.0" text="Level Name" AnchorPane.topAnchor="8.0">
+                                       <font>
+                                          <Font name="System Bold" size="23.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

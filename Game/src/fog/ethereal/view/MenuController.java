@@ -43,6 +43,16 @@ public class MenuController {
 	}
 	
 	@FXML
+	public void newLevel() {
+		
+	}
+	
+	@FXML
+	public void openLevel() {
+		
+	}
+	
+	@FXML
 	private void initialize() {
 		levelColumn.setCellFactory(new Callback<TableColumn<Level, Level>, TableCell<Level, Level>>() {
 			@Override
