@@ -18,7 +18,6 @@ import fog.ethereal.util.Translation;
 
 public abstract class World {
 	private Translation pos;
-	private Dimension maxSize;
 	private Dimension size;
 	private Scene surface;
 	private Mode currentMode;
@@ -27,21 +26,16 @@ public abstract class World {
 	private final int fps;
 	private final Duration singleFrame;
 	
-	public World(Dimension maxSize) {
-		this(60, maxSize);
+	public World() {
+		this(60);
 	}
 	
-	public World(final int fps, Dimension maxSize) {
+	public World(final int fps) {
 		pos = new Translation(0, 0);
-		this.maxSize = maxSize;
 		this.fps = fps;
 		singleFrame = Duration.millis(1000/fps);
 		setupGameLoop();
 		currentMode = Mode.MENU;
-	}
-	
-	public World() {
-		this(60, Constants.DEFAULT_SIZE);
 	}
 	
 	public void setupGameLoop() {
@@ -73,6 +67,10 @@ public abstract class World {
 	}
 	
 	public abstract void initialize(final Stage primaryStage);
+	
+	public void addSize(int ax, int ay) {
+		size.setSize(size.getWidth() + ax, size.getHeight() + ay);
+	}
 	
 	public void playGameLoop() {
 		getGameLoop().play();

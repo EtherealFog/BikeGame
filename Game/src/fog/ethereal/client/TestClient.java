@@ -1,14 +1,17 @@
 package fog.ethereal.client;
 
-import java.awt.Rectangle;
-
-import fog.ethereal.world.Platform;
+import fog.ethereal.util.LevelSaver;
+import fog.ethereal.world.Level;
 
 public class TestClient {
-
 	public static void main(String[] args) {
-		Rectangle rect = new Rectangle(0, 0, 100, 100);
-		Platform p = new Platform(25, 125, 99, 101);
-		System.out.println(p.intersects(rect));
+		Level temp = new Level(LevelSaver.load("TestLevel"));
+		temp.setName("TestLevelDupe");
+		temp.setBestTime(123592);
+		LevelSaver.save(temp.toSaveableLevel());
+		temp = new Level(LevelSaver.load("TestLevelDupe"));
+		temp.setName("Again");
+		temp.setBestTime(83729144);
+		LevelSaver.save(temp.toSaveableLevel());
 	}
 }

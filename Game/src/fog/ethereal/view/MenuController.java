@@ -29,6 +29,17 @@ public class MenuController {
 		Stage gameStage = new Stage();
 		World world = new BikeWorld();
 		world.initialize(gameStage);
+		world.setupGameLoop();
+		world.playGameLoop();
+	}
+	
+	@FXML
+	public void editLevel() {
+		Stage editStage = new Stage();
+		World world = new BikeWorld();
+		world.initialize(editStage);
+		world.setupEditLoop();
+		world.playEditLoop();
 	}
 	
 	@FXML

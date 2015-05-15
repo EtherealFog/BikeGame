@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SaveableLevel {
 	private ArrayList<BasicSection> sections;
 	private String name;
+	private double bestTime;
 	
 	public SaveableLevel(String name) {
 		this.name = name;
@@ -24,6 +25,15 @@ public class SaveableLevel {
 	@XmlElement(name = "name")
 	public String getName() {
 		return name;
+	}
+	
+	@XmlElement(name = "bestTime")
+	public double getBestTime() {
+		return bestTime;
+	}
+	
+	public void setBestTime(double bestTime) {
+		this.bestTime = bestTime;
 	}
 	
 	public void setName(String name) {

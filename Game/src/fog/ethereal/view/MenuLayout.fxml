@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.input.*?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="360.0" prefWidth="640.0" stylesheets="@Theme1.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fog.ethereal.view.MenuController">
+<AnchorPane prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fog.ethereal.view.MenuController">
    <children>
       <MenuBar layoutX="40.0" layoutY="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -57,8 +58,29 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ImageView fitHeight="220.0" fitWidth="400.0" layoutX="6.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="51.0" />
-                  <Label fx:id="currentLevelNameLabel" layoutX="187.0" layoutY="14.0" text="Label" />
+                  <ScrollPane layoutX="106.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="409.0">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="380.0" layoutX="15.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="200.0" layoutX="15.0" layoutY="46.0" stroke="#686868" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" width="380.0" />
+                              <Button layoutX="14.0" layoutY="260.0" mnemonicParsing="false" onAction="#startGame" prefHeight="50.0" prefWidth="180.0" />
+                              <Button layoutX="214.0" layoutY="260.0" mnemonicParsing="false" onAction="#editLevel" prefHeight="50.0" prefWidth="180.0" text="EDIT LEVEL" />
+                              <Label layoutX="60.0" layoutY="267.0" text="PLAY LEVEL" />
+                              <Label layoutX="52.0" layoutY="288.0" text="Best Time: --:--.--">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="currentLevelNameLabel" alignment="TOP_CENTER" layoutX="141.0" layoutY="-3.0" text="Level Name" AnchorPane.topAnchor="6.0">
+                                 <font>
+                                    <Font name="System Bold" size="23.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
                </children>
             </AnchorPane>
         </items>

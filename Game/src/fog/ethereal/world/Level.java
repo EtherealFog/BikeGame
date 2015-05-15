@@ -14,6 +14,7 @@ public class Level {
 	private ArrayList<DragNode> dragpoints;
 	//private String name;
 	private StringProperty nameProperty;
+	private double bestTime;
 	
 	public Level(String name) {
 		setName(name);
@@ -59,6 +60,10 @@ public class Level {
 		nameProperty().set(name);
 	}
 	
+	public void setBestTime(double bestTime) {
+		this.bestTime = bestTime;
+	}
+	
 	public List<Section> getSections() {
 		return sections;
 	}
@@ -74,6 +79,7 @@ public class Level {
 			bss.add(s.toBasicSection());
 		}
 		temp.addSections(bss);
+		temp.setBestTime(bestTime);
 		return temp;
 	}
 	
@@ -88,10 +94,10 @@ public class Level {
 	public Image getImage() {
 		Image temp;
 		try {
-			temp = new Image("resources/worlds/" + getName() + ".png");
+			temp = new Image("resources/worlds/" + getName() + "/icon.png");
 		} catch (Exception e) {
 			e.printStackTrace();
-			temp = new Image("resources/assets/nofound.png");
+			temp = new Image("resources/assets/notfound.png");
 		}
 		return temp;
 	}
