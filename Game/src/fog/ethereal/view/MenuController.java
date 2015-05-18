@@ -100,6 +100,7 @@ public class MenuController {
 	}
 	
 	public void showLevelDetails(Level l) {
+		setCurrentLevel(l);
 		if(l != null) {
 			currentLevelNameLabel.setText(l.getName());
 			currentLevelBestTimeLabel.setText("Best Time: " + millisToString(l.getBestTime()));
@@ -113,6 +114,10 @@ public class MenuController {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void setCurrentLevel(Level l) {
+		currentLevel = l;
 	}
 	
 	public static String millisToString(long millis) {
