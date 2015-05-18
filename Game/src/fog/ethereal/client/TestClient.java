@@ -1,17 +1,10 @@
 package fog.ethereal.client;
 
-import fog.ethereal.util.LevelSaver;
-import fog.ethereal.world.Level;
+import javafx.beans.property.SimpleLongProperty;
 
 public class TestClient {
 	public static void main(String[] args) {
-		Level temp = new Level(LevelSaver.load("TestLevel"));
-		temp.setName("TestLevelDupe");
-		temp.setBestTime(123592);
-		LevelSaver.save(temp.toSaveableLevel());
-		temp = new Level(LevelSaver.load("TestLevelDupe"));
-		temp.setName("Again");
-		temp.setBestTime(83729144);
-		LevelSaver.save(temp.toSaveableLevel());
+		SimpleLongProperty p = new SimpleLongProperty(null, "test");
+		System.out.println(p.get());
 	}
 }

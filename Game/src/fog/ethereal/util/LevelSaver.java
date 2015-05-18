@@ -1,11 +1,17 @@
 package fog.ethereal.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import fog.ethereal.world.Level;
 import fog.ethereal.world.SaveableLevel;
 
 public class LevelSaver {
@@ -41,5 +47,31 @@ public class LevelSaver {
 			
 		} catch (Exception e) {e.printStackTrace(System.err);}
 		return temp;
+	}
+	
+	public static ArrayList<Level> getLevels() {
+		File[] unsrt = (new File("resources/worlds/")).listFiles();
+		ArrayList<Level> levels = new ArrayList<>();
+		for(File f: unsrt) {
+			File t = new File(f.getPath() + "/level.xml");
+			if(f.isDirectory() && t.exists()) {
+				levels.add(new Level(load(f)));
+			}
+		}
+		return levels;
+	}
+	
+	public static void rename(String prev, String newname) {
+		Path old = new File("resources/worlds/" + prev).toPath();
+		Path next = old.resolveSibling(newname);
+		try {
+			Files.move(old, next, StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void rename(Level prev, String newname) {
+		rename(prev.getName(), newname);
 	}
 }

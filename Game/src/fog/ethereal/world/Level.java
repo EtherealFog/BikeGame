@@ -1,8 +1,17 @@
 package fog.ethereal.world;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
@@ -13,17 +22,18 @@ public class Level {
 	private ArrayList<Section> sections;
 	private ArrayList<DragNode> dragpoints;
 	//private String name;
-	private StringProperty nameProperty;
-	private double bestTime;
+	private ObjectProperty<LevelData> dataProperty;
 	
 	public Level(String name) {
 		setName(name);
+		setBestTime(0);
 		sections = new ArrayList<Section>();
 		dragpoints = new ArrayList<DragNode>();
 	}
 	
 	public Level(SaveableLevel sl) {
-		setName(sl.getName());
+		setData(new LevelData(sl.getName(), sl.getBestTime(), null));
+		setImage(getImage());
 		sections = new ArrayList<Section>();
 		dragpoints = new ArrayList<DragNode>();
 		ArrayList<BasicSection> basics = (ArrayList<BasicSection>) sl.getSections();
@@ -47,21 +57,37 @@ public class Level {
 	}
 	
 	public String getName() {
-		return nameProperty().get();
+		return dataProperty().get().getName();
 	}
 	
-	public StringProperty nameProperty() {
-		if(nameProperty == null)
-			nameProperty = new SimpleStringProperty(this, "name");
-		return nameProperty;
+	public long getBestTime() {
+		return dataProperty().get().getBestTime();
+	}
+	
+	public LevelData getData() {
+		return dataProperty().get();
+	}
+	
+	public ObjectProperty<LevelData> dataProperty() {
+		if(dataProperty == null)
+			dataProperty = new SimpleObjectProperty<LevelData>(this, "data");
+		return dataProperty;
 	}
 	
 	public void setName(String name) {
-		nameProperty().set(name);
+		dataProperty().get().setName(name);
 	}
 	
-	public void setBestTime(double bestTime) {
-		this.bestTime = bestTime;
+	public void setBestTime(long bestTime) {
+		dataProperty().get().setBestTime(bestTime);
+	}
+	
+	public void setImage(Image image) {
+		dataProperty().get().setImage(image);
+	}
+	
+	public void setData(LevelData data) {
+		dataProperty().set(data);
 	}
 	
 	public List<Section> getSections() {
@@ -79,7 +105,7 @@ public class Level {
 			bss.add(s.toBasicSection());
 		}
 		temp.addSections(bss);
-		temp.setBestTime(bestTime);
+		temp.setBestTime(getBestTime());
 		return temp;
 	}
 	
@@ -94,10 +120,15 @@ public class Level {
 	public Image getImage() {
 		Image temp;
 		try {
-			temp = new Image("resources/worlds/" + getName() + "/icon.png");
+			temp = new Image(new FileInputStream(new File("resources/worlds/" + getName() + "/icon.png")));
 		} catch (Exception e) {
 			e.printStackTrace();
-			temp = new Image("resources/assets/notfound.png");
+			try {
+				temp = new Image(new FileInputStream(new File("resources/assets/notfound.png")));
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+				return null;
+			}
 		}
 		return temp;
 	}

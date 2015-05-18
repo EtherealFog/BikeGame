@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -30,6 +31,11 @@
                            </accelerator>
                         </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#updateLevels" text="Refresh">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
                         <MenuItem mnemonicParsing="false" text="Quit" />
                      </items>
                   </Menu>
@@ -44,6 +50,9 @@
                      </items>
                   </Menu>
                </menus>
+               <padding>
+                  <Insets bottom="-3.0" left="3.0" top="-3.0" />
+               </padding>
             </MenuBar>
          </top>
          <center>
@@ -63,36 +72,35 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <ScrollPane layoutX="106.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="409.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="409.0">
+                           <children>
+                              <ImageView fx:id="currentLevelImage" fitHeight="200.0" fitWidth="380.0" layoutX="15.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../resources/assets/notfound.png" />
+                                 </image>
+                              </ImageView>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="200.0" layoutX="15.0" layoutY="60.0" stroke="#686868" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" width="380.0" />
+                              <VBox alignment="TOP_CENTER" layoutX="154.0" layoutY="-54.0" prefHeight="59.0" prefWidth="409.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <ImageView fitHeight="200.0" fitWidth="380.0" layoutX="14.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../resources/assets/notfound.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="200.0" layoutX="14.0" layoutY="60.0" stroke="#686868" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" width="380.0" />
-                                    <Button layoutX="13.0" layoutY="270.0" mnemonicParsing="false" onAction="#startGame" prefHeight="50.0" prefWidth="180.0">
-                                       <graphic>
-                                          <Label text="PLAY LEVEL" />
-                                       </graphic>
-                                    </Button>
-                                    <Label layoutX="157.0" layoutY="37.0" text="Best Time: --:--.--">
-                                       <font>
-                                          <Font size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Button layoutX="217.0" layoutY="270.0" mnemonicParsing="false" onAction="#editLevel" prefHeight="50.0" prefWidth="180.0" text="EDIT LEVEL" />
-                                    <Label fx:id="currentLevelNameLabel" alignment="TOP_CENTER" layoutX="137.0" layoutY="8.0" text="Level Name" AnchorPane.topAnchor="8.0">
+                                    <Label fx:id="currentLevelNameLabel" alignment="TOP_CENTER" text="Level Name">
                                        <font>
                                           <Font name="System Bold" size="23.0" />
                                        </font>
                                     </Label>
+                                    <Label fx:id="currentLevelBestTimeLabel" text="Best Time: --:--.--">
+                                       <font>
+                                          <Font size="12.0" />
+                                       </font>
+                                    </Label>
                                  </children>
-                              </AnchorPane>
-                          </content>
-                        </ScrollPane>
+                              </VBox>
+                              <HBox alignment="TOP_CENTER" layoutX="29.0" layoutY="270.0" prefHeight="49.0" prefWidth="409.0" spacing="24.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#startGame" prefHeight="50.0" prefWidth="180.0" text="PLAY LEVEL" />
+                                    <Button mnemonicParsing="false" onAction="#editLevel" prefHeight="50.0" prefWidth="180.0" text="EDIT LEVEL" />
+                                 </children></HBox>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
               </items>
