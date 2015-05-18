@@ -86,6 +86,13 @@
                                        <font>
                                           <Font name="System Bold" size="23.0" />
                                        </font>
+                                       <contextMenu>
+                                          <ContextMenu>
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" onAction="#showRenameDialog" text="Rename" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu>
                                     </Label>
                                     <Label fx:id="currentLevelBestTimeLabel" text="Best Time: --:--.--">
                                        <font>

@@ -69,6 +69,9 @@ public class LevelSaver {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		SaveableLevel temp = load(next.toFile());
+		temp.setName(newname);
+		save(temp);
 	}
 	
 	public static void rename(Level prev, String newname) {

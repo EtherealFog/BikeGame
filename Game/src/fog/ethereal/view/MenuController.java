@@ -95,8 +95,18 @@ public class MenuController {
 	@FXML
 	public void updateLevels() {
 		ArrayList<Level> levels = LevelSaver.getLevels();
-		if(!levels.equals(levelTable.getItems()))
+		if(!levels.containsAll(levelTable.getItems()) || !levelTable.getItems().containsAll(levels))
 			levelTable.getItems().setAll(levels);
+	}
+	
+	@FXML
+	public void showRenameDialog() {
+		
+	}
+	
+	public void renameCurrent(String name) {
+		LevelSaver.rename(currentLevel, name);
+		updateLevels();
 	}
 	
 	public void showLevelDetails(Level l) {
