@@ -3,10 +3,13 @@ package fog.ethereal.view;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -14,8 +17,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import fog.ethereal.MainClient;
 import fog.ethereal.util.LevelSaver;
 import fog.ethereal.world.BikeWorld;
 import fog.ethereal.world.Level;
@@ -39,6 +46,8 @@ public class MenuController {
 	private ImageView currentLevelImage;
 	
 	private Level currentLevel;
+	private RenameDialogController rdc;
+	private Stage rdcStage;
 	
 	@FXML
 	public void startGame() {
@@ -101,7 +110,10 @@ public class MenuController {
 	
 	@FXML
 	public void showRenameDialog() {
-		
+		if(rdc == null) {
+			setupRenameDialog();
+		}
+		rdc.show();
 	}
 	
 	public void renameCurrent(String name) {
@@ -128,6 +140,25 @@ public class MenuController {
 	
 	public void setCurrentLevel(Level l) {
 		currentLevel = l;
+	}
+	
+	public void setupRenameDialog() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MenuController.class.getResource("RenameDialog.fxml"));
+			BorderPane rootPane = (BorderPane) loader.load();
+			
+			Scene scene = new Scene(rootPane);
+			rdcStage = new Stage(StageStyle.TRANSPARENT);
+			rdcStage.setScene(scene);
+			rdcStage.setResizable(false);
+			
+			rdc = loader.getController();
+			rdc.setup(this, rdcStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static String millisToString(long millis) {

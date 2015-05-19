@@ -120,12 +120,16 @@ public class Level {
 	public Image getImage() {
 		Image temp;
 		try {
-			temp = new Image(new FileInputStream(new File("resources/worlds/" + getName() + "/icon.png")));
+			FileInputStream stream = new FileInputStream(new File("resources/worlds/" + getName() + "/icon.png"));
+			temp = new Image(stream);
+			stream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
-				temp = new Image(new FileInputStream(new File("resources/assets/notfound.png")));
-			} catch (FileNotFoundException e1) {
+				FileInputStream stream = new FileInputStream(new File("resources/assets/notfound.png"));
+				temp = new Image(stream);
+				stream.close();
+			} catch (Exception e1) {
 				e1.printStackTrace();
 				return null;
 			}
