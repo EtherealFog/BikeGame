@@ -54,7 +54,7 @@ public class Section {
 		return temp;
 	}
 	
-	public void addSelfTo(Group parent) {
+	public void addTo(Group parent) {
 		
 	}
 	

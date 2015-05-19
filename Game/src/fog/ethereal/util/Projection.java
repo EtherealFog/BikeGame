@@ -18,6 +18,11 @@ public class Projection {
 		return (!(other.getMax() < min && other.getMax() < max)) && (!(max < other.getMin() && max < other.getMax()));
 	}
 	
+	/*
+	public double overlap(Projection other) {
+		
+	}
+	*/
 	public double getOverlap(Projection other) {
 		double overlap1 = max - other.getMin();
 		double overlap2 = other.getMax() - min;

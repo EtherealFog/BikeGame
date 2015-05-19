@@ -14,8 +14,11 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import fog.ethereal.sprite.DragNode;
+import fog.ethereal.util.Mode;
 import fog.ethereal.util.Translation;
 
 public class Level {
@@ -135,5 +138,13 @@ public class Level {
 			}
 		}
 		return temp;
+	}
+	
+	public void addTo(Group p, Mode m) {
+		if(m.equals(Mode.EDIT)) {
+			
+		} else if(m.equals(Mode.PLAY)) {
+			
+		}
 	}
 }

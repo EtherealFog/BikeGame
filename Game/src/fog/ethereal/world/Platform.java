@@ -3,6 +3,7 @@ package fog.ethereal.world;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import javafx.scene.Group;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import fog.ethereal.util.Constants;
@@ -11,6 +12,7 @@ import fog.ethereal.util.VectorCT;
 import fog.ethereal.util.WorldObject;
 
 public class Platform extends Line implements WorldObject{
+	
 	
 	public Platform(double startX, double startY, double endX, double endY) {
 		super(startX, startY, endX, endY);
@@ -55,5 +57,9 @@ public class Platform extends Line implements WorldObject{
 	
 	public String toString() {
 		return "(" + getStartX() + ", " + getStartY() + ") -> (" + getEndX() + ", " + getEndY() + ")";
+	}
+	
+	public void addTo(Group parent) {
+		
 	}
 }

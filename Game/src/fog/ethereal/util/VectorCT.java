@@ -25,6 +25,13 @@ public class VectorCT {
 		return new VectorCT(other.getX() - x, other.getY() - y);
 	}
 	
+	public VectorCT unit() {
+		double scal = Math.sqrt(x * x + y * y);
+		double newx = x / scal;
+		double newy = y / scal;
+		return new VectorCT(newx, newy);
+	}
+	
 	public void set(double x, double y) {
 		this.x = x;
 		this.y = y;
@@ -32,6 +39,11 @@ public class VectorCT {
 	
 	public double dot(VectorCT other) {
 		return x * other.getX() + y * other.getY();
+	}
+	
+	public void mult(double scalar) {
+		x *= scalar;
+		y *= scalar;
 	}
 	
 	public double getX() {
