@@ -32,6 +32,10 @@ public class VectorCT {
 		return new VectorCT(newx, newy);
 	}
 	
+	public VectorCT avg(VectorCT other) {
+		return new VectorCT((other.getX() + x) / 2, (other.getY() + y) / 2);
+	}
+	
 	public void set(double x, double y) {
 		this.x = x;
 		this.y = y;
