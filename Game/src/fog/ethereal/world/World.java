@@ -35,7 +35,7 @@ public abstract class World {
 		this.fps = fps;
 		singleFrame = Duration.millis(1000/fps);
 		setupGameLoop();
-		currentMode = Mode.MENU;
+		currentMode = null;
 	}
 	
 	public void setupGameLoop() {
@@ -70,6 +70,14 @@ public abstract class World {
 	
 	public void addSize(int ax, int ay) {
 		size.setSize(size.getWidth() + ax, size.getHeight() + ay);
+	}
+	
+	public void setMode(Mode mode) {
+		currentMode = mode;
+	}
+	
+	public Mode getMode() {
+		return currentMode;
 	}
 	
 	public void playGameLoop() {

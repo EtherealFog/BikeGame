@@ -9,11 +9,13 @@ import javafx.scene.Group;
 import javax.xml.bind.annotation.XmlElement;
 
 import fog.ethereal.sprite.DragNode;
+import fog.ethereal.util.Mode;
 import fog.ethereal.util.Translation;
 
 public class Section {
 	private ArrayList<Platform> platforms;
 	private ArrayList<DragNode> dragpoints;
+	private Level parent;
 	
 	public Section(ArrayList<Point> points) {
 		if(points.size() < 2) {
@@ -33,17 +35,29 @@ public class Section {
 		}
 	}
 	
+	public void setParent(Level l) {
+		this.parent = l;
+	}
+	
+	public Mode getMode() {
+		return parent.getMode();
+	}
+	
+	public Level getParent() {
+		return parent;
+	}
+	
 	public void update(Translation t) {
 		
 	}
 	
 	public ArrayList<DragNode> addDragpoints() {
 		ArrayList<DragNode> nodes = new ArrayList<DragNode>();
-		nodes.add(new DragNode(null, platforms.get(0)));
+		nodes.add(new DragNode(null, platforms.get(0), this));
 		for(int i = 1; i < platforms.size() - 1; i++) {
-			nodes.add(new DragNode(platforms.get(i - 1), platforms.get(1)));
+			nodes.add(new DragNode(platforms.get(i - 1), platforms.get(1), this));
 		}
-		nodes.add(new DragNode(platforms.get(platforms.size() - 1), null));
+		nodes.add(new DragNode(platforms.get(platforms.size() - 1), null, this));
 		dragpoints = nodes;
 		return nodes;
 	}

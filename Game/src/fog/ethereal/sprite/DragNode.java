@@ -8,17 +8,20 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
+import fog.ethereal.util.Mode;
 import fog.ethereal.util.Translation;
 import fog.ethereal.util.WorldObject;
 import fog.ethereal.world.Platform;
+import fog.ethereal.world.Section;
 
 public class DragNode implements WorldObject{
 	public static final double DEFAULT_RADIUS = 10;
 	private Platform p1;
 	private Platform p2;
 	private Circle c;
+	private Section parent;
 	
-	public DragNode(Platform p1, Platform p2) {
+	public DragNode(Platform p1, Platform p2, Section parent) {
 		if(p1 != null && p2 != null && (p1.getEndX() != p2.getStartX() || p1.getEndY() != p2.getStartY())) {
 			throw new IllegalArgumentException("The endpoint of p1 must coincide with the startpoint of p2.");
 		} else if(p1 == null && p2 == null) {
@@ -39,15 +42,17 @@ public class DragNode implements WorldObject{
 			public void handle(MouseEvent e) {
 				double x = e.getSceneX();
 				double y = e.getSceneY();
-				c.setCenterX(x);
-				c.setCenterY(y);
-				if(p1 != null) {
-					p1.setEndX(x);
-					p1.setEndY(y);
-				}
-				if(p2 != null) {
-					p2.setStartX(x);
-					p2.setStartY(y);
+				if(parent.getMode().equals(Mode.MOVE)) {
+					c.setCenterX(x);
+					c.setCenterY(y);
+					if(p1 != null) {
+						p1.setEndX(x);
+						p1.setEndY(y);
+					}
+					if(p2 != null) {
+						p2.setStartX(x);
+						p2.setStartY(y);
+					}
 				}
 			}
 		});

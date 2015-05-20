@@ -26,6 +26,7 @@ public class Level {
 	private ArrayList<DragNode> dragpoints;
 	//private String name;
 	private ObjectProperty<LevelData> dataProperty;
+	private World world;
 	
 	public Level(String name) {
 		setName(name);
@@ -47,6 +48,14 @@ public class Level {
 	
 	public void update(Translation t) {
 		
+	}
+	
+	public void setWorld(World world) {
+		this.world = world;
+	}
+	
+	public Mode getMode() {
+		return world.getMode();
 	}
 	
 	public void addDragpoints() {
@@ -141,7 +150,7 @@ public class Level {
 	}
 	
 	public void addTo(Group p, Mode m) {
-		if(m.equals(Mode.EDIT)) {
+		if(m.equals(Mode.ADD) || m.equals(Mode.MOVE)) {
 			
 		} else if(m.equals(Mode.PLAY)) {
 			
