@@ -1,17 +1,18 @@
 package fog.ethereal.world;
 
+import java.io.IOException;
+
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import fog.ethereal.AnchorPane;
-import fog.ethereal.FXMLLoader;
-import fog.ethereal.IOException;
-import fog.ethereal.MainClient;
-import fog.ethereal.Scene;
 import fog.ethereal.sprite.Bike;
 import fog.ethereal.util.Mode;
-import fog.ethereal.view.MenuController;
+import fog.ethereal.view.EditorController;
 
 public class BikeWorld extends World {
 	private Bike bike;
@@ -26,8 +27,8 @@ public class BikeWorld extends World {
 				AnchorPane rootPane = (AnchorPane) loader.load();
 				
 				EditorController control = loader.getController();
-				ScrollPane pane = control.getScene();
-				
+				ScrollPane pane = control.getScrollPane();
+		
 				Scene scene = new Scene(rootPane);
 				primaryStage.setScene(scene);
 				primaryStage.show();

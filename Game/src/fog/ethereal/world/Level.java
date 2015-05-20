@@ -14,6 +14,8 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
@@ -22,8 +24,8 @@ import fog.ethereal.util.Mode;
 import fog.ethereal.util.Translation;
 
 public class Level {
-	private ArrayList<Section> sections;
-	private ArrayList<DragNode> dragpoints;
+	private ObservableList<Section> sections;
+	private ObservableList<DragNode> dragpoints;
 	//private String name;
 	private ObjectProperty<LevelData> dataProperty;
 	private World world;
@@ -31,15 +33,15 @@ public class Level {
 	public Level(String name) {
 		setName(name);
 		setBestTime(0);
-		sections = new ArrayList<Section>();
-		dragpoints = new ArrayList<DragNode>();
+		sections = FXCollections.observableArrayList();
+		dragpoints = FXCollections.observableArrayList();
 	}
 	
 	public Level(SaveableLevel sl) {
 		setData(new LevelData(sl.getName(), sl.getBestTime(), null));
 		setImage(getImage());
-		sections = new ArrayList<Section>();
-		dragpoints = new ArrayList<DragNode>();
+		sections = FXCollections.observableArrayList();
+		dragpoints = FXCollections.observableArrayList();
 		ArrayList<BasicSection> basics = (ArrayList<BasicSection>) sl.getSections();
 		for(BasicSection bs: basics) {
 			sections.add(new Section(bs));
@@ -102,12 +104,16 @@ public class Level {
 		dataProperty().set(data);
 	}
 	
-	public List<Section> getSections() {
+	public ObservableList<Section> getSections() {
 		return sections;
 	}
 	
 	public void addSections(List<Section> sections) {
 		this.sections.addAll(sections);
+	}
+	
+	public void addSection(Section section) {
+		this.sections.add(section);
 	}
 	
 	public SaveableLevel toSaveableLevel() {

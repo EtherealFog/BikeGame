@@ -24,6 +24,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import fog.ethereal.MainClient;
 import fog.ethereal.util.LevelSaver;
+import fog.ethereal.util.Mode;
 import fog.ethereal.world.BikeWorld;
 import fog.ethereal.world.Level;
 import fog.ethereal.world.LevelData;
@@ -53,7 +54,7 @@ public class MenuController {
 	public void startGame() {
 		Stage gameStage = new Stage();
 		World world = new BikeWorld();
-		world.initialize(gameStage);
+		world.initialize(gameStage, Mode.PLAY);
 		world.setupGameLoop();
 		world.playGameLoop();
 	}
@@ -62,7 +63,7 @@ public class MenuController {
 	public void editLevel() {
 		Stage editStage = new Stage();
 		World world = new BikeWorld();
-		world.initialize(editStage);
+		world.initialize(editStage, Mode.ADD);
 		world.setupEditLoop();
 		world.playEditLoop();
 	}

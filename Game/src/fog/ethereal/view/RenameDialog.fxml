@@ -11,15 +11,19 @@
       <AnchorPane prefHeight="59.0" prefWidth="307.0" BorderPane.alignment="CENTER">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="51.0" layoutX="3.0" layoutY="3.0" stroke="#686868" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" width="307.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
-            <HBox prefHeight="57.0" prefWidth="311.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextField fx:id="nameField" promptText="New Name" />
-                  <Button mnemonicParsing="false" onAction="#rename" text="Rename" />
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="311.0" spacing="10.0">
+                     <children>
+                        <TextField fx:id="nameField" promptText="New Name" />
+                        <Button mnemonicParsing="false" onAction="#rename" text="Rename" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="12.0" right="10.0" top="11.0" />
+                     </padding>
+                  </HBox>
                </children>
-               <padding>
-                  <Insets bottom="10.0" left="12.0" right="10.0" top="11.0" />
-               </padding>
-            </HBox>
+            </VBox>
          </children>
       </AnchorPane>
    </center>
