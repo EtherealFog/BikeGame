@@ -66,7 +66,7 @@ public abstract class World {
 		setEditLoop(tempLoop);
 	}
 	
-	public abstract void initialize(final Stage primaryStage);
+	public abstract void initialize(final Stage primaryStage, Mode mode);
 	
 	public void addSize(int ax, int ay) {
 		size.setSize(size.getWidth() + ax, size.getHeight() + ay);

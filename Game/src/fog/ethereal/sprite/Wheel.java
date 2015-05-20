@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
+import fog.ethereal.util.Constants;
 import fog.ethereal.util.Mode;
 import fog.ethereal.util.Projection;
 import fog.ethereal.util.Translation;
@@ -41,6 +42,8 @@ public class Wheel extends Sprite{
 		if(p1.overlaps(p2)) {
 			if(which.equals(FRONT)) {
 				updateRotationFront(p);
+			} else if(which.equals(BACK)) {
+				updateRotationBack();
 			}
 		}
 	}
@@ -50,7 +53,7 @@ public class Wheel extends Sprite{
 	}
 	
 	public void updateRotationBack() {
-		rot = (rot + (rotV / 2.16 /*<- approx circumference in meters*/ / 60 /*<- fps*/ * 360)) % 360;
+		rot = (rot + (rotV / 2.16 /*<- approx circumference in meters*/ / Constants.FPS /*<- fps*/ * 360)) % 360;
 		getTransforms().clear();
 		Rotate current = new Rotate(rot);
 		getTransforms().add(current);

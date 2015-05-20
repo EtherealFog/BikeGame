@@ -8,6 +8,9 @@ public class EditorController {
 	@FXML
 	private ToggleGroup modes;
 	
+	@FXML
+	private ScrollPane scene;
+	
 	private Mode mode;
 	
 	@FXML
@@ -18,6 +21,10 @@ public class EditorController {
 	@FXML
 	public void setAdd() {
 		mode = Mode.ADD;
+	}
+	
+	public ScrollPane getScene() {
+		return scene;
 	}
 	
 	public Mode getMode() {
