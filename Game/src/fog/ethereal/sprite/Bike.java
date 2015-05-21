@@ -1,6 +1,7 @@
 package fog.ethereal.sprite;
 
 import java.awt.Point;
+import java.io.FileNotFoundException;
 
 import fog.ethereal.util.Translation;
 import fog.ethereal.util.WorldObject;
@@ -19,9 +20,13 @@ public class Bike implements WorldObject{
 		bikeType = type;
 		rot = 0;
 		rotV = 0;
-		frame = new Frame(1, this);
-		front = new Wheel(1, this, Wheel.FRONT);
-		back = new Wheel(1, this, Wheel.BACK);
+		try {
+			frame = new Frame(1, this);
+			front = new Wheel(1, this, Wheel.FRONT);
+			back = new Wheel(1, this, Wheel.BACK);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

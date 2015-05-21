@@ -1,6 +1,9 @@
 package fog.ethereal.sprite;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
@@ -23,8 +26,8 @@ public class Wheel extends Sprite{
 	private double rot;//current wheel angle (degrees)
 	private double rotV;//current speed (m/s)
 	
-	public Wheel(int type, Bike parent, Mode which) {
-		super(new Image("resources/assets/Wheel" + type + ".png"));
+	public Wheel(int type, Bike parent, Mode which) throws FileNotFoundException {
+		super(new FileInputStream(new File("resources/assets/Wheel" + type + ".png")));
 		this.parent = parent;
 		this.which = which;
 	}

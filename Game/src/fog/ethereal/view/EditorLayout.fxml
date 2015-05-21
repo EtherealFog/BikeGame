@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="608.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="608.0" prefWidth="1080.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fog.ethereal.view.EditorController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -53,13 +53,10 @@
          </top>
          <center>
             <ScrollPane prefHeight="691.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
                <contextMenu>
-                  <ContextMenu>
+                  <ContextMenu fx:id="addPopup" onAction="#updatePopupPos">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Add Platform" />
+                      <MenuItem fx:id="addPlatform" mnemonicParsing="false" onAction="#addPlatform" text="Add Platform" />
                     </items>
                   </ContextMenu>
                </contextMenu>
@@ -67,4 +64,4 @@
          </center>
       </BorderPane>
    </children>
-</AnchorPane>
+</fx:root>

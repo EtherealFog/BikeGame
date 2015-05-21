@@ -1,6 +1,8 @@
 package fog.ethereal.sprite;
 
 import java.awt.Rectangle;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,8 +13,13 @@ import fog.ethereal.util.WorldObject;
 public class Sprite extends ImageView implements WorldObject{
 	private Translation absPos;
 	
-	public Sprite(Image i) {
-		super(i);
+	public Sprite(FileInputStream stream) {
+		super(new Image(stream));
+		try {
+			stream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Translation getAbsPos() {

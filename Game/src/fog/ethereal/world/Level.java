@@ -26,6 +26,7 @@ import fog.ethereal.util.Translation;
 public class Level {
 	private ObservableList<Section> sections;
 	private ObservableList<DragNode> dragpoints;
+	private ObservableList<Platform> allplatforms;
 	//private String name;
 	private ObjectProperty<LevelData> dataProperty;
 	private World world;
@@ -35,6 +36,7 @@ public class Level {
 		setBestTime(0);
 		sections = FXCollections.observableArrayList();
 		dragpoints = FXCollections.observableArrayList();
+		allplatforms = FXCollections.observableArrayList();
 	}
 	
 	public Level(SaveableLevel sl) {
@@ -42,9 +44,11 @@ public class Level {
 		setImage(getImage());
 		sections = FXCollections.observableArrayList();
 		dragpoints = FXCollections.observableArrayList();
+		allplatforms = FXCollections.observableArrayList();
 		ArrayList<BasicSection> basics = (ArrayList<BasicSection>) sl.getSections();
 		for(BasicSection bs: basics) {
 			sections.add(new Section(bs));
+			allplatforms.addAll(new Section(bs).getPlatforms());
 		}
 	}
 	
@@ -108,12 +112,20 @@ public class Level {
 		return sections;
 	}
 	
+	public ObservableList<Platform> getAllPlatforms() {
+		return allplatforms;
+	}
+	
 	public void addSections(List<Section> sections) {
 		this.sections.addAll(sections);
+		for(Section s: sections) {
+			allplatforms.addAll(s.getPlatforms());
+		}
 	}
 	
 	public void addSection(Section section) {
 		this.sections.add(section);
+		allplatforms.addAll(section.getPlatforms());
 	}
 	
 	public SaveableLevel toSaveableLevel() {
