@@ -99,7 +99,7 @@ public class DragNode implements WorldObject{
 	
 	public RadialGradient getGrad() {
 		return new RadialGradient(0, 0, c.getCenterX(), c.getCenterY(), c.getRadius(), false, 
-				CycleMethod.NO_CYCLE, new Stop(0.0, Color.WHITE), new Stop(1.0, Color.LIGHTGRAY));
+				CycleMethod.NO_CYCLE, new Stop(0.0, Color.rgb(255, 255, 255, 0.75)), new Stop(1.0, Color.rgb(150, 150, 150, 0.75)));
 	}
 	
 	public void addSelfTo(Group parent) {
