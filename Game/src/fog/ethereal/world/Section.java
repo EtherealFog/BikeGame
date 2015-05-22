@@ -29,6 +29,7 @@ public class Section {
 			throw new IllegalArgumentException("Arg 'points' must have size of at least 2.");
 		}
 		platforms = FXCollections.observableArrayList();
+		dragpoints = FXCollections.observableArrayList();
 		for(int i = 1; i < points.size(); i++) {
 			platforms.add(new Platform(points.get(i - 1), points.get(i)));
 		}
@@ -37,6 +38,7 @@ public class Section {
 	public Section(BasicSection s) {
 		ArrayList<BasicPlatform> basics = s.getPlatforms();
 		platforms = FXCollections.observableArrayList();
+		dragpoints = FXCollections.observableArrayList();
 		for(BasicPlatform bp: basics) {
 			platforms.add(new Platform(bp));
 		}
@@ -59,7 +61,7 @@ public class Section {
 		
 	}
 	
-	public ArrayList<DragNode> addDragpoints() {
+	public List<DragNode> addDragpoints() {
 		ArrayList<DragNode> nodes = new ArrayList<DragNode>();
 		nodes.add(new DragNode(null, platforms.get(0), this));
 		for(int i = 1; i < platforms.size() - 1; i++) {
@@ -67,7 +69,7 @@ public class Section {
 		}
 		nodes.add(new DragNode(platforms.get(platforms.size() - 1), null, this));
 		dragpoints.setAll(nodes);
-		return nodes;
+		return dragpoints;
 	}
 	
 	public ArrayList<DragNode> removeDragpoints() {

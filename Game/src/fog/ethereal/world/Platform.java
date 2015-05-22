@@ -3,7 +3,13 @@ package fog.ethereal.world;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import fog.ethereal.util.Constants;
@@ -12,7 +18,7 @@ import fog.ethereal.util.VectorCT;
 import fog.ethereal.util.WorldObject;
 
 public class Platform extends Line implements WorldObject{
-	
+	private ContextMenu rightClickMenu;
 	
 	public Platform(double startX, double startY, double endX, double endY) {
 		super(startX, startY, endX, endY);
@@ -30,6 +36,33 @@ public class Platform extends Line implements WorldObject{
 	
 	public void update(Translation t) {
 		
+	}
+	
+	public void setupEditFunctions() {
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				if(e.getButton() == MouseButton.SECONDARY) {
+					getRightClickMenu().show(getParent(), e.getSceneX(), e.getSceneY());
+				}
+			}
+		});
+	}
+	
+	public ContextMenu getRightClickMenu() {
+		if(rightClickMenu != null) {
+			return rightClickMenu;
+		}
+		rightClickMenu = new ContextMenu();
+		MenuItem remove = new MenuItem("Remove");
+		remove.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				if(getParent() instanceof Group)
+					((Group)getParent()).getChildren().remove(this);
+				//Handle removing self from section, etc.
+			}
+		});
+		rightClickMenu.getItems().add(remove);
+		return rightClickMenu;
 	}
 	
 	public VectorCT getNormal() {
@@ -61,5 +94,15 @@ public class Platform extends Line implements WorldObject{
 	
 	public void addTo(Group parent) {
 		
+	}
+	
+	public void setStart(double x, double y) {
+		setStartX(x);
+		setStartY(y);
+	}
+	
+	public void setEnd(double x, double y) {
+		setEndX(x);
+		setEndY(y);
 	}
 }

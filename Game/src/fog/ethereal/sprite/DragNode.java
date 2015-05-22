@@ -29,8 +29,13 @@ public class DragNode implements WorldObject{
 		}
 		if(p1 == null) {
 			c = new Circle(p2.getStartX(), p2.getStartY(), DEFAULT_RADIUS);
+			this.p2 = p2;
 		} else {
 			c = new Circle(p1.getEndX(), p1.getEndY(), DEFAULT_RADIUS);
+			this.p1 = p1;
+			if(p2 != null) {
+				this.p2 = p2;
+			}
 		}
 		setupHandlers();
 		c.setFill(getGrad());
@@ -40,27 +45,31 @@ public class DragNode implements WorldObject{
 		c.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				double x = e.getSceneX();
-				double y = e.getSceneY();
-				if(parent.getMode().equals(Mode.MOVE)) {
-					c.setCenterX(x);
-					c.setCenterY(y);
-					if(p1 != null) {
-						p1.setEndX(x);
-						p1.setEndY(y);
-					}
-					if(p2 != null) {
-						p2.setStartX(x);
-						p2.setStartY(y);
-					}
+				double x = e.getX();
+				double y = e.getY();
+				
+				c.setCenterX(x);
+				c.setCenterY(y);
+				if(p1 != null) {
+					//System.out.println("setting p1 endpoint");
+					p1.setEnd(x, y);
+				} else {
+					//System.out.println("p1 == null");
 				}
+				if(p2 != null) {
+					//System.out.println("setting p2 startpoint");
+					p2.setStart(x, y);
+				} else {
+					//System.out.println("p2 == null");
+				}
+				c.setFill(getGrad());
 			}
 		});
 		
 		c.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				c.setRadius(DEFAULT_RADIUS * 2);
+				c.setRadius(DEFAULT_RADIUS * 1.5);
 				c.setFill(getGrad());
 			}
 		});
@@ -90,7 +99,7 @@ public class DragNode implements WorldObject{
 	
 	public RadialGradient getGrad() {
 		return new RadialGradient(0, 0, c.getCenterX(), c.getCenterY(), c.getRadius(), false, 
-				CycleMethod.NO_CYCLE, new Stop(0.0, Color.WHITE), new Stop(1.0, Color.GRAY));
+				CycleMethod.NO_CYCLE, new Stop(0.0, Color.WHITE), new Stop(1.0, Color.LIGHTGRAY));
 	}
 	
 	public void addSelfTo(Group parent) {

@@ -70,6 +70,19 @@ public class Level {
 		}
 	}
 	
+	public void addDragpoints(Group g) {
+		if(dragpoints.size() == 0) {
+			addDragpoints();
+		}
+		for(DragNode d: dragpoints) {
+			d.addSelfTo(g);
+		}
+	}
+	
+	public List<DragNode> getDragpoints() {
+		return dragpoints;
+	}
+	
 	public void removeDragpoints() {
 		dragpoints.clear();
 	}

@@ -62,10 +62,23 @@ public class MenuController {
 	@FXML
 	public void editLevel() {
 		Stage editStage = new Stage();
-		World world = new BikeWorld();
-		world.initialize(editStage, Mode.ADD);
-		world.setupEditLoop();
-		world.playEditLoop();
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(EditorController.class.getResource("EditorLayout.fxml"));
+			loader.setRoot(new AnchorPane());
+			AnchorPane rootPane = (AnchorPane) loader.load();
+			
+			Scene scene = new Scene(rootPane);
+			editStage.setScene(scene);
+			editStage.setTitle("Level Editor: " + currentLevel.getName());
+			
+			EditorController ec = loader.getController();
+			ec.setLevel(currentLevel);
+			ec.setStage(editStage);
+			editStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
