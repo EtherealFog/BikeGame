@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Circle;
 import fog.ethereal.sprite.DragNode;
 import fog.ethereal.util.Mode;
 import fog.ethereal.util.Translation;
@@ -79,8 +80,12 @@ public class Level {
 		}
 	}
 	
-	public List<DragNode> getDragpoints() {
-		return dragpoints;
+	public List<Circle> getDragpoints() {
+		List<Circle> nodes = new ArrayList<>();
+		for(Section s: sections) {
+			nodes.addAll(s.getDragpoints());
+		}
+		return nodes;
 	}
 	
 	public void removeDragpoints() {

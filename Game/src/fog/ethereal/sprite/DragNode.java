@@ -30,11 +30,17 @@ public class DragNode implements WorldObject{
 		if(p1 == null) {
 			c = new Circle(p2.getStartX(), p2.getStartY(), DEFAULT_RADIUS);
 			this.p2 = p2;
+			this.p2.startXProperty().bind(c.centerXProperty());
+			this.p2.startYProperty().bind(c.centerYProperty());
 		} else {
 			c = new Circle(p1.getEndX(), p1.getEndY(), DEFAULT_RADIUS);
 			this.p1 = p1;
+			this.p1.startXProperty().bind(c.centerXProperty());
+			this.p1.startYProperty().bind(c.centerYProperty());
 			if(p2 != null) {
 				this.p2 = p2;
+				this.p2.startXProperty().bind(c.centerXProperty());
+				this.p2.startYProperty().bind(c.centerYProperty());
 			}
 		}
 		setupHandlers();
@@ -50,18 +56,6 @@ public class DragNode implements WorldObject{
 				
 				c.setCenterX(x);
 				c.setCenterY(y);
-				if(p1 != null) {
-					//System.out.println("setting p1 endpoint");
-					p1.setEnd(x, y);
-				} else {
-					//System.out.println("p1 == null");
-				}
-				if(p2 != null) {
-					//System.out.println("setting p2 startpoint");
-					p2.setStart(x, y);
-				} else {
-					//System.out.println("p2 == null");
-				}
 				c.setFill(getGrad());
 			}
 		});

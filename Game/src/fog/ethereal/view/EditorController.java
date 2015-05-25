@@ -79,7 +79,7 @@ public class EditorController {
 		((Group)nodes.getContent()).getChildren().addAll(level.getAllPlatforms());
 		level.getAllPlatforms().parallelStream()
 							   .forEach(p -> p.setupEditFunctions());
-		level.addDragpoints((Group)nodes.getContent());
+		((Group)nodes.getContent()).getChildren().addAll(level.getDragpoints());
 		setupPlatformUpdates();
 	}
 	

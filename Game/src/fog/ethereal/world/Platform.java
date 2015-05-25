@@ -42,7 +42,7 @@ public class Platform extends Line implements WorldObject{
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				if(e.getButton() == MouseButton.SECONDARY) {
-					getRightClickMenu().show(getParent(), e.getSceneX(), e.getSceneY());
+					getRightClickMenu().show(getParent(), e.getScreenX(), e.getScreenY());
 				}
 			}
 		});
