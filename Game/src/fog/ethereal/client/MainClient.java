@@ -1,11 +1,13 @@
-package fog.ethereal;
+package fog.ethereal.client;
 
 import java.io.IOException;
+import java.net.URL;
 
 import fog.ethereal.view.MenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -18,6 +20,7 @@ public class MainClient extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Motor Meander");
+		this.primaryStage.getIcons().add(new Image("file:resources/assets/bikeicon3.png"));
 		
 		initMenu();
 	}
@@ -25,11 +28,12 @@ public class MainClient extends Application {
 	public void initMenu() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainClient.class.getResource("view/MenuLayout.fxml"));
+			loader.setLocation(new URL("file:src/fog/ethereal/view/MenuLayout.fxml"));
 			rootPane = (AnchorPane) loader.load();
 			
 			Scene scene = new Scene(rootPane);
 			primaryStage.setScene(scene);
+			
 			primaryStage.show();
 			primaryStage.setResizable(false);
 			
@@ -39,6 +43,8 @@ public class MainClient extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	public static void main(String[] args) {
 		launch(args);

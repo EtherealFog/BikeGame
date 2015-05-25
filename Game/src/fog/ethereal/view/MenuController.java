@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import fog.ethereal.MainClient;
+import fog.ethereal.client.MainClient;
 import fog.ethereal.util.LevelSaver;
 import fog.ethereal.util.Mode;
 import fog.ethereal.world.BikeWorld;
@@ -64,13 +65,14 @@ public class MenuController {
 		Stage editStage = new Stage();
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(EditorController.class.getResource("EditorLayout.fxml"));
+			loader.setLocation(new URL("file:src/fog/ethereal/view/EditorLayout.fxml"));
 			loader.setRoot(new AnchorPane());
 			AnchorPane rootPane = (AnchorPane) loader.load();
 			
 			Scene scene = new Scene(rootPane);
 			editStage.setScene(scene);
 			editStage.setTitle("Level Editor: " + currentLevel.getName());
+			editStage.getIcons().add(new Image("file:resources/assets/editicon.png"));
 			
 			EditorController ec = loader.getController();
 			ec.setLevel(currentLevel);
@@ -159,7 +161,7 @@ public class MenuController {
 	public void setupRenameDialog() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MenuController.class.getResource("RenameDialog.fxml"));
+			loader.setLocation(new URL("file:src/fog/ethereal/view/RenameDialog.fxml"));
 			BorderPane rootPane = (BorderPane) loader.load();
 			
 			Scene scene = new Scene(rootPane);
@@ -183,5 +185,17 @@ public class MenuController {
 		millis -= (millis / 1000) * 1000;
 		temp += millis / 10;
 		return temp;
+	}
+	
+	public static List<Image> getIcons(String name) {
+		ArrayList<Image> icons = new ArrayList<>();
+		try {
+			for(int i = 1; i <= 4; i++) {
+				icons.add(new Image("file:resources/assets" + name + i + ".png"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return icons;
 	}
 }

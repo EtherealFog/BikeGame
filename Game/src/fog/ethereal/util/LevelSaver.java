@@ -20,7 +20,7 @@ public class LevelSaver {
 			JAXBContext context = JAXBContext.newInstance(SaveableLevel.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			File file = new File("resources/worlds/" +l.getName() + "/");
+			File file = new File("resources/worlds/" +l.getName().replaceAll(" ", "_") + "/");
 			if(!file.exists()) {
 				if(!file.mkdir())
 					throw new Exception("Unable to create file.");
@@ -35,6 +35,7 @@ public class LevelSaver {
 	}
 	
 	public static SaveableLevel load(File path) {
+		path = new File(path.getPath().replaceAll(" ", "_"));
 		SaveableLevel temp = null;
 		try {
 			JAXBContext context = JAXBContext.newInstance(SaveableLevel.class);
@@ -44,7 +45,7 @@ public class LevelSaver {
 				throw new IllegalArgumentException("Invalid World File (Selected folder does not contain necessary level.xml file)");
 			}
 			temp = (SaveableLevel)um.unmarshal(file);
-			
+			temp.setName(temp.getName().replaceAll("_", " "));
 		} catch (Exception e) {e.printStackTrace(System.err);}
 		return temp;
 	}
@@ -62,8 +63,8 @@ public class LevelSaver {
 	}
 	
 	public static void rename(String prev, String newname) {
-		Path old = new File("resources/worlds/" + prev).toPath();
-		Path next = old.resolveSibling(newname);
+		Path old = new File("resources/worlds/" + prev.replaceAll(" ", "_")).toPath();
+		Path next = old.resolveSibling(newname.replaceAll(" ", "_"));
 		try {
 			Files.move(old, next, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {

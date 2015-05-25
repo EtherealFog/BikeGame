@@ -2,7 +2,7 @@ package fog.ethereal.view;
 
 import java.io.IOException;
 
-import fog.ethereal.MainClient;
+import fog.ethereal.client.MainClient;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

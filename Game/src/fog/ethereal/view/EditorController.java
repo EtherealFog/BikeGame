@@ -13,6 +13,7 @@ import javafx.scene.Group;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -65,7 +66,9 @@ public class EditorController {
 	
 	@FXML
 	public void addPlatform() {
-		level.addSection(new Section(new Point[] {popupPos, new Point((int)popupPos.getX() + 100, (int)popupPos.getY())}));
+		Section temp = new Section(new Point[] {popupPos, new Point((int)popupPos.getX() + 100, (int)popupPos.getY())});
+		level.addSection(temp);
+		((Group)nodes.getContent()).getChildren().addAll(temp.getDragpoints());
 	}
 	
 	@FXML
@@ -76,9 +79,9 @@ public class EditorController {
 	
 	public void setLevel(Level l) {
 		level = l;
-		((Group)nodes.getContent()).getChildren().addAll(level.getAllPlatforms());
 		level.getAllPlatforms().parallelStream()
 							   .forEach(p -> p.setupEditFunctions());
+		((Group)nodes.getContent()).getChildren().addAll(level.getAllPlatforms());
 		((Group)nodes.getContent()).getChildren().addAll(level.getDragpoints());
 		setupPlatformUpdates();
 	}
@@ -91,7 +94,19 @@ public class EditorController {
 				addPlatform();
 			}
 		});
-		addPopup.getItems().add(add);
+		MenuItem setstart = new MenuItem("Set Level Start Point");
+		setstart.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				setStartPoint();
+			}
+		});
+		MenuItem setend = new MenuItem("Set Level End Point");
+		setend.setOnAction(new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent e) {
+				setEndPoint();
+			}
+		});
+		addPopup.getItems().addAll(add, new SeparatorMenuItem(), setstart, setend);
 		nodes.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				if(e.getButton() == MouseButton.SECONDARY) {
@@ -102,6 +117,13 @@ public class EditorController {
 		});
 	}
 	
+	public void setStartPoint() {
+		
+	}
+	
+	public void setEndPoint() {
+		
+	}
 	
 	@SuppressWarnings("rawtypes")
 	public void setupPlatformUpdates() {

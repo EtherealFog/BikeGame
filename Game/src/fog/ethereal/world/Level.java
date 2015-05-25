@@ -168,7 +168,7 @@ public class Level {
 	public Image getImage() {
 		Image temp;
 		try {
-			FileInputStream stream = new FileInputStream(new File("resources/worlds/" + getName() + "/icon.png"));
+			FileInputStream stream = new FileInputStream(new File("resources/worlds/" + getName().replaceAll(" ", "_") + "/icon.png"));
 			temp = new Image(stream);
 			stream.close();
 		} catch (Exception e) {
