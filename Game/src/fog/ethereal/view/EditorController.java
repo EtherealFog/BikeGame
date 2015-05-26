@@ -10,11 +10,13 @@ import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -46,6 +48,7 @@ public class EditorController {
 	private Stage window;
 	private Rectangle backdrop;
 	private Pane content;
+	private ImageView startIcon, endIcon;
 	
 	@FXML
 	public void setMove() {
@@ -104,6 +107,10 @@ public class EditorController {
 		content.getChildren().add(backdrop);
 		content.getChildren().addAll(all);
 		content.getChildren().addAll(circles);
+		if(!(level.getStartX() == 0 && level.getEndX() == 0))
+			setStartPoint(level.getStartX(), level.getStartY());
+		if(!(level.getEndX() == 0 && level.getEndY() == 0))
+			setEndPoint(level.getEndX(), level.getEndY());
 		setupPlatformUpdates();
 	}
 	
@@ -139,11 +146,56 @@ public class EditorController {
 	}
 	
 	public void setStartPoint() {
-		level.setStartPoint(popupPos.getX(), popupPos.getY());
+		setStartPoint(popupPos.getX(), popupPos.getY());
+	}
+	
+	public void setStartPoint(double x, double y) {
+		level.setStartPoint(x, y);
+		if(startIcon == null) {
+			startIcon = makeIcon("start");
+			content.getChildren().add(startIcon);
+			startIcon.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent e) {
+					level.setStartPoint(e.getX(), e.getY());
+					startIcon.toFront();
+					startIcon.setX(e.getX() - startIcon.getFitWidth() / 2);
+					startIcon.setY(e.getY() - startIcon.getFitWidth() / 2);
+				}
+			});
+		}
+		startIcon.setX(x - startIcon.getFitWidth() / 2);
+		startIcon.setY(y - startIcon.getFitWidth() / 2);
 	}
 	
 	public void setEndPoint() {
-		level.setEndPoint(popupPos.getX(), popupPos.getY());
+		setEndPoint(popupPos.getX(), popupPos.getY());
+	}
+	
+	public void setEndPoint(double x, double y) {
+		level.setEndPoint(x, y);
+		if(endIcon == null) {
+			endIcon = makeIcon("end");
+			content.getChildren().add(endIcon);
+			endIcon.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent e) {
+					level.setEndPoint(e.getX(), e.getY());
+					endIcon.toFront();
+					endIcon.setX(e.getX() - endIcon.getFitWidth() / 2);
+					endIcon.setY(e.getY() - endIcon.getFitWidth() / 2);
+				}
+			});
+		}
+		endIcon.setX(x - endIcon.getFitWidth() / 2);
+		endIcon.setY(y - endIcon.getFitWidth() / 2);
+	}
+	
+	public ImageView makeIcon(String name) {
+		ImageView icon = new ImageView("file:resources/assets/" + name + "icon.png");
+		icon.setPreserveRatio(true);
+		icon.setFitWidth(70);
+		return icon;
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -174,7 +226,7 @@ public class EditorController {
 	@FXML
 	public void saveAndExit() {
 		save();
-		
+		window.close();;
 	}
 	
 	@FXML

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <level>
     <bestTime>0</bestTime>
-    <endX>484.0</endX>
-    <endY>270.0</endY>
+    <endX>550.0</endX>
+    <endY>150.0</endY>
     <name>Spaces Spaces</name>
     <section>
         <platform>
@@ -12,8 +12,8 @@
             <startY>240.0</startY>
         </platform>
         <platform>
-            <endX>57.0</endX>
-            <endY>193.0</endY>
+            <endX>63.0</endX>
+            <endY>198.0</endY>
             <startX>196.0</startX>
             <startY>201.0</startY>
         </platform>
@@ -28,12 +28,12 @@
     </section>
     <section>
         <platform>
-            <endX>538.0</endX>
-            <endY>298.0</endY>
+            <endX>544.0</endX>
+            <endY>294.0</endY>
             <startX>405.0</startX>
             <startY>281.0</startY>
         </platform>
     </section>
-    <startX>105.0</startX>
-    <startY>133.0</startY>
+    <startX>112.0</startX>
+    <startY>140.0</startY>
 </level>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <level>
     <bestTime>0</bestTime>
-    <endX>0.0</endX>
-    <endY>0.0</endY>
+    <endX>565.0</endX>
+    <endY>357.0</endY>
     <name>Very Legit</name>
     <section>
         <platform>
@@ -68,7 +68,7 @@
     </section>
     <section>
         <platform>
-            <endX>477.0</endX>
+            <endX>518.0</endX>
             <endY>225.0</endY>
             <startX>420.0</startX>
             <startY>237.0</startY>
@@ -94,18 +94,18 @@
         <platform>
             <endX>594.0</endX>
             <endY>243.0</endY>
-            <startX>477.0</startX>
+            <startX>518.0</startX>
             <startY>226.0</startY>
         </platform>
     </section>
     <section>
         <platform>
-            <endX>692.0</endX>
-            <endY>285.0</endY>
+            <endX>745.0</endX>
+            <endY>286.0</endY>
             <startX>595.0</startX>
             <startY>242.0</startY>
         </platform>
     </section>
-    <startX>0.0</startX>
-    <startY>0.0</startY>
+    <startX>210.0</startX>
+    <startY>235.0</startY>
 </level>

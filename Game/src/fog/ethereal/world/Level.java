@@ -77,6 +77,22 @@ public class Level {
 		endY = y;
 	}
 	
+	public double getStartX() {
+		return startX;
+	}
+	
+	public double getStartY() {
+		return startY;
+	}
+	
+	public double getEndX() {
+		return endX;
+	}
+	
+	public double getEndY() {
+		return endY;
+	}
+	
 	public Mode getMode() {
 		return world.getMode();
 	}
