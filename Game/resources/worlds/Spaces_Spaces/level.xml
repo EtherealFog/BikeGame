@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <level>
     <bestTime>0</bestTime>
+    <endX>484.0</endX>
+    <endY>270.0</endY>
     <name>Spaces Spaces</name>
     <section>
         <platform>
-            <endX>3.0</endX>
-            <endY>1.0</endY>
-            <startX>10.0</startX>
-            <startY>2.0</startY>
+            <endX>196.0</endX>
+            <endY>201.0</endY>
+            <startX>325.0</startX>
+            <startY>240.0</startY>
         </platform>
         <platform>
-            <endX>6.0</endX>
-            <endY>2.0</endY>
-            <startX>3.0</startX>
-            <startY>1.0</startY>
+            <endX>57.0</endX>
+            <endY>193.0</endY>
+            <startX>196.0</startX>
+            <startY>201.0</startY>
         </platform>
     </section>
+    <section>
+        <platform>
+            <endX>406.0</endX>
+            <endY>281.0</endY>
+            <startX>326.0</startX>
+            <startY>240.0</startY>
+        </platform>
+    </section>
+    <section>
+        <platform>
+            <endX>538.0</endX>
+            <endY>298.0</endY>
+            <startX>405.0</startX>
+            <startY>281.0</startY>
+        </platform>
+    </section>
+    <startX>105.0</startX>
+    <startY>133.0</startY>
 </level>

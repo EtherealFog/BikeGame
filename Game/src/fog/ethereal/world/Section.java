@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -85,7 +86,7 @@ public class Section {
 	public List<Circle> getDragpoints() {
 		ArrayList<Circle> nodes = new ArrayList<>();
 		nodes.add(makeDragpoint(platforms.get(0), false));
-		for(int i = 1; i < platforms.size() - 1; i++) {
+		for(int i = 1; i < platforms.size(); i++) {
 			nodes.add(makeDragpoint(platforms.get(i - 1), platforms.get(i)));
 		}
 		nodes.add(makeDragpoint(platforms.get(platforms.size() - 1), true));
@@ -95,6 +96,7 @@ public class Section {
 	//Precondition: both platforms have been instantiated (are not null)
 	public Circle makeDragpoint(Platform p1, Platform p2) {
 		Circle c = new Circle();
+		c.setRadius(10);
 		c.setCenterX(p1.getEndX());
 		c.setCenterY(p1.getEndY());
 		setupMoveListeners(p1, p2, c);
@@ -203,10 +205,46 @@ public class Section {
 				c.setFill(getGrad(c));
 			}
 		});
+		
+		c.setOnDragEntered(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent e) {
+				if(e.getSource() instanceof Circle) {
+					Circle temp = (Circle)e.getSource();
+					c.setFill(getConfirmGrad(c));
+					temp.setFill(getConfirmGrad(temp));
+				}
+			}
+		});
+		
+		c.setOnDragExited(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent e) {
+				if(e.getSource() instanceof Circle) {
+					Circle temp = (Circle)e.getSource();
+					c.setFill(getGrad(c));
+					temp.setFill(getGrad(temp));
+				}
+			}
+		});
+		
+		c.setOnDragDropped(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent e) {
+				if(e.getSource() instanceof Circle) {
+					
+				}
+			}
+		});
 	}
 	
 	public RadialGradient getGrad(Circle c) {
 		return new RadialGradient(0, 0, c.getCenterX(), c.getCenterY(), c.getRadius(), false, 
 				CycleMethod.NO_CYCLE, new Stop(0.0, Color.rgb(255, 255, 255, 0.75)), new Stop(1.0, Color.rgb(150, 150, 150, 0.75)));
+	}
+	
+	public RadialGradient getConfirmGrad(Circle c) {
+		return new RadialGradient(0, 0, c.getCenterX(), c.getCenterY(), c.getRadius(), false, 
+				CycleMethod.NO_CYCLE, new Stop(0.0, Color.rgb(100, 255, 100, 0.75)), new Stop(1.0, Color.rgb(50, 150, 50, 0.75)));
 	}
 }

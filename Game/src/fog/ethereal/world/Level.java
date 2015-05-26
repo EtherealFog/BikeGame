@@ -1,5 +1,6 @@
 package fog.ethereal.world;
 
+import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,11 +31,14 @@ public class Level {
 	private ObservableList<Platform> allplatforms;
 	//private String name;
 	private ObjectProperty<LevelData> dataProperty;
+	private double startX, startY, endX, endY;
 	private World world;
 	
 	public Level(String name) {
 		setName(name);
 		setBestTime(0);
+		setStartPoint(0, 0);
+		setEndPoint(0, 0);
 		sections = FXCollections.observableArrayList();
 		dragpoints = FXCollections.observableArrayList();
 		allplatforms = FXCollections.observableArrayList();
@@ -42,6 +46,8 @@ public class Level {
 	
 	public Level(SaveableLevel sl) {
 		setData(new LevelData(sl.getName(), sl.getBestTime(), null));
+		setStartPoint(sl.getStartX(), sl.getStartY());
+		setEndPoint(sl.getEndX(), sl.getEndY());
 		setImage(getImage());
 		sections = FXCollections.observableArrayList();
 		dragpoints = FXCollections.observableArrayList();
@@ -59,6 +65,16 @@ public class Level {
 	
 	public void setWorld(World world) {
 		this.world = world;
+	}
+	
+	public void setStartPoint(double x, double y) {
+		startX = x;
+		startY = y;
+	}
+	
+	public void setEndPoint(double x, double y) {
+		endX = x;
+		endY = y;
 	}
 	
 	public Mode getMode() {
@@ -154,6 +170,10 @@ public class Level {
 		}
 		temp.addSections(bss);
 		temp.setBestTime(getBestTime());
+		temp.setStartX(startX);
+		temp.setStartY(startY);
+		temp.setEndX(endX);
+		temp.setEndY(endY);
 		return temp;
 	}
 	
