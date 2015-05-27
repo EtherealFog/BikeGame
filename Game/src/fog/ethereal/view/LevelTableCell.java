@@ -23,7 +23,7 @@ public class LevelTableCell extends TableCell<Level, LevelData> {
 		name = new Label();
 		name.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		thumbnail = new ImageView();
-		thumbnail.setFitWidth(180);
+		thumbnail.setFitWidth(200);
 		thumbnail.setPreserveRatio(true);
 		vb.getChildren().addAll(name, new Separator(Orientation.HORIZONTAL), thumbnail);
 		setGraphic(vb);

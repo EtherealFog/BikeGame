@@ -9,33 +9,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "section")
 public class BasicSection {
 	private ArrayList<BasicPlatform> platforms;
+	private ArrayList<SavePoint> points;
 	
 	public BasicSection() {
-		platforms = new ArrayList<BasicPlatform>();
+		points = new ArrayList<SavePoint>();
 	}
 	
 	public BasicSection(ArrayList<Point> points) {
 		if(points.size() < 2) {
 			throw new IllegalArgumentException("Arg 'points' must have size of at least 2.");
 		}
-		platforms = new ArrayList<BasicPlatform>();
-		for(int i = 1; i < points.size(); i++) {
-			platforms.add(new BasicPlatform(points.get(i - 1), points.get(i)));
+		this.points = new ArrayList<>();
+		for(Point p: points) {
+			this.points.add(new SavePoint(p.getX(), p.getY()));
 		}
 	}
 	
-	@XmlElement(name = "platform")
-	public ArrayList<BasicPlatform> getPlatforms() {
-		return platforms;
+	
+	@XmlElement(name = "p")
+	public ArrayList<SavePoint> getPoints() {
+		return points;
 	}
 	
-	public void setPlatforms(ArrayList<BasicPlatform> platforms) {
-		this.platforms.clear();
-		this.platforms.addAll(platforms);
-	}
-	
-	public void addAll(ArrayList<BasicPlatform> platforms) {
-		this.platforms.addAll(platforms);
+	public void setPoints(ArrayList<SavePoint> points) {
+		this.points.clear();
+		this.points.addAll(points);
 	}
 	
 	public String toString() {

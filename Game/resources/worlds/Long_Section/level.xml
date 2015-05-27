@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<level>
+    <bestTime>0</bestTime>
+    <endX>846.0</endX>
+    <endY>290.0</endY>
+    <name>Long Section</name>
+    <s>
+        <p>
+            <x>893.0</x>
+            <y>397.0</y>
+        </p>
+        <p>
+            <x>1035.0</x>
+            <y>328.0</y>
+        </p>
+        <p>
+            <x>194.0</x>
+            <y>188.0</y>
+        </p>
+        <p>
+            <x>223.0</x>
+            <y>354.0</y>
+        </p>
+        <p>
+            <x>452.0</x>
+            <y>471.0</y>
+        </p>
+        <p>
+            <x>683.0</x>
+            <y>460.0</y>
+        </p>
+        <p>
+            <x>893.0</x>
+            <y>397.0</y>
+        </p>
+    </s>
+    <startX>146.0</startX>
+    <startY>83.0</startY>
+</level>

@@ -77,7 +77,7 @@ public class SaveableLevel {
 		endY = y;
 	}
 	
-	@XmlElement(name = "section")
+	@XmlElement(name = "s")
 	public List<BasicSection> getSections() {
 		return sections;
 	}

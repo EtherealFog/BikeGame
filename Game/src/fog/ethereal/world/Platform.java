@@ -38,7 +38,16 @@ public class Platform extends Line implements WorldObject{
 		
 	}
 	
+	public Point getStart() {
+		return new Point((int)getStartX(), (int)getStartY());
+	}
+	
+	public Point getEnd() {
+		return new Point((int)getEndX(), (int)getEndY());
+	}
+	
 	public void setupEditFunctions() {
+		getRightClickMenu();
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				if(e.getButton() == MouseButton.SECONDARY) {
@@ -61,6 +70,7 @@ public class Platform extends Line implements WorldObject{
 				//Handle removing self from section, etc.
 			}
 		});
+		
 		rightClickMenu.getItems().add(remove);
 		return rightClickMenu;
 	}

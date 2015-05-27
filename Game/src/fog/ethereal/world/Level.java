@@ -1,25 +1,17 @@
 package fog.ethereal.world;
 
-import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import fog.ethereal.sprite.DragNode;
 import fog.ethereal.util.Mode;
@@ -35,8 +27,7 @@ public class Level {
 	private World world;
 	
 	public Level(String name) {
-		setName(name);
-		setBestTime(0);
+		setData(new LevelData(name, 0, null));
 		setStartPoint(0, 0);
 		setEndPoint(0, 0);
 		sections = FXCollections.observableArrayList();
@@ -56,6 +47,9 @@ public class Level {
 		for(BasicSection bs: basics) {
 			sections.add(new Section(bs));
 			allplatforms.addAll(new Section(bs).getPlatforms());
+		}
+		for(Section s: sections) {
+			s.setParent(this);
 		}
 	}
 	
@@ -103,7 +97,7 @@ public class Level {
 		}
 	}
 	
-	public void addDragpoints(Group g) {
+	public void addDragpoints(Pane g) {
 		if(dragpoints.size() == 0) {
 			addDragpoints();
 		}
@@ -170,12 +164,14 @@ public class Level {
 		this.sections.addAll(sections);
 		for(Section s: sections) {
 			allplatforms.addAll(s.getPlatforms());
+			s.setParent(this);
 		}
 	}
 	
 	public void addSection(Section section) {
 		this.sections.add(section);
 		allplatforms.addAll(section.getPlatforms());
+		section.setParent(this);
 	}
 	
 	public SaveableLevel toSaveableLevel() {
@@ -204,7 +200,12 @@ public class Level {
 	public Image getImage() {
 		Image temp;
 		try {
-			FileInputStream stream = new FileInputStream(new File("resources/worlds/" + getName().replaceAll(" ", "_") + "/icon.png"));
+			File hmm = new File("resources/worlds/" + getName().replaceAll(" ", "_") + "/icon.png");
+			FileInputStream stream;
+			if(hmm.exists())
+				stream = new FileInputStream(hmm);
+			else
+				stream = new FileInputStream(new File("resources/assets/notfound.png"));
 			temp = new Image(stream);
 			stream.close();
 		} catch (Exception e) {

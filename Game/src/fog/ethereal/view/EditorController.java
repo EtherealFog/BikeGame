@@ -3,10 +3,16 @@ package fog.ethereal.view;
 
 
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 import javafx.collections.ListChangeListener;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,6 +23,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -25,6 +32,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import fog.ethereal.sprite.DragNode;
 import fog.ethereal.util.LevelSaver;
 import fog.ethereal.util.Mode;
 import fog.ethereal.world.Level;
@@ -98,15 +106,18 @@ public class EditorController {
 		level = l;
 		level.getAllPlatforms().stream()
 							   .forEach(p -> p.setupEditFunctions());
-		List<Circle> circles = new ArrayList<>();
-		level.getSections().stream()
-						   .forEach(s -> circles.addAll(s.getDragpoints()));
+		
 		List<Platform> all = new ArrayList<>();
 		level.getSections().stream()
 						   .forEach(s -> all.addAll(s.getPlatforms()));
-		content.getChildren().add(backdrop);
-		content.getChildren().addAll(all);
-		content.getChildren().addAll(circles);
+		List<DragNode> circles = new ArrayList<>();
+		level.getSections().stream()
+						   .forEach(s -> circles.addAll(s.addDragpoints()));
+		content.getChildren().add(backdrop);//basically the thing that you click on to get the main right click menu
+		content.getChildren().addAll(all);//adds the platforms.
+		circles.stream()
+			   .forEach(d -> d.addSelfTo(content));
+		//content.getChildren().addAll(circles);//adds the dragpoints
 		if(!(level.getStartX() == 0 && level.getEndX() == 0))
 			setStartPoint(level.getStartX(), level.getStartY());
 		if(!(level.getEndX() == 0 && level.getEndY() == 0))
@@ -140,6 +151,8 @@ public class EditorController {
 				if(e.getButton() == MouseButton.SECONDARY) {
 					popupPos.setLocation(e.getX(), e.getY());
 					addPopup.show(nodes.getContent(), e.getScreenX(), e.getScreenY());
+				} else {
+					addPopup.hide();
 				}
 			}
 		});
@@ -232,5 +245,17 @@ public class EditorController {
 	@FXML
 	public void saveAs() {
 		
+	}
+	
+	@FXML
+	public void saveIcon() {
+		BufferedImage icon = SwingFXUtils.fromFXImage(nodes.snapshot(null, new WritableImage((int)content.getWidth() - 10, (int)content.getHeight() - 10)), null);
+		File loc = new File("resources/worlds/" + level.getName().replaceAll(" ",  "_") + "/icon.png");
+		try {
+			ImageIO.write(icon, "PNG", loc);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

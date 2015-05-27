@@ -1,14 +1,21 @@
 package fog.ethereal.sprite;
 
+import java.awt.Point;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
-import fog.ethereal.util.Mode;
 import fog.ethereal.util.Translation;
 import fog.ethereal.util.WorldObject;
 import fog.ethereal.world.Platform;
@@ -22,27 +29,18 @@ public class DragNode implements WorldObject{
 	private Section parent;
 	
 	public DragNode(Platform p1, Platform p2, Section parent) {
-		if(p1 != null && p2 != null && (p1.getEndX() != p2.getStartX() || p1.getEndY() != p2.getStartY())) {
+		/*
+		if(p1 != null && p2 != null && (!p1.getEnd().equals(p2.getStart()))) {
 			throw new IllegalArgumentException("The endpoint of p1 must coincide with the startpoint of p2.");
 		} else if(p1 == null && p2 == null) {
 			throw new IllegalArgumentException("At least one of the two Platforms must not be null.");
 		}
-		if(p1 == null) {
-			c = new Circle(p2.getStartX(), p2.getStartY(), DEFAULT_RADIUS);
-			this.p2 = p2;
-			this.p2.startXProperty().bind(c.centerXProperty());
-			this.p2.startYProperty().bind(c.centerYProperty());
-		} else {
-			c = new Circle(p1.getEndX(), p1.getEndY(), DEFAULT_RADIUS);
-			this.p1 = p1;
-			this.p1.startXProperty().bind(c.centerXProperty());
-			this.p1.startYProperty().bind(c.centerYProperty());
-			if(p2 != null) {
-				this.p2 = p2;
-				this.p2.startXProperty().bind(c.centerXProperty());
-				this.p2.startYProperty().bind(c.centerYProperty());
-			}
-		}
+		*/
+		System.out.println(p1 + ", " + p2);
+		c = new Circle(p1 == null ? p2.getStartX() : p1.getEndX(), p1 == null ? p2.getStartY() : p1.getEndY(), DEFAULT_RADIUS);
+		this.p1 = p1;
+		this.p2 = p2;
+		this.parent = parent;
 		setupHandlers();
 		c.setFill(getGrad());
 	}
@@ -75,6 +73,44 @@ public class DragNode implements WorldObject{
 				c.setFill(getGrad());
 			}
 		});
+		
+		c.centerXProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue observable, Number oldValue, Number newValue) {
+				if(p1 != null)
+					p1.setEndX(c.getCenterX());
+				if(p2 != null)
+					p2.setStartX(c.getCenterX());
+			}
+		});
+		c.centerYProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue observable, Number oldValue, Number newValue) {
+				if(p1 != null)
+					p1.setEndY(c.getCenterY());
+				if(p2 != null)
+					p2.setStartY(c.getCenterY());
+			}
+		});
+		ContextMenu menu = new ContextMenu();
+		
+		MenuItem add = new MenuItem("Add Platform From Here");
+		add.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				parent.add(c.getCenterX() + 100, c.getCenterY() - 20, c.getCenterX(), c.getCenterY());
+				System.out.println("Adding platform @: (" + c.getCenterX() + ", " + c.getCenterY() + ")");
+			}
+		});
+		menu.getItems().add(add);
+		c.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				if(e.getButton() == MouseButton.SECONDARY && (p1 == null || p2 == null)) {
+					menu.show(c.getParent(), e.getScreenX(), e.getScreenY());
+				} else {
+					menu.hide();
+				}
+			}
+		});
 	}
 	
 	public void setP1(Platform p1) {
@@ -91,13 +127,21 @@ public class DragNode implements WorldObject{
 		this.p2 = p2;
 	}
 	
+	public Platform getP1() {
+		return p1;
+	}
+	
+	public Platform getP2() {
+		return p2;
+	}
+	
 	public RadialGradient getGrad() {
 		return new RadialGradient(0, 0, c.getCenterX(), c.getCenterY(), c.getRadius(), false, 
 				CycleMethod.NO_CYCLE, new Stop(0.0, Color.rgb(255, 255, 255, 0.75)), new Stop(1.0, Color.rgb(150, 150, 150, 0.75)));
 	}
 	
-	public void addSelfTo(Group parent) {
-		parent.getChildren().add(c);
+	public void addSelfTo(Pane content) {
+		content.getChildren().add(c);
 		c.toFront();
 	}
 

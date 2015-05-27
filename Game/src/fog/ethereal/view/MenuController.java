@@ -143,6 +143,8 @@ public class MenuController {
 			currentLevelNameLabel.setText(l.getName());
 			currentLevelBestTimeLabel.setText("Best Time: " + millisToString(l.getBestTime()));
 			currentLevelImage.setImage(l.getImage());
+			currentLevelImage.setFitWidth(380);
+			currentLevelImage.setFitHeight(200);
 		} else {
 			currentLevelNameLabel.setText("No Level Selected");
 			currentLevelBestTimeLabel.setText("Best Time: --:--.--");

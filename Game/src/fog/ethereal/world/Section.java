@@ -9,7 +9,9 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener.Change;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.DragEvent;
@@ -31,7 +33,7 @@ public class Section {
 	private ObservableList<DragNode> dragpoints;
 	private Level parent;
 	
-	public Section(Point[] points) {
+	public Section(Point... points) {
 		this(Arrays.asList(points));
 	}
 	
@@ -47,11 +49,18 @@ public class Section {
 	}
 	
 	public Section(BasicSection s) {
-		ArrayList<BasicPlatform> basics = s.getPlatforms();
+		ArrayList<SavePoint> sps = s.getPoints();
+		ArrayList<Point> points = new ArrayList<>();
+		for(SavePoint sp: sps) {
+			points.add(sp.toPoint());
+		}
+		if(points.size() < 2) {
+			throw new IllegalArgumentException("Arg 'points' must have size of at least 2.");
+		}
 		platforms = FXCollections.observableArrayList();
 		dragpoints = FXCollections.observableArrayList();
-		for(BasicPlatform bp: basics) {
-			platforms.add(new Platform(bp));
+		for(int i = 1; i < points.size(); i++) {
+			platforms.add(new Platform(points.get(i - 1), points.get(i)));
 		}
 	}
 	
@@ -72,15 +81,52 @@ public class Section {
 		
 	}
 	
+	public void add(double x1, double y1, double x2, double y2) {
+		if(platforms.size() > 0) {
+			Platform end = platforms.get(platforms.size() - 1);
+			Platform start = platforms.get(0);
+			System.out.print("Adding Platform ");
+			Platform p;
+			if((x1 == start.getStartX() && y1 == start.getStartY()) || (x2 == end.getEndX() && y2 == end.getEndY())) {
+				p = new Platform(x2, y2, x1, y1);
+			} else {
+				p = new Platform(x1, y1, x2, y2);
+			} 
+			if(p.getStartX() == end.getEndX() && p.getStartY() == end.getEndY()) {
+				System.out.println("At End of Section.");
+				platforms.add(0, p);
+				parent.getAllPlatforms().add(p);
+				dragpoints.get(dragpoints.size() - 1).setP2(p);
+				dragpoints.add(new DragNode(p, null, this));
+			} else if(p.getEndX() == start.getStartX() && p.getEndY() == start.getStartY()) {
+				System.out.println("At Beginning of Section.");
+				platforms.add(p);
+				parent.getAllPlatforms().add(p);
+				dragpoints.get(0).setP1(p);
+				dragpoints.add(0, new DragNode(null, p, this));
+			} else {
+				System.out.println("... JK");
+				System.out.println("Start: " + start);
+				System.out.println("End: " + end);
+				System.out.println("To Be Added: " + p);
+			}
+		} else {
+			
+		}
+	}
+	
 	public List<DragNode> addDragpoints() {
 		ArrayList<DragNode> nodes = new ArrayList<DragNode>();
+		System.out.println(platforms);
 		nodes.add(new DragNode(null, platforms.get(0), this));
-		for(int i = 1; i < platforms.size() - 1; i++) {
-			nodes.add(new DragNode(platforms.get(i - 1), platforms.get(1), this));
+		for(int i = 1; i < platforms.size(); i++) {
+			
+			nodes.add(new DragNode(platforms.get(i - 1), platforms.get(i), this));
 		}
 		nodes.add(new DragNode(platforms.get(platforms.size() - 1), null, this));
 		dragpoints.setAll(nodes);
-		return dragpoints;
+		setupPlatformsListener();
+		return nodes;
 	}
 	
 	public List<Circle> getDragpoints() {
@@ -90,7 +136,33 @@ public class Section {
 			nodes.add(makeDragpoint(platforms.get(i - 1), platforms.get(i)));
 		}
 		nodes.add(makeDragpoint(platforms.get(platforms.size() - 1), true));
+		setupPlatformsListener();
 		return nodes;
+	}
+	
+	public void setupPlatformsListener() {
+		platforms.addListener(new ListChangeListener<Platform>() {
+		     public void onChanged(Change c) {
+		    	 while(c.next()) {
+		    		 if(c.wasAdded()) {
+		    			 List<Platform> l = c.getAddedSubList();
+		    			 for(Platform p: l) {
+		    				 if(platforms.indexOf(p) == 0) {
+		    					 dragpoints.get(0).setP1(p);
+		    					 dragpoints.add(0, new DragNode(null, p, get()));
+		    				 } else if(platforms.indexOf(p) == platforms.size() - 1) {
+		    					 dragpoints.get(dragpoints.size() - 1).setP2(p);
+		    					 dragpoints.add(new DragNode(p, null, get()));
+		    				 }
+		    			 }
+		    		 }
+		    	 }
+		     }
+		});
+	}
+	
+	public Section get() {
+		return this;
 	}
 	
 	//Precondition: both platforms have been instantiated (are not null)
@@ -161,13 +233,12 @@ public class Section {
 	}
 	
 	public BasicSection toBasicSection() {
-		BasicSection temp = new BasicSection();
-		ArrayList<BasicPlatform> temps = new ArrayList<BasicPlatform>();
+		ArrayList<Point> sps = new ArrayList<>();
+		sps.add(new Point((int)platforms.get(0).getStartX(), (int)platforms.get(0).getStartY()));
 		for(Platform p: platforms) {
-			temps.add(p.toBasicPlatform());
+			sps.add(new Point((int)p.getEndX(), (int)p.getEndY()));
 		}
-		temp.addAll(temps);
-		return temp;
+		return new BasicSection(sps);
 	}
 	
 	public String toString() {
