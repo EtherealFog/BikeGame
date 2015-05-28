@@ -56,7 +56,7 @@ public class MenuController {
 	public void startGame() {
 		Stage gameStage = new Stage();
 		World world = new BikeWorld();
-		world.initialize(gameStage, Mode.PLAY);
+		world.initialize(gameStage);
 		world.setupGameLoop();
 		world.playGameLoop();
 	}
