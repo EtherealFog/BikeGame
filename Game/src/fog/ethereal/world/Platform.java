@@ -10,6 +10,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import fog.ethereal.util.Constants;
@@ -19,6 +20,7 @@ import fog.ethereal.util.WorldObject;
 
 public class Platform extends Line implements WorldObject{
 	private ContextMenu rightClickMenu;
+	private Section parent;
 	
 	public Platform(double startX, double startY, double endX, double endY) {
 		super(startX, startY, endX, endY);
@@ -46,15 +48,29 @@ public class Platform extends Line implements WorldObject{
 		return new Point((int)getEndX(), (int)getEndY());
 	}
 	
+	public void setParentSection(Section s) {
+		parent = s;
+	}
+	
+	public Section getParentSection() {
+		return parent;
+	}
+	
 	public void setupEditFunctions() {
 		getRightClickMenu();
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				if(e.getButton() == MouseButton.SECONDARY) {
-					getRightClickMenu().show(getParent(), e.getScreenX(), e.getScreenY());
+					getRightClickMenu().show(get(), e.getScreenX(), e.getScreenY());
+				} else {
+					getRightClickMenu().hide();
 				}
 			}
 		});
+	}
+	
+	public Platform get() {
+		return this;
 	}
 	
 	public ContextMenu getRightClickMenu() {
@@ -62,12 +78,18 @@ public class Platform extends Line implements WorldObject{
 			return rightClickMenu;
 		}
 		rightClickMenu = new ContextMenu();
-		MenuItem remove = new MenuItem("Remove");
+		MenuItem remove = new MenuItem("Remove This Platform");
 		remove.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				if(getParent() instanceof Group)
-					((Group)getParent()).getChildren().remove(this);
+				if(getParent() instanceof Pane)
+					((Pane)getParent()).getChildren().remove(this);
 				//Handle removing self from section, etc.
+			}
+		});
+		MenuItem removeSection = new MenuItem("Remove This Section");
+		removeSection.setOnAction(new EventHandler<ActionEvent> () {
+			public void handle(ActionEvent e) {
+				//TODO: give each platform reference to parent section.
 			}
 		});
 		

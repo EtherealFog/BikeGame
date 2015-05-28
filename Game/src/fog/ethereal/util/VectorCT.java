@@ -45,6 +45,12 @@ public class VectorCT {
 		return x * other.getX() + y * other.getY();
 	}
 	
+	public VectorCT dotVector(VectorCT other) {//returns 'other' in the length of the dot product.
+		VectorCT newVector = other.unit();
+		newVector.mult(dot(other));
+		return newVector;
+	}
+	
 	public void mult(double scalar) {
 		x *= scalar;
 		y *= scalar;

@@ -97,7 +97,10 @@ public class DragNode implements WorldObject{
 		MenuItem add = new MenuItem("Add Platform From Here");
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				parent.add(c.getCenterX() + 100, c.getCenterY() - 20, c.getCenterX(), c.getCenterY());
+				if(p1 == null)
+					parent.add(c.getCenterX(), c.getCenterY(), c.getCenterX() + (p2.getStartX() - p2.getEndX()), c.getCenterY() + (p2.getStartY() - p2.getEndY()));
+				else if(p2 == null)
+					parent.add(c.getCenterX(), c.getCenterY(), c.getCenterX() + (p1.getEndX() - p1.getStartX()), c.getCenterY() + (p1.getEndY() - p1.getStartY()));
 				System.out.println("Adding platform @: (" + c.getCenterX() + ", " + c.getCenterY() + ")");
 			}
 		});
@@ -105,7 +108,7 @@ public class DragNode implements WorldObject{
 		c.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				if(e.getButton() == MouseButton.SECONDARY && (p1 == null || p2 == null)) {
-					menu.show(c.getParent(), e.getScreenX(), e.getScreenY());
+					menu.show(c, e.getScreenX(), e.getScreenY());
 				} else {
 					menu.hide();
 				}

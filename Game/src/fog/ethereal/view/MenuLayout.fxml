@@ -74,12 +74,12 @@
                      <children>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="409.0">
                            <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="15.0" layoutY="60.0" stroke="#686868" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" width="380.0" />
                               <ImageView fx:id="currentLevelImage" fitHeight="200.0" fitWidth="380.0" layoutX="15.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../../resources/assets/notfound.png" />
                                  </image>
                               </ImageView>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="200.0" layoutX="15.0" layoutY="60.0" stroke="#686868" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="2.0" width="380.0" />
                               <VBox alignment="TOP_CENTER" layoutX="154.0" layoutY="-54.0" prefHeight="59.0" prefWidth="409.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Label fx:id="currentLevelNameLabel" alignment="TOP_CENTER" text="Level Name">

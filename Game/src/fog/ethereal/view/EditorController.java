@@ -169,12 +169,13 @@ public class EditorController {
 	
 	public void setLevel(Level l) {
 		level = l;
-		level.getAllPlatforms().stream()
-							   .forEach(p -> p.setupEditFunctions());
+		List<Section> sections = level.getSections();
 		
 		List<Platform> all = new ArrayList<>();
 		level.getSections().stream()
 						   .forEach(s -> all.addAll(s.getPlatforms()));
+		all.stream()
+		   .forEach(p -> p.setupEditFunctions());
 		List<DragNode> circles = new ArrayList<>();
 		level.getSections().stream()
 						   .forEach(s -> circles.addAll(s.addDragpoints()));
@@ -331,7 +332,7 @@ public class EditorController {
 	
 	@FXML
 	public void saveIcon() {
-		BufferedImage icon = SwingFXUtils.fromFXImage(nodes.snapshot(null, new WritableImage((int)content.getWidth() - 10, (int)content.getHeight() - 10)), null);
+		BufferedImage icon = SwingFXUtils.fromFXImage(nodes.getContent().snapshot(null, new WritableImage((int)content.getWidth(), (int)content.getHeight())), null);
 		File loc = new File("resources/worlds/" + level.getName().replaceAll(" ",  "_") + "/icon.png");
 		try {
 			ImageIO.write(icon, "PNG", loc);
