@@ -44,7 +44,9 @@ public class Section {
 		platforms = FXCollections.observableArrayList();
 		dragpoints = FXCollections.observableArrayList();
 		for(int i = 1; i < points.size(); i++) {
-			platforms.add(new Platform(points.get(i - 1), points.get(i)));
+			Platform p = new Platform(points.get(i - 1), points.get(i));
+			p.setParentSection(this);
+			platforms.add(p);
 		}
 	}
 	
@@ -60,7 +62,9 @@ public class Section {
 		platforms = FXCollections.observableArrayList();
 		dragpoints = FXCollections.observableArrayList();
 		for(int i = 1; i < points.size(); i++) {
-			platforms.add(new Platform(points.get(i - 1), points.get(i)));
+			Platform p = new Platform(points.get(i - 1), points.get(i));
+			p.setParentSection(this);
+			platforms.add(p);
 		}
 	}
 	
@@ -110,9 +114,14 @@ public class Section {
 				System.out.println("End: " + end);
 				System.out.println("To Be Added: " + p);
 			}
+			p.setParentSection(this);
 		} else {
 			
 		}
+	}
+	
+	public void remove(Platform p) {
+		
 	}
 	
 	public List<DragNode> addDragpoints() {

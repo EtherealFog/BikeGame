@@ -83,17 +83,17 @@ public class Platform extends Line implements WorldObject{
 			public void handle(ActionEvent e) {
 				if(getParent() instanceof Pane)
 					((Pane)getParent()).getChildren().remove(this);
-				//Handle removing self from section, etc.
+				parent.remove(get());
 			}
 		});
 		MenuItem removeSection = new MenuItem("Remove This Section");
 		removeSection.setOnAction(new EventHandler<ActionEvent> () {
 			public void handle(ActionEvent e) {
-				//TODO: give each platform reference to parent section.
+				parent.getParent().remove(parent);
 			}
 		});
 		
-		rightClickMenu.getItems().add(remove);
+		rightClickMenu.getItems().addAll(remove, removeSection);
 		return rightClickMenu;
 	}
 	

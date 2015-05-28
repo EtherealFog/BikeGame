@@ -106,7 +106,10 @@ public class Level {
 		}
 	}
 	
-	
+	public void remove(Section s) {
+		sections.remove(s);
+		allplatforms.removeAll(s.getPlatforms());
+	}
 	
 	public void removeDragpoints() {
 		dragpoints.clear();
