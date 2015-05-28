@@ -18,6 +18,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -116,7 +117,9 @@ public class EditorController {
 	@FXML
 	private void initialize() {
 		content = new Pane();
-		nodes.setContent(content);
+		Group wrap = new Group();
+		wrap.getChildren().add(content);
+		nodes.setContent(wrap);
 		backdrop = new Rectangle();
 		content.getChildren().add(backdrop);
 		backdrop.setHeight(627);
