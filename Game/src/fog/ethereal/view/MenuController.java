@@ -49,7 +49,8 @@ public class MenuController {
 	
 	private Level currentLevel;
 	private RenameDialogController rdc;
-	private Stage rdcStage;
+	private Stage rdcStage, ndcStage;
+	private NewDialogController ndc;
 	
 	@FXML
 	public void startGame() {
@@ -85,7 +86,28 @@ public class MenuController {
 	
 	@FXML
 	public void newLevel() {
-		
+		getNDC().show();
+	}
+	
+	public NewDialogController getNDC() {
+		if(ndc != null) {
+			return ndc;
+		} else {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(new URL("file:src/fog/ethereal/view/NewDialog.fxml"));
+				AnchorPane rootPane = (AnchorPane) loader.load();
+				
+				Scene scene = new Scene(rootPane);
+				ndcStage = new Stage(StageStyle.TRANSPARENT);
+				ndcStage.setScene(scene);
+				ndcStage.setResizable(false);
+				
+				ndc = loader.getController();
+				ndc.setup(this, ndcStage);
+			} catch (Exception e) { e.printStackTrace(); }
+			return ndc;
+		}
 	}
 	
 	@FXML
@@ -200,4 +222,6 @@ public class MenuController {
 		}
 		return icons;
 	}
+	
+	
 }

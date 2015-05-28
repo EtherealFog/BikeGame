@@ -106,13 +106,7 @@ public class Level {
 		}
 	}
 	
-	public List<Circle> getDragpoints() {
-		List<Circle> nodes = new ArrayList<>();
-		for(Section s: sections) {
-			nodes.addAll(s.getDragpoints());
-		}
-		return nodes;
-	}
+	
 	
 	public void removeDragpoints() {
 		dragpoints.clear();
@@ -176,11 +170,13 @@ public class Level {
 	
 	public SaveableLevel toSaveableLevel() {
 		SaveableLevel temp = new SaveableLevel(getName());
-		ArrayList<BasicSection> bss = new ArrayList<BasicSection>();
-		for(Section s: sections) {
-			bss.add(s.toBasicSection());
+		if(sections.size() > 0) {
+			ArrayList<BasicSection> bss = new ArrayList<BasicSection>();
+			for(Section s: sections) {
+				bss.add(s.toBasicSection());
+			}
+			temp.addSections(bss);
 		}
-		temp.addSections(bss);
 		temp.setBestTime(getBestTime());
 		temp.setStartX(startX);
 		temp.setStartY(startY);

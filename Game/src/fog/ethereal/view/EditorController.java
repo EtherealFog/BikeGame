@@ -9,29 +9,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import javax.imageio.ImageIO;
+
 import fog.ethereal.sprite.DragNode;
 import fog.ethereal.util.LevelSaver;
 import fog.ethereal.util.Mode;
@@ -48,6 +53,22 @@ public class EditorController {
 	
 	@FXML
 	private MenuItem addPlatform;
+	
+	@FXML
+	private Label zoomLabel;
+	
+	@FXML
+	private Label mouseLabel;
+	
+	@FXML
+	private Label editingLabel;
+	
+	@FXML
+	private Label sizeLabel;
+	
+	@FXML
+	private Slider zoomSlider;
+	
 	
 	private ContextMenu addPopup;
 	private Mode mode;
@@ -85,7 +106,11 @@ public class EditorController {
 	public void addPlatform() {
 		Section temp = new Section(new Point[] {popupPos, new Point((int)popupPos.getX() + 100, (int)popupPos.getY())});
 		level.addSection(temp);
-		content.getChildren().addAll(temp.getDragpoints());
+		temp.addDragpoints().stream()
+							.forEach(dp -> dp.addSelfTo(content));
+		setupDragpointUpdates(temp.getDragpoints());
+		temp.getPlatforms().stream()	
+						   .forEach(p -> p.setupEditFunctions());
 	}
 	
 	@FXML
@@ -93,13 +118,50 @@ public class EditorController {
 		content = new Pane();
 		nodes.setContent(content);
 		backdrop = new Rectangle();
-		backdrop.setHeight(nodes.getViewportBounds().getHeight());
-		backdrop.setWidth(nodes.getViewportBounds().getWidth());
+		content.getChildren().add(backdrop);
+		backdrop.setHeight(627);
+		backdrop.setWidth(1080);
 		backdrop.heightProperty().bind(content.heightProperty());
 		backdrop.widthProperty().bind(content.widthProperty());
 		backdrop.setFill(Color.rgb(255,  255,  255, 0));
 		
 		popupPos = new Point();
+		debugListeners();
+	}
+	
+	public void debugListeners() {
+		content.setOnMouseMoved(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				mouseLabel.setText("(" + round(e.getX()) + ", " + round(e.getY()) + ")");
+			}
+		});
+		backdrop.widthProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue ov, Number oldValue, Number newValue) {
+				sizeLabel.setText(round(backdrop.getWidth()) + " x " + round(backdrop.getHeight()));
+			}
+		});
+		backdrop.heightProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue ov, Number oldValue, Number newValue) {
+				sizeLabel.setText(round(backdrop.getWidth()) + " x " + round(backdrop.getHeight()));
+			}
+		});
+		zoomLabel.setText("100%");
+		zoomSlider.setOnMouseReleased(new EventHandler<MouseEvent> () {
+			public void handle(MouseEvent e) {
+				content.setScaleX(round(zoomSlider.getValue()) / 100);
+				content.setScaleY(round(zoomSlider.getValue()) / 100);
+				zoomLabel.setText(round(zoomSlider.getValue()) + "%");
+			}
+		});
+		zoomSlider.setOnMouseDragged(new EventHandler<MouseEvent> () {
+			public void handle(MouseEvent e) {
+				zoomLabel.setText(round(zoomSlider.getValue()) + "%");
+			}
+		});
+	}
+	
+	public double round(double init) {
+		return Math.round(init * 10) / 10.0;
 	}
 	
 	public void setLevel(Level l) {
@@ -113,7 +175,8 @@ public class EditorController {
 		List<DragNode> circles = new ArrayList<>();
 		level.getSections().stream()
 						   .forEach(s -> circles.addAll(s.addDragpoints()));
-		content.getChildren().add(backdrop);//basically the thing that you click on to get the main right click menu
+		level.getSections().stream()
+						   .forEach(s -> setupDragpointUpdates(s.getDragpoints()));
 		content.getChildren().addAll(all);//adds the platforms.
 		circles.stream()
 			   .forEach(d -> d.addSelfTo(content));
@@ -123,6 +186,7 @@ public class EditorController {
 		if(!(level.getEndX() == 0 && level.getEndY() == 0))
 			setEndPoint(level.getEndX(), level.getEndY());
 		setupPlatformUpdates();
+		editingLabel.setText(level.getName());
 	}
 	
 	public void setupContextMenu() {
@@ -228,6 +292,21 @@ public class EditorController {
 		    		 }
 		    	 }
 		     }
+		});
+	}
+	
+	public void setupDragpointUpdates(ObservableList<DragNode> dns) {
+		dns.addListener(new ListChangeListener<DragNode>() {
+			public void onChanged(Change c) {
+				while(c.next()) {
+					if(c.wasAdded()) {
+						List<DragNode> added = c.getAddedSubList();
+						for(DragNode dn: added) {
+							dn.addSelfTo(content);
+						}
+					}
+				}
+			}
 		});
 	}
 	

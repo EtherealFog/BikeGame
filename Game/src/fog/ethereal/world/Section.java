@@ -94,13 +94,13 @@ public class Section {
 			} 
 			if(p.getStartX() == end.getEndX() && p.getStartY() == end.getEndY()) {
 				System.out.println("At End of Section.");
-				platforms.add(0, p);
+				platforms.add(p);
 				parent.getAllPlatforms().add(p);
 				dragpoints.get(dragpoints.size() - 1).setP2(p);
 				dragpoints.add(new DragNode(p, null, this));
 			} else if(p.getEndX() == start.getStartX() && p.getEndY() == start.getStartY()) {
 				System.out.println("At Beginning of Section.");
-				platforms.add(p);
+				platforms.add(0, p);
 				parent.getAllPlatforms().add(p);
 				dragpoints.get(0).setP1(p);
 				dragpoints.add(0, new DragNode(null, p, this));
@@ -129,36 +129,12 @@ public class Section {
 		return nodes;
 	}
 	
-	public List<Circle> getDragpoints() {
-		ArrayList<Circle> nodes = new ArrayList<>();
-		nodes.add(makeDragpoint(platforms.get(0), false));
-		for(int i = 1; i < platforms.size(); i++) {
-			nodes.add(makeDragpoint(platforms.get(i - 1), platforms.get(i)));
-		}
-		nodes.add(makeDragpoint(platforms.get(platforms.size() - 1), true));
-		setupPlatformsListener();
-		return nodes;
+	public ObservableList<DragNode> getDragpoints() {
+		return dragpoints;
 	}
 	
 	public void setupPlatformsListener() {
-		platforms.addListener(new ListChangeListener<Platform>() {
-		     public void onChanged(Change c) {
-		    	 while(c.next()) {
-		    		 if(c.wasAdded()) {
-		    			 List<Platform> l = c.getAddedSubList();
-		    			 for(Platform p: l) {
-		    				 if(platforms.indexOf(p) == 0) {
-		    					 dragpoints.get(0).setP1(p);
-		    					 dragpoints.add(0, new DragNode(null, p, get()));
-		    				 } else if(platforms.indexOf(p) == platforms.size() - 1) {
-		    					 dragpoints.get(dragpoints.size() - 1).setP2(p);
-		    					 dragpoints.add(new DragNode(p, null, get()));
-		    				 }
-		    			 }
-		    		 }
-		    	 }
-		     }
-		});
+		
 	}
 	
 	public Section get() {
