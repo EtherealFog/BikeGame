@@ -11,6 +11,7 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -23,9 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import fog.ethereal.client.MainClient;
 import fog.ethereal.util.LevelSaver;
-import fog.ethereal.util.Mode;
 import fog.ethereal.world.BikeWorld;
 import fog.ethereal.world.Level;
 import fog.ethereal.world.LevelData;
@@ -46,6 +45,12 @@ public class MenuController {
 	
 	@FXML
 	private ImageView currentLevelImage;
+	
+	@FXML
+	private Button playButton;
+	
+	@FXML
+	private Button editButton;
 	
 	private Level currentLevel;
 	private RenameDialogController rdc;
@@ -167,14 +172,14 @@ public class MenuController {
 			currentLevelImage.setImage(l.getImage());
 			currentLevelImage.setFitWidth(380);
 			currentLevelImage.setFitHeight(200);
+			playButton.setDisable(false);
+			editButton.setDisable(false);
 		} else {
 			currentLevelNameLabel.setText("No Level Selected");
 			currentLevelBestTimeLabel.setText("Best Time: --:--.--");
-			try {
-				currentLevelImage.setImage(new Image(new FileInputStream(new File("resources/assets/notfound.png"))));
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+			playButton.setDisable(true);
+			editButton.setDisable(true);
+			currentLevelImage.setImage(new Image("file:resources/assets/notselected.png"));
 		}
 	}
 	

@@ -103,8 +103,8 @@
                               </VBox>
                               <HBox alignment="TOP_CENTER" layoutX="29.0" layoutY="270.0" prefHeight="49.0" prefWidth="409.0" spacing="24.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#startGame" prefHeight="50.0" prefWidth="180.0" text="PLAY LEVEL" />
-                                    <Button mnemonicParsing="false" onAction="#editLevel" prefHeight="50.0" prefWidth="180.0" text="EDIT LEVEL" />
+                                    <Button fx:id="playButton" mnemonicParsing="false" onAction="#startGame" prefHeight="50.0" prefWidth="180.0" text="PLAY LEVEL" />
+                                    <Button fx:id="editButton" mnemonicParsing="false" onAction="#editLevel" prefHeight="50.0" prefWidth="180.0" text="EDIT LEVEL" />
                                  </children></HBox>
                            </children>
                         </AnchorPane>
