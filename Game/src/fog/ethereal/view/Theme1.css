@@ -1,4 +1,4 @@
-.table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell .table-cell:selected {
-	-fx-background: -fx-background;
-	-fx-table-cell-border-color: derive(-fx-selection-bar, 20%);
+.container-transparent {
+	-fx-background: rgba(0, 0, 0, 0);
 }
+

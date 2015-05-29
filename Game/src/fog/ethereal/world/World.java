@@ -7,9 +7,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import fog.ethereal.util.Constants;
@@ -20,6 +22,7 @@ public abstract class World {
 	private Translation pos;
 	private Dimension size;
 	private Scene surface;
+	private Pane nodes;
 	private Mode currentMode;
 	private static Timeline gameLoop;
 	private final int fps;
@@ -87,6 +90,12 @@ public abstract class World {
 	
 	public void setSurface(Scene surface) {
 		this.surface = surface;
+	}
+	
+	public void setNodes(Pane nodes) {
+		Group wrapper = new Group();
+		wrapper.getChildren().add(nodes);
+		getSurface().setRoot(wrapper);
 	}
 	
 	public Scene getSurface() {
