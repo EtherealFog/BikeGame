@@ -3,12 +3,13 @@ package fog.ethereal.sprite;
 import java.awt.Point;
 import java.io.FileNotFoundException;
 
+import javafx.scene.layout.Pane;
 import fog.ethereal.util.Translation;
 import fog.ethereal.util.WorldObject;
 
 public class Bike implements WorldObject{
-	public static final Point FRONT_WHEEL_POS = new Point(184, 87);
-	public static final Point BACK_WHEEL_POS = new Point(34, 87);
+	public static final Point FRONT_WHEEL_POS = new Point(183, 88);
+	public static final Point BACK_WHEEL_POS = new Point(34, 88);
 	private Frame frame;
 	private Wheel front, back;
 	private int bikeType;
@@ -23,7 +24,9 @@ public class Bike implements WorldObject{
 		try {
 			frame = new Frame(1, this);
 			front = new Wheel(1, this, Wheel.FRONT);
+			front.setCenter(FRONT_WHEEL_POS);
 			back = new Wheel(1, this, Wheel.BACK);
+			back.setCenter(BACK_WHEEL_POS);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -75,5 +78,9 @@ public class Bike implements WorldObject{
 	
 	public boolean getLeft() {
 		return left;
+	}
+	
+	public void addTo(Pane parent) {
+		parent.getChildren().addAll(front, back, frame);
 	}
 }

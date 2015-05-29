@@ -71,8 +71,8 @@ public class Wheel extends Sprite{
 	}
 	
 	public void setCenter(Point center) {
-		setX(center.getX() - getFitWidth() / 2);
-		setY(center.getY() - getFitHeight() / 2);
+		setX(center.getX() - getImage().getWidth() / 2);
+		setY(center.getY() - getImage().getHeight() / 2);
 	}
 	
 	public void setCenter(Translation t) {

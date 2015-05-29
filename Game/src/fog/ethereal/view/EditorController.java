@@ -38,6 +38,7 @@ import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 
+import fog.ethereal.sprite.Bike;
 import fog.ethereal.sprite.DragNode;
 import fog.ethereal.util.LevelSaver;
 import fog.ethereal.util.Mode;
@@ -191,6 +192,7 @@ public class EditorController {
 			setEndPoint(level.getEndX(), level.getEndY());
 		setupPlatformUpdates();
 		editingLabel.setText(level.getName());
+		new Bike(1).addTo(content);
 	}
 	
 	public void setupContextMenu() {

@@ -2,26 +2,68 @@ package fog.ethereal.world;
 
 import java.net.URL;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import fog.ethereal.sprite.Bike;
+import fog.ethereal.util.Quadtree;
 import fog.ethereal.view.PauseMenuController;
 
 public class BikeWorld extends World {
 	private Bike bike;
 	private PauseMenuController pmc;
 	private VBox pauseMenu;
+	private Level level;
+	private Quadtree tree;
 	
 	@Override
 	public void initialize(Stage primaryStage) {
+		setNodes(new Pane());
+		primaryStage.setScene(getSurface());
+		primaryStage.setTitle("Motor Meander: " + level.getName());
+		primaryStage.getIcons().add(new Image("file:resources/assets/bikeicon3.png"));
+		getNodes().getChildren().addAll(level.getAllPlatforms());
+		bike = new Bike(1);
+		bike.addTo(getNodes());
 		
+	}
+	
+	public BikeWorld() {
+		super();
+	}
+	
+	public void update() {
+		
+	}
+	
+	@Override
+	public void setupGameLoop() {
+		KeyFrame frame = new KeyFrame(getSingleFrame(), 
+			new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					update();
+				}
+		});
+		Timeline tempLoop = new Timeline(frame);
+		tempLoop.setCycleCount(Animation.INDEFINITE);
+		setGameLoop(tempLoop);
+	}
+	
+	public void setLevel(Level l) {
+		level = l;
 	}
 
 	public void setupKeyMappings(KeyCode accel, KeyCode brake, KeyCode right, KeyCode left) {
@@ -100,8 +142,6 @@ public class BikeWorld extends World {
 				pauseMenu.setVisible(false);
 				
 				pmc = loader.getController();
-				
-				
 			} catch (Exception e) {e.printStackTrace();}
 		}
 		return pmc;

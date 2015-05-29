@@ -60,10 +60,10 @@ public class MenuController {
 	@FXML
 	public void startGame() {
 		Stage gameStage = new Stage();
-		World world = new BikeWorld();
+		BikeWorld world = new BikeWorld();
+		world.setLevel(currentLevel);
 		world.initialize(gameStage);
-		world.setupGameLoop();
-		world.playGameLoop();
+		gameStage.show();
 	}
 	
 	@FXML

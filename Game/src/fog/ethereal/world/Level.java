@@ -87,10 +87,6 @@ public class Level {
 		return endY;
 	}
 	
-	public Mode getMode() {
-		return world.getMode();
-	}
-	
 	public void addDragpoints() {
 		for(Section s: sections) {
 			dragpoints.addAll(s.addDragpoints());

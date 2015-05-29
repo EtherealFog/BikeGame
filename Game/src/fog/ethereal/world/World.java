@@ -2,6 +2,8 @@ package fog.ethereal.world;
 
 import java.awt.Dimension;
 
+import org.apache.commons.lang3.time.StopWatch;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -16,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import fog.ethereal.util.Constants;
 import fog.ethereal.util.Mode;
+import fog.ethereal.util.Quadtree;
 import fog.ethereal.util.Translation;
 
 public abstract class World {
@@ -23,36 +26,28 @@ public abstract class World {
 	private Dimension size;
 	private Scene surface;
 	private Pane nodes;
-	private Mode currentMode;
+	private StopWatch timer;
 	private static Timeline gameLoop;
 	private final int fps;
 	private final Duration singleFrame;
 	
 	public World() {
-		this(60);
+		this((int)Constants.FPS);
 	}
 	
 	public World(final int fps) {
 		pos = new Translation(0, 0);
 		this.fps = fps;
 		singleFrame = Duration.millis(1000/fps);
+		timer = new StopWatch();
 		setupGameLoop();
-		currentMode = null;
 	}
 	
-	public void setupGameLoop() {
-		KeyFrame frame = new KeyFrame(singleFrame, 
-			new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent e) {
-					
-					
-				}
-		});
-		Timeline tempLoop = new Timeline(frame);
-		tempLoop.setCycleCount(Animation.INDEFINITE);
-		setGameLoop(tempLoop);
+	public Duration getSingleFrame() {
+		return singleFrame;
 	}
+	
+	public abstract void setupGameLoop();
 	
 	public abstract void initialize(final Stage primaryStage);
 	
@@ -60,24 +55,26 @@ public abstract class World {
 		size.setSize(size.getWidth() + ax, size.getHeight() + ay);
 	}
 	
-	public void setMode(Mode mode) {
-		currentMode = mode;
-	}
-	
-	public Mode getMode() {
-		return currentMode;
-	}
-	
 	public void playGameLoop() {
 		getGameLoop().play();
+		if(timer.isSuspended())
+			timer.resume();
+		else
+			timer.start();
 	}
 	
 	public void pauseGameLoop() {
 		getGameLoop().pause();
+		timer.suspend();
 	}
 	
 	public void stopGameLoop() {
 		getGameLoop().stop();
+		timer.stop();
+	}
+	
+	public long getTime() {
+		return timer.getTime();
 	}
 	
 	public static Timeline getGameLoop() {
@@ -94,8 +91,13 @@ public abstract class World {
 	
 	public void setNodes(Pane nodes) {
 		Group wrapper = new Group();
+		this.nodes = nodes;
 		wrapper.getChildren().add(nodes);
-		getSurface().setRoot(wrapper);
+		setSurface(new Scene(wrapper, 840, 480));
+	}
+	
+	public Pane getNodes() {
+		return nodes;
 	}
 	
 	public Scene getSurface() {

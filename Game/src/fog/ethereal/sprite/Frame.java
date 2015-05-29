@@ -12,8 +12,9 @@ public class Frame extends Sprite {
 	private Bike parent;
 	
 	public Frame(int type, Bike parent) throws FileNotFoundException {
-		super(new FileInputStream(new File("resources/assets/Frame" + type + ".png")));
+		super(new FileInputStream(new File("resources/assets/BikeFrame" + type + ".png")));
 		this.parent = parent;
+		
 	}
 
 	public Point getCenter() {

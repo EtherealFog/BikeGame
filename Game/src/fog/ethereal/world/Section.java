@@ -73,10 +73,6 @@ public class Section {
 		this.parent = l;
 	}
 	
-	public Mode getMode() {
-		return parent.getMode();
-	}
-	
 	public Level getParent() {
 		return parent;
 	}
