@@ -168,7 +168,7 @@ public class EditorController {
 		return Math.round(init * 10) / 10.0;
 	}
 	
-	public void setLevel(Level l) {
+	public void setLevel(Level l) {//Loads the given level into the editor window, setting up some of the editing functions
 		level = l;
 		List<Section> sections = level.getSections();
 		
@@ -192,7 +192,11 @@ public class EditorController {
 			setEndPoint(level.getEndX(), level.getEndY());
 		setupPlatformUpdates();
 		editingLabel.setText(level.getName());
-		new Bike(1).addTo(content);
+		Bike test = new Bike(1);
+		test.addTo(content);
+		test.translate(50,  50);
+		test.rotate(50);
+		test.rotate(-60);
 	}
 	
 	public void setupContextMenu() {

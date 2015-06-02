@@ -25,4 +25,8 @@ public class Frame extends Sprite {
 	public void update(Translation t) {
 		
 	}
+	
+	public void rotate() {
+		
+	}
 }

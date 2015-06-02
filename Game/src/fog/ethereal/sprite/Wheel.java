@@ -28,6 +28,7 @@ public class Wheel extends Sprite{
 	
 	public Wheel(int type, Bike parent, Mode which) throws FileNotFoundException {
 		super(new FileInputStream(new File("resources/assets/Wheel" + type + ".png")));
+		
 		this.parent = parent;
 		this.which = which;
 	}
@@ -79,7 +80,5 @@ public class Wheel extends Sprite{
 		setCenter(new Point(t.getX(), t.getY()));
 	}
 	
-	public void rotate(double angle, double centerRotX, double centerRotY) {
-		getTransforms().add(new Rotate(angle, centerRotX, centerRotY));
-	}
+	
 }

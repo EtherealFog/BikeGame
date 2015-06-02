@@ -44,6 +44,36 @@ public class Bike implements WorldObject{
 		return rot;
 	}
 	
+	public void translate(double dx, double dy) {
+		frame.setTranslateX(frame.getTranslateX() + dx);
+		frame.setTranslateY(frame.getTranslateY() + dy);
+		front.setTranslateX(front.getTranslateX() + dx);
+		front.setTranslateY(front.getTranslateY() + dy);
+		back.setTranslateX(back.getTranslateX() + dx);
+		back.setTranslateY(back.getTranslateY() + dy);
+	}
+	
+	public void setLocation(double x, double y) {
+		frame.setTranslateX(x);
+		frame.setTranslateY(y);
+		front.setTranslateX(FRONT_WHEEL_POS.getX() + x);
+		front.setTranslateY(FRONT_WHEEL_POS.getY() + y);
+		back.setTranslateX(BACK_WHEEL_POS.getX() + x);
+		back.setTranslateY(BACK_WHEEL_POS.getY() + y);
+	}
+	
+	public void rotate(double degrees) {
+		double centerx = frame.getCenterX();
+		double centery = frame.getCenterY();
+		rotate(degrees, centerx, centery);
+	}
+	
+	public void rotate(double degrees, double anchorX, double anchorY) {
+		frame.rotate(degrees, anchorX, anchorY);
+		front.rotate(degrees, anchorX, anchorY);
+		back.rotate(degrees, anchorX, anchorY);
+	}
+	
 	public void updateRotation() {
 		
 	}
