@@ -168,6 +168,8 @@ public class MenuController {
 		setCurrentLevel(l);
 		if(l != null) {
 			currentLevelNameLabel.setText(l.getName());
+			currentLevelNameLabel.setStyle("-fx-effect: dropshadow( gaussian, #1d1d1d, 1, 1, 0, 0 );"
+										 + "-fx-text-fill: rgb(255, 255, 255);");
 			currentLevelBestTimeLabel.setText("Best Time: " + millisToString(l.getBestTime()));
 			currentLevelImage.setImage(l.getImage());
 			currentLevelImage.setFitWidth(380);

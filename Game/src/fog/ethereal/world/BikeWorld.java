@@ -8,7 +8,9 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -27,9 +29,12 @@ public class BikeWorld extends World {
 	private VBox pauseMenu;
 	private Level level;
 	private Quadtree tree;
+	private Label timerLabel;
+	private Stage stage;
 	
 	@Override
 	public void initialize(Stage primaryStage) {
+		stage = primaryStage;
 		setNodes(new Pane());
 		primaryStage.setScene(getSurface());
 		primaryStage.setTitle("Motor Meander: " + level.getName());
@@ -37,7 +42,7 @@ public class BikeWorld extends World {
 		getNodes().getChildren().addAll(level.getAllPlatforms());
 		bike = new Bike(1);
 		bike.addTo(getNodes());
-		
+		makeTimer();
 	}
 	
 	public BikeWorld() {
@@ -46,6 +51,19 @@ public class BikeWorld extends World {
 	
 	public void update() {
 		
+	}
+	
+	public void makeTimer() {
+		timerLabel = new Label("00:00.00");
+		timerLabel.setStyle("-fx-effect: dropshadow( gaussian, #1d1d1d, 1, 1, 0, 0 );"
+				 		  + "-fx-text-fill: rgb(255, 255, 255);"
+				 		  + "-fx-text-size: 32px;");
+		VBox container = new VBox();
+		container.setAlignment(Pos.BOTTOM_CENTER);
+		container.prefWidthProperty().bind(stage.widthProperty());
+		container.prefHeightProperty().bind(stage.heightProperty());
+		((Group)getNodes().getParent()).getChildren().add(container);
+		container.getChildren().add(timerLabel);
 	}
 	
 	@Override
