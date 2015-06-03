@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Game.jnlp">
+  <information>
+    <title>Game</title>
+    <vendor>Elias Baldwin</vendor>
+    <description>Sample JavaFX 2.0 application.</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Game.jar" size="100597" download="eager" />
+    <jar href="libs/commons-lang3-3.4.jar" size="434678" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="fog.ethereal.client.MainClient"  name="MotorMeander" />
+  <update check="background"/>
+</jnlp>

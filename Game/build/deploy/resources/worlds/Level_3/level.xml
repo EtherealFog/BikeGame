@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<level>
+    <bestTime>0</bestTime>
+    <endX>645.0</endX>
+    <endY>294.0</endY>
+    <name>Level 3</name>
+    <s>
+        <p>
+            <x>88.0</x>
+            <y>320.0</y>
+        </p>
+        <p>
+            <x>283.0</x>
+            <y>353.0</y>
+        </p>
+        <p>
+            <x>487.0</x>
+            <y>377.0</y>
+        </p>
+        <p>
+            <x>700.0</x>
+            <y>356.0</y>
+        </p>
+    </s>
+    <startX>196.0</startX>
+    <startY>236.0</startY>
+</level>
