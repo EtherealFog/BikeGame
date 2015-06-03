@@ -48,6 +48,7 @@ public class MainClient extends Application {
 			controller.updateLevels();
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		}
 	}
 	
