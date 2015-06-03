@@ -80,17 +80,20 @@ public class SettingsController {
 	private void resetGravity() {
 		gravSlider.setValue(Constants.DEFAULT_GRAVITY);
 		gravField.setText("" + Constants.DEFAULT_GRAVITY);
+		Constants.GRAVITY = Constants.DEFAULT_GRAVITY;
 	}
 	
 	@FXML
 	private void resetAccel() {
 		accelSlider.setValue(Constants.DEFAULT_ACCEL);
 		accelField.setText("" + Constants.DEFAULT_ACCEL);
+		Constants.ACCEL = Constants.DEFAULT_ACCEL;
 	}
 	
 	@FXML
 	private void resetSpeed() {
 		speedSlider.setValue(Constants.DEFAULT_SPEED);
 		speedField.setText("" + Constants.DEFAULT_SPEED);
+		Constants.SPEED = Constants.DEFAULT_SPEED;
 	}
 }

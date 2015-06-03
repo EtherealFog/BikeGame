@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="224.0" layoutY="70.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Accelerate (Up)" textAlignment="CENTER" wrapText="true">
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/assets/accelicon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <tooltip>
+            <Tooltip text="press desired key to set" />
+         </tooltip>
+      </Button>
+      <Button layoutX="46.0" layoutY="70.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Brake (Down)" textAlignment="CENTER" wrapText="true">
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/assets/brakeicon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <tooltip>
+            <Tooltip text="press desired key to set" />
+         </tooltip>
+      </Button>
+      <Button layoutX="46.0" layoutY="158.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Rotate Left (Left)" textAlignment="CENTER" wrapText="true">
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/assets/rotlefticon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <tooltip>
+            <Tooltip text="press desired key to set" />
+         </tooltip>
+      </Button>
+      <Button layoutX="224.0" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Rotate Right (Right)" textAlignment="CENTER" wrapText="true">
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/assets/rotrighticon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <tooltip>
+            <Tooltip text="press desired key to set" />
+         </tooltip>
+      </Button>
+      <Button layoutX="413.0" layoutY="104.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="153.0" text="Play/Pause (Escape)" textAlignment="CENTER" wrapText="true">
+         <graphic>
+            <ImageView fitHeight="90.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/assets/playpauseicon.png" />
+               </image></ImageView>
+         </graphic>
+         <tooltip>
+            <Tooltip text="press desired key to set" />
+         </tooltip>
+      </Button>
+      <Label layoutX="179.0" layoutY="14.0" text="Controls Settings">
+         <font>
+            <Font name="System Bold" size="31.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

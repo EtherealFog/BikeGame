@@ -22,6 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import fog.ethereal.sprite.Bike;
+import fog.ethereal.util.Constants;
 import fog.ethereal.util.Quadtree;
 import fog.ethereal.view.MenuController;
 import fog.ethereal.view.PauseMenuController;
@@ -35,17 +36,23 @@ public class BikeWorld extends World {
 	private Label timerLabel;
 	private Stage stage;
 	private Rectangle glass;
+	private Pane nodes;
 	
 	@Override
 	public void initialize(Stage primaryStage) {
 		stage = primaryStage;
-		setNodes(new Pane());
+		nodes = new Pane();
+		setNodes(nodes);
 		primaryStage.setScene(getSurface());
 		primaryStage.setTitle("Motor Meander: " + level.getName());
 		primaryStage.getIcons().add(new Image("file:resources/assets/bikeicon3.png"));
 		getNodes().getChildren().addAll(level.getAllPlatforms());
 		bike = new Bike(1);
-		bike.addTo(getNodes());
+		bike.addTo(nodes);
+		nodes.translateXProperty().bind(bike.getFrame().layoutXProperty().multiply(-1)
+				.add(getSurface().widthProperty().divide(2).subtract(bike.getFrame().getImage().widthProperty().divide(2))));
+		nodes.translateYProperty().bind(bike.getFrame().layoutYProperty().multiply(-1)
+				.add(getSurface().heightProperty().divide(2).subtract(bike.getFrame().getImage().heightProperty().divide(2))));
 		makeTimer();
 		setupKeyMappings();
 		setupGameLoop();
@@ -58,20 +65,20 @@ public class BikeWorld extends World {
 	
 	public void update() {
 		timerLabel.setText(MenuController.millisToString(getTime()));
+		bike.translate(0.5, 0);
+		
 	}
 	
 	public void makeTimer() {
 		Label timeLabel = new Label("TIME:");
 		timeLabel.setStyle("-fx-font-weight: bold;");
 		timerLabel = new Label("00:00.00");
-		timerLabel.setStyle("-fx-effect: dropshadow( gaussian, #1d1d1d, 1, 1, 0, 0 );"
-				 		  + "-fx-text-fill: rgb(255, 255, 255);"
-				 		  + "-fx-font-size: 60px;");
+		timerLabel.getStylesheets().add("file:src/fog/ethereal/view/Theme1.css");
+		timerLabel.getStyleClass().add("timer-label");
 		timerLabel.layoutXProperty().bind(getSurface().widthProperty().divide(2).subtract(timerLabel.widthProperty().divide(2)));
 		timerLabel.setLayoutY(15 - timerLabel.getLayoutBounds().getMinY());
 		timeLabel.layoutXProperty().bind(getSurface().widthProperty().divide(2).subtract(timeLabel.widthProperty().divide(2)));
 		((Group)getNodes().getParent()).getChildren().addAll(timeLabel, timerLabel);
-		
 	}
 	
 	@Override
@@ -91,21 +98,22 @@ public class BikeWorld extends World {
 	public void setLevel(Level l) {
 		level = l;
 	}
-
-	public void setupKeyMappings(KeyCode accel, KeyCode brake, KeyCode right, KeyCode left) {
+	
+	@Override
+	public void setupKeyMappings() {
 		getSurface().setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent e) {
-				if(e.getCode().equals(accel)) {
+				if(e.getCode().equals(Constants.ACCEL_CODE)) {
 					bike.setAccel(true);
 					bike.setBrake(false);
-				} else if(e.getCode().equals(brake)) {
+				} else if(e.getCode().equals(Constants.BRAKE_CODE)) {
 					bike.setBrake(true);
 					bike.setAccel(false);
-				} else if(e.getCode().equals(right)) {
+				} else if(e.getCode().equals(Constants.RIGHT_CODE)) {
 					bike.setRight(true);
 					bike.setLeft(false);
-				} else if(e.getCode().equals(left)) {
+				} else if(e.getCode().equals(Constants.LEFT_CODE)) {
 					bike.setLeft(true);
 					bike.setRight(false);
 				}
@@ -116,11 +124,9 @@ public class BikeWorld extends World {
 			public void handle(KeyEvent e) {
 				if(e.getCode().equals(KeyCode.ESCAPE)) {
 					if(getTimer().isSuspended()) {
-						playGameLoop();
-						hidePauseMenu();
+						resume();
 					} else {
-						pauseGameLoop();
-						showPauseMenu();
+						pause();
 					}
 				}
 			}
@@ -129,13 +135,13 @@ public class BikeWorld extends World {
 		getSurface().setOnKeyReleased(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent e) {
-				if(e.getCode().equals(accel)) {
+				if(e.getCode().equals(Constants.ACCEL_CODE)) {
 					bike.setAccel(false);
-				} else if(e.getCode().equals(brake)) {
+				} else if(e.getCode().equals(Constants.BRAKE_CODE)) {
 					bike.setBrake(false);
-				} else if(e.getCode().equals(right)) {
+				} else if(e.getCode().equals(Constants.RIGHT_CODE)) {
 					bike.setRight(false);
-				} else if(e.getCode().equals(left)) {
+				} else if(e.getCode().equals(Constants.LEFT_CODE)) {
 					bike.setLeft(false);
 				}
 			}
@@ -151,38 +157,45 @@ public class BikeWorld extends World {
 		}
 		((Group)getSurface().getRoot()).getChildren().add(glass);
 		glass.toFront();
+		if(pauseMenu == null) {
+			pauseMenu = new VBox();
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(new URL("file:src/fog/ethereal/view/PauseMenu.fxml"));
+				pauseMenu = (VBox)loader.load();
+				
+				pmc = loader.getController();
+				pmc.setWorld(this);
+			} catch (Exception e) {e.printStackTrace();}
+			pauseMenu.layoutXProperty().bind(getSurface().widthProperty().divide(2).subtract(pauseMenu.widthProperty().divide(2)));
+			pauseMenu.layoutYProperty().bind(getSurface().heightProperty().divide(2).subtract(pauseMenu.heightProperty().divide(2)));
+		}
+		((Group)getSurface().getRoot()).getChildren().add(pauseMenu);
+		pauseMenu.toFront();
 		
 	}
 	
 	public void hidePauseMenu() {
 		((Group)getSurface().getRoot()).getChildren().remove(glass);
+		((Group)getSurface().getRoot()).getChildren().remove(pauseMenu);
 	}
 	
 	public void resume() {
-		
+		playGameLoop();
+		hidePauseMenu();
+	}
+	
+	public void pause() {
+		pauseGameLoop();
+		showPauseMenu();
 	}
 	
 	public void quit() {
-		
+		stage.close();
+		stopGameLoop();
 	}
 	
 	public void showSettings() {
 		
-	}
-
-	public PauseMenuController getPMC() {
-		if(pmc != null) {
-			return pmc;
-		} else {
-			try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(new URL("file:src/fog/ethereal/view/PauseMenu.fxml"));
-				pauseMenu = (VBox)loader.load();
-				pauseMenu.setVisible(false);
-				
-				pmc = loader.getController();
-			} catch (Exception e) {e.printStackTrace();}
-		}
-		return pmc;
 	}
 }

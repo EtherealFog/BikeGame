@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="199.0" prefWidth="254.0" styleClass="container-transparent" stylesheets="@Theme1.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="254.0" styleClass="container-transparent" stylesheets="@Theme1.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fog.ethereal.view.PauseMenuController">
    <children>
       <HBox alignment="CENTER" prefHeight="64.0" prefWidth="400.0" spacing="8.0" styleClass="container-transparent">
          <children>
@@ -17,7 +16,7 @@
                   <Image url="@../../../../resources/assets/playicon.png" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" prefWidth="150.0" text="Resume" />
+            <Button mnemonicParsing="false" onAction="#resume" prefWidth="150.0" text="Resume" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="64.0" prefWidth="400.0" spacing="7.0" styleClass="container-transparent">
@@ -27,7 +26,17 @@
                   <Image url="@../../../../resources/assets/settingsicon.png" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" prefWidth="150.0" text="Settings" />
+            <Button mnemonicParsing="false" onAction="#showSettings" prefWidth="150.0" text="Settings" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="64.0" prefWidth="254.0" spacing="7.0">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/assets/joystickicon.png" />
+               </image>
+            </ImageView>
+            <Button mnemonicParsing="false" onAction="#showControlSettings" prefHeight="37.0" prefWidth="150.0" text="Controls" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="64.0" prefWidth="249.0" spacing="7.0" styleClass="container-transparent">
@@ -40,7 +49,7 @@
                   <Insets left="6.0" right="4.0" />
                </HBox.margin>
             </ImageView>
-            <Button mnemonicParsing="false" prefWidth="150.0" text="Quit" />
+            <Button mnemonicParsing="false" onAction="#quit" prefWidth="150.0" text="Quit" />
          </children>
       </HBox>
    </children>

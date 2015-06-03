@@ -108,9 +108,6 @@ public abstract class World {
 		return surface;
 	}
 	
-	public abstract void setupKeyMappings(KeyCode accel, KeyCode brake, KeyCode right, KeyCode left);
+	public abstract void setupKeyMappings();
 	
-	public void setupKeyMappings() {
-		setupKeyMappings(KeyCode.UP, KeyCode.DOWN, KeyCode.RIGHT, KeyCode.LEFT);
-	}
 }

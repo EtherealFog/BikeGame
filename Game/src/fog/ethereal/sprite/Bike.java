@@ -44,6 +44,10 @@ public class Bike implements WorldObject{
 		return rot;
 	}
 	
+	public Frame getFrame() {
+		return frame;
+	}
+	
 	public void translate(double dx, double dy) {
 		frame.setTranslateX(frame.getTranslateX() + dx);
 		frame.setTranslateY(frame.getTranslateY() + dy);
