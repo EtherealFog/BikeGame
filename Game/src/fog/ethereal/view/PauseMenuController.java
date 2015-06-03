@@ -49,6 +49,7 @@ public class PauseMenuController {
 			controls.setScene(scene);
 			csc = loader.getController();
 			csc.setScene(scene);
+			csc.setup();
 		} catch (Exception e) {e.printStackTrace();}
 		controls.show();
 	}

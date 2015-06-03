@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fog.ethereal.view.ControlSettingsController">
    <children>
-      <Button layoutX="224.0" layoutY="70.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Accelerate (Up)" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="accelButton" layoutX="224.0" layoutY="70.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Accelerate (Up)" textAlignment="CENTER" wrapText="true">
          <graphic>
             <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -21,7 +21,7 @@
             <Tooltip text="press desired key to set" />
          </tooltip>
       </Button>
-      <Button layoutX="46.0" layoutY="70.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Brake (Down)" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="brakeButton" layoutX="46.0" layoutY="70.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Brake (Down)" textAlignment="CENTER" wrapText="true">
          <graphic>
             <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -33,7 +33,7 @@
             <Tooltip text="press desired key to set" />
          </tooltip>
       </Button>
-      <Button layoutX="46.0" layoutY="158.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Rotate Left (Left)" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="leftButton" layoutX="46.0" layoutY="158.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Rotate Left (Left)" textAlignment="CENTER" wrapText="true">
          <graphic>
             <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -45,7 +45,7 @@
             <Tooltip text="press desired key to set" />
          </tooltip>
       </Button>
-      <Button layoutX="224.0" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Rotate Right (Right)" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="rightButton" layoutX="224.0" layoutY="160.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="161.0" text="Rotate Right (Right)" textAlignment="CENTER" wrapText="true">
          <graphic>
             <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -57,7 +57,7 @@
             <Tooltip text="press desired key to set" />
          </tooltip>
       </Button>
-      <Button layoutX="413.0" layoutY="104.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="153.0" text="Play/Pause (Escape)" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="pauseButton" layoutX="413.0" layoutY="104.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="153.0" text="Play/Pause (Escape)" textAlignment="CENTER" wrapText="true">
          <graphic>
             <ImageView fitHeight="90.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>

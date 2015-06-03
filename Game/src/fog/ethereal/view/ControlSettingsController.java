@@ -23,84 +23,111 @@ public class ControlSettingsController {
 	private Scene scene;
 	@FXML
 	private void initialize() {
+		
+	}
+	
+	public void setScene(Scene scene) {
+		this.scene = scene;
+	}
+	
+	public void setup() {
 		accelButton.setOnMouseEntered(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
-				scene.setOnKeyPressed(new EventHandler<KeyEvent> () {
+				accelButton.requestFocus();
+				accelButton.setText("Press a Key");
+				accelButton.setOnKeyPressed(new EventHandler<KeyEvent> () {
 					public void handle(KeyEvent e) {
 						Constants.ACCEL_CODE = e.getCode();
-						accelButton.setText("Accelerate\n(" + e.getCode().getName() + ")");
+						updateLabels();
 					}
 				});
 			}
 		});
 		brakeButton.setOnMouseEntered(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
-				scene.setOnKeyPressed(new EventHandler<KeyEvent> () {
+				brakeButton.requestFocus();
+				brakeButton.setText("Press a Key");
+				brakeButton.setOnKeyPressed(new EventHandler<KeyEvent> () {
 					public void handle(KeyEvent e) {
 						Constants.BRAKE_CODE = e.getCode();
-						accelButton.setText("Brake\n(" + e.getCode().getName() + ")");
+						updateLabels();
 					}
 				});
 			}
 		});
 		leftButton.setOnMouseEntered(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
-				scene.setOnKeyPressed(new EventHandler<KeyEvent> () {
+				leftButton.requestFocus();
+				leftButton.setText("Press a Key");
+				leftButton.setOnKeyPressed(new EventHandler<KeyEvent> () {
 					public void handle(KeyEvent e) {
 						Constants.LEFT_CODE = e.getCode();
-						accelButton.setText("Rotate Left\n(" + e.getCode().getName() + ")");
+						updateLabels();
 					}
 				});
 			}
 		});
 		rightButton.setOnMouseEntered(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
-				scene.setOnKeyPressed(new EventHandler<KeyEvent> () {
+				rightButton.requestFocus();
+				rightButton.setText("Press a Key");
+				rightButton.setOnKeyPressed(new EventHandler<KeyEvent> () {
 					public void handle(KeyEvent e) {
 						Constants.RIGHT_CODE = e.getCode();
-						accelButton.setText("Rotate Right\n(" + e.getCode().getName() + ")");
+						updateLabels();
 					}
 				});
 			}
 		});
 		pauseButton.setOnMouseEntered(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
-				scene.setOnKeyPressed(new EventHandler<KeyEvent> () {
+				pauseButton.requestFocus();
+				pauseButton.setText("Press a Key");
+				pauseButton.setOnKeyPressed(new EventHandler<KeyEvent> () {
 					public void handle(KeyEvent e) {
 						Constants.PAUSE_CODE = e.getCode();
-						accelButton.setText("Play/Pause\n(" + e.getCode().getName() + ")");
+						updateLabels();
 					}
 				});
 			}
 		});
 		accelButton.setOnMouseExited(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
-				scene.setOnKeyPressed(null);
+				updateLabels();
 			}
 		});
 		brakeButton.setOnMouseExited(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
-				scene.setOnKeyPressed(null);
+				updateLabels();
 			}
 		});
 		leftButton.setOnMouseExited(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
-				scene.setOnKeyPressed(null);
+				updateLabels();
 			}
 		});
 		rightButton.setOnMouseExited(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
-				scene.setOnKeyPressed(null);
+				updateLabels();
 			}
 		});
 		pauseButton.setOnMouseExited(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
-				scene.setOnKeyPressed(null);
+				updateLabels();
 			}
 		});
 	}
 	
-	public void setScene(Scene scene) {
-		this.scene = scene;
+	public void updateLabels() {
+		accelButton.setOnKeyPressed(null);
+		accelButton.setText("Accelerate\n(" + Constants.ACCEL_CODE.getName() + ")");
+		brakeButton.setOnKeyPressed(null);
+		brakeButton.setText("Brake\n(" + Constants.BRAKE_CODE.getName() + ")");
+		leftButton.setOnKeyPressed(null);
+		leftButton.setText("Rotate Left\n(" + Constants.LEFT_CODE.getName() + ")");
+		rightButton.setOnKeyPressed(null);
+		rightButton.setText("Rotate Right\n(" + Constants.RIGHT_CODE.getName() + ")");
+		pauseButton.setOnKeyPressed(null);
+		pauseButton.setText("Play/Pause\n(" + Constants.PAUSE_CODE.getName() + ")");
 	}
 }

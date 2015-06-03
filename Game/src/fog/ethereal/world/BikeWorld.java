@@ -122,7 +122,7 @@ public class BikeWorld extends World {
 		
 		getSurface().setOnKeyPressed(new EventHandler<KeyEvent> () {
 			public void handle(KeyEvent e) {
-				if(e.getCode().equals(KeyCode.ESCAPE)) {
+				if(e.getCode().equals(Constants.PAUSE_CODE)) {
 					if(getTimer().isSuspended()) {
 						resume();
 					} else {
