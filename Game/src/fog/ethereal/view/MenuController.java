@@ -1,8 +1,5 @@
 package fog.ethereal.view;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,7 +26,6 @@ import fog.ethereal.util.LevelSaver;
 import fog.ethereal.world.BikeWorld;
 import fog.ethereal.world.Level;
 import fog.ethereal.world.LevelData;
-import fog.ethereal.world.World;
 
 public class MenuController {
 	@FXML
@@ -133,6 +130,8 @@ public class MenuController {
 			}
 		});
 		
+		Tooltip renameTip = new Tooltip("Right Click to Rename");
+		Tooltip.install(currentLevelNameLabel, renameTip);
 		updateLevels();
 		
 		showLevelDetails(null);
@@ -170,8 +169,6 @@ public class MenuController {
 		setCurrentLevel(l);
 		if(l != null) {
 			currentLevelNameLabel.setText(l.getName());
-			currentLevelNameLabel.setStyle("-fx-effect: dropshadow( gaussian, #1d1d1d, 1, 1, 0, 0 );"
-										 + "-fx-text-fill: rgb(255, 255, 255);");
 			currentLevelBestTimeLabel.setText("Best Time: " + millisToString(l.getBestTime()));
 			currentLevelImage.setImage(l.getImage());
 			currentLevelImage.setFitWidth(380);
