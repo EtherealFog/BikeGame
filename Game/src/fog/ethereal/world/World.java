@@ -77,6 +77,10 @@ public abstract class World {
 		return timer.getTime();
 	}
 	
+	public StopWatch getTimer() {
+		return timer;
+	}
+	
 	public static Timeline getGameLoop() {
 		return gameLoop;
 	}

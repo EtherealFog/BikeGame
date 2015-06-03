@@ -5,6 +5,8 @@ import java.net.URL;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.DoubleBinding;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import fog.ethereal.sprite.Bike;
 import fog.ethereal.util.Quadtree;
+import fog.ethereal.view.MenuController;
 import fog.ethereal.view.PauseMenuController;
 
 public class BikeWorld extends World {
@@ -31,6 +34,7 @@ public class BikeWorld extends World {
 	private Quadtree tree;
 	private Label timerLabel;
 	private Stage stage;
+	private Rectangle glass;
 	
 	@Override
 	public void initialize(Stage primaryStage) {
@@ -43,6 +47,9 @@ public class BikeWorld extends World {
 		bike = new Bike(1);
 		bike.addTo(getNodes());
 		makeTimer();
+		setupKeyMappings();
+		setupGameLoop();
+		playGameLoop();
 	}
 	
 	public BikeWorld() {
@@ -50,20 +57,21 @@ public class BikeWorld extends World {
 	}
 	
 	public void update() {
-		
+		timerLabel.setText(MenuController.millisToString(getTime()));
 	}
 	
 	public void makeTimer() {
+		Label timeLabel = new Label("TIME:");
+		timeLabel.setStyle("-fx-font-weight: bold;");
 		timerLabel = new Label("00:00.00");
 		timerLabel.setStyle("-fx-effect: dropshadow( gaussian, #1d1d1d, 1, 1, 0, 0 );"
 				 		  + "-fx-text-fill: rgb(255, 255, 255);"
-				 		  + "-fx-text-size: 32px;");
-		VBox container = new VBox();
-		container.setAlignment(Pos.BOTTOM_CENTER);
-		container.prefWidthProperty().bind(stage.widthProperty());
-		container.prefHeightProperty().bind(stage.heightProperty());
-		((Group)getNodes().getParent()).getChildren().add(container);
-		container.getChildren().add(timerLabel);
+				 		  + "-fx-font-size: 60px;");
+		timerLabel.layoutXProperty().bind(getSurface().widthProperty().divide(2).subtract(timerLabel.widthProperty().divide(2)));
+		timerLabel.setLayoutY(15 - timerLabel.getLayoutBounds().getMinY());
+		timeLabel.layoutXProperty().bind(getSurface().widthProperty().divide(2).subtract(timeLabel.widthProperty().divide(2)));
+		((Group)getNodes().getParent()).getChildren().addAll(timeLabel, timerLabel);
+		
 	}
 	
 	@Override
@@ -104,11 +112,16 @@ public class BikeWorld extends World {
 			}
 		});
 		
-		getSurface().setOnKeyTyped(new EventHandler<KeyEvent> () {
+		getSurface().setOnKeyPressed(new EventHandler<KeyEvent> () {
 			public void handle(KeyEvent e) {
 				if(e.getCode().equals(KeyCode.ESCAPE)) {
-					pauseGameLoop();
-					showPauseMenu();
+					if(getTimer().isSuspended()) {
+						playGameLoop();
+						hidePauseMenu();
+					} else {
+						pauseGameLoop();
+						showPauseMenu();
+					}
 				}
 			}
 		});
@@ -130,11 +143,19 @@ public class BikeWorld extends World {
 	}
 	
 	public void showPauseMenu() {
-		Rectangle glass = new Rectangle(getSurface().getWidth(), getSurface().getHeight());
-		glass.setFill(Color.rgb(50, 50, 50, 0.33));
+		if(glass == null) {
+			glass = new Rectangle(getSurface().getWidth(), getSurface().getHeight());
+			glass.setFill(Color.rgb(0, 0, 0, 0.8));
+			glass.widthProperty().bind(getSurface().widthProperty());
+			glass.heightProperty().bind(getSurface().heightProperty());
+		}
 		((Group)getSurface().getRoot()).getChildren().add(glass);
 		glass.toFront();
 		
+	}
+	
+	public void hidePauseMenu() {
+		((Group)getSurface().getRoot()).getChildren().remove(glass);
 	}
 	
 	public void resume() {

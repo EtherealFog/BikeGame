@@ -212,9 +212,17 @@ public class MenuController {
 		String temp ="";
 		temp += millis / 60000 + ":";
 		millis -= (millis / 60000) * 60000;
-		temp += millis / 1000 + ".";
+		if(millis / 1000 < 10) {
+			temp += "0" + millis / 1000 + ".";
+		} else {
+			temp += millis / 1000 + ".";
+		}
 		millis -= (millis / 1000) * 1000;
-		temp += millis / 10;
+		if(millis / 10 < 10) {
+			temp += "0" + millis / 10;
+		} else {
+			temp += millis / 10;
+		}
 		return temp;
 	}
 	
