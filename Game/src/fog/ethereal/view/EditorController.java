@@ -192,11 +192,13 @@ public class EditorController {
 			setEndPoint(level.getEndX(), level.getEndY());
 		setupPlatformUpdates();
 		editingLabel.setText(level.getName());
+		/*
 		Bike test = new Bike(1);
 		test.addTo(content);
 		test.translate(50,  50);
 		test.rotate(50);
 		test.rotate(-60);
+		*/
 	}
 	
 	public void setupContextMenu() {

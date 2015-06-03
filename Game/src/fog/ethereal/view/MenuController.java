@@ -56,6 +56,8 @@ public class MenuController {
 	private RenameDialogController rdc;
 	private Stage rdcStage, ndcStage;
 	private NewDialogController ndc;
+	private ControlSettingsController csc;
+	private SettingsController sc;
 	
 	@FXML
 	public void startGame() {
@@ -206,6 +208,43 @@ public class MenuController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@FXML
+	public void showSettings() {
+		Stage settings = new Stage();
+		settings.setTitle("Settings");
+		settings.getIcons().add(new Image("file:resources/assets/settingsicon.png"));
+		
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(new URL("file:src/fog/ethereal/view/SettingsLayout.fxml"));
+			BorderPane root = (BorderPane) loader.load();
+			
+			Scene scene = new Scene(root);
+			settings.setScene(scene);
+			sc = loader.getController();
+		} catch (Exception e) {e.printStackTrace();}
+		settings.show();
+	}
+	
+	@FXML
+	public void showControlSettings() {
+		Stage controls = new Stage();
+		controls.setTitle("Controls Settings");
+		controls.getIcons().add(new Image("file:resources/assets/joystickicon.png"));
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(new URL("file:src/fog/ethereal/view/ControlSettingsLayout.fxml"));
+			AnchorPane root = (AnchorPane) loader.load();
+			
+			Scene scene = new Scene(root);
+			controls.setScene(scene);
+			csc = loader.getController();
+			csc.setScene(scene);
+			csc.setup();
+		} catch (Exception e) {e.printStackTrace();}
+		controls.show();
 	}
 	
 	public static String millisToString(long millis) {

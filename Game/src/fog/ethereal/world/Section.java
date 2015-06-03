@@ -85,7 +85,7 @@ public class Section {
 		if(platforms.size() > 0) {
 			Platform end = platforms.get(platforms.size() - 1);
 			Platform start = platforms.get(0);
-			System.out.print("Adding Platform ");
+			
 			Platform p;
 			if((x1 == start.getStartX() && y1 == start.getStartY()) || (x2 == end.getEndX() && y2 == end.getEndY())) {
 				p = new Platform(x2, y2, x1, y1);
@@ -93,22 +93,19 @@ public class Section {
 				p = new Platform(x1, y1, x2, y2);
 			} 
 			if(p.getStartX() == end.getEndX() && p.getStartY() == end.getEndY()) {
-				System.out.println("At End of Section.");
+				
 				platforms.add(p);
 				parent.getAllPlatforms().add(p);
 				dragpoints.get(dragpoints.size() - 1).setP2(p);
 				dragpoints.add(new DragNode(p, null, this));
 			} else if(p.getEndX() == start.getStartX() && p.getEndY() == start.getStartY()) {
-				System.out.println("At Beginning of Section.");
+				
 				platforms.add(0, p);
 				parent.getAllPlatforms().add(p);
 				dragpoints.get(0).setP1(p);
 				dragpoints.add(0, new DragNode(null, p, this));
 			} else {
-				System.out.println("... JK");
-				System.out.println("Start: " + start);
-				System.out.println("End: " + end);
-				System.out.println("To Be Added: " + p);
+				
 			}
 			p.setParentSection(this);
 		} else {
@@ -122,7 +119,6 @@ public class Section {
 	
 	public List<DragNode> addDragpoints() {
 		ArrayList<DragNode> nodes = new ArrayList<DragNode>();
-		System.out.println(platforms);
 		nodes.add(new DragNode(null, platforms.get(0), this));
 		for(int i = 1; i < platforms.size(); i++) {
 			

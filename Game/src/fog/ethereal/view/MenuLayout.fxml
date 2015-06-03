@@ -31,6 +31,9 @@
                            </accelerator>
                         </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#showSettings" text="Settings" />
+                        <MenuItem mnemonicParsing="false" onAction="#showControlSettings" text="Controls" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#updateLevels" text="Refresh">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="F5" control="UP" meta="UP" shift="UP" shortcut="UP" />

@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -23,7 +24,7 @@ public class ControlSettingsController {
 	private Scene scene;
 	@FXML
 	private void initialize() {
-		
+		updateLabels();
 	}
 	
 	public void setScene(Scene scene) {
@@ -87,6 +88,7 @@ public class ControlSettingsController {
 					public void handle(KeyEvent e) {
 						Constants.PAUSE_CODE = e.getCode();
 						updateLabels();
+						KeyCode.getKeyCode("Up");
 					}
 				});
 			}

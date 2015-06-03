@@ -36,7 +36,6 @@ public class DragNode implements WorldObject{
 			throw new IllegalArgumentException("At least one of the two Platforms must not be null.");
 		}
 		*/
-		System.out.println(p1 + ", " + p2);
 		c = new Circle(p1 == null ? p2.getStartX() : p1.getEndX(), p1 == null ? p2.getStartY() : p1.getEndY(), DEFAULT_RADIUS);
 		this.p1 = p1;
 		this.p2 = p2;
@@ -101,7 +100,7 @@ public class DragNode implements WorldObject{
 					parent.add(c.getCenterX(), c.getCenterY(), c.getCenterX() + (p2.getStartX() - p2.getEndX()), c.getCenterY() + (p2.getStartY() - p2.getEndY()));
 				else if(p2 == null)
 					parent.add(c.getCenterX(), c.getCenterY(), c.getCenterX() + (p1.getEndX() - p1.getStartX()), c.getCenterY() + (p1.getEndY() - p1.getStartY()));
-				System.out.println("Adding platform @: (" + c.getCenterX() + ", " + c.getCenterY() + ")");
+				
 			}
 		});
 		menu.getItems().add(add);

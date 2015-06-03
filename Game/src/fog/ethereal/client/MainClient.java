@@ -3,6 +3,7 @@ package fog.ethereal.client;
 import java.io.IOException;
 import java.net.URL;
 
+import fog.ethereal.util.Settings;
 import fog.ethereal.view.MenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,12 @@ public class MainClient extends Application {
 		this.primaryStage.getIcons().add(new Image("file:resources/assets/bikeicon3.png"));
 		
 		initMenu();
+		Settings.loadSettings();
+	}
+	
+	@Override
+	public void stop() {
+		Settings.saveSettings();
 	}
 	
 	public void initMenu() {

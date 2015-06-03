@@ -24,6 +24,12 @@ public class SettingsController {
 	
 	@FXML
 	private void initialize() {
+		gravField.setText("" + round(Constants.GRAVITY));
+		accelField.setText("" + round(Constants.ACCEL, 2));
+		speedField.setText("" + round(Constants.SPEED, 2));
+		gravSlider.setValue(Constants.GRAVITY);
+		accelSlider.setValue(Constants.ACCEL);
+		speedSlider.setValue(Constants.SPEED);
 		gravSlider.setOnMouseDragged(new EventHandler<MouseEvent> () {
 			public void handle(MouseEvent e) {
 				double value = gravSlider.getValue();
@@ -35,7 +41,7 @@ public class SettingsController {
 			public void handle(MouseEvent e) {
 				double value = accelSlider.getValue();
 				Constants.ACCEL = value;
-				accelField.setText(""+ round(value));
+				accelField.setText(""+ round(value, 2));
 			}
 		});
 		speedSlider.setOnMouseDragged(new EventHandler<MouseEvent> () {
