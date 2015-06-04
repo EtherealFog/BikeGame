@@ -5,22 +5,20 @@ import java.net.URL;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Binding;
-import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.NumberBinding;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import fog.ethereal.sprite.Bike;
 import fog.ethereal.util.Constants;
 import fog.ethereal.util.Quadtree;
@@ -37,6 +35,7 @@ public class BikeWorld extends World {
 	private Stage stage;
 	private Rectangle glass;
 	private Pane nodes;
+	NumberBinding translateX, translateY;
 	
 	@Override
 	public void initialize(Stage primaryStage) {
@@ -46,17 +45,34 @@ public class BikeWorld extends World {
 		primaryStage.setScene(getSurface());
 		primaryStage.setTitle("Motor Meander: " + level.getName());
 		primaryStage.getIcons().add(new Image("file:resources/assets/bikeicon3.png"));
+		
 		getNodes().getChildren().addAll(level.getAllPlatforms());
 		bike = new Bike(1);
 		bike.addTo(nodes);
-		nodes.translateXProperty().bind(bike.getFrame().layoutXProperty().multiply(-1)
-				.add(getSurface().widthProperty().divide(2).subtract(bike.getFrame().getImage().widthProperty().divide(2))));
-		nodes.translateYProperty().bind(bike.getFrame().layoutYProperty().multiply(-1)
-				.add(getSurface().heightProperty().divide(2).subtract(bike.getFrame().getImage().heightProperty().divide(2))));
+		
+		translateX = bike.getFrame().translateXProperty()
+				.add(bike.getFrame().fitWidthProperty().divide(2))
+				.multiply(-1)
+				.add(nodes.getScene().widthProperty().divide(2));
+		translateY = bike.getFrame().translateYProperty()
+				.add(bike.getFrame().fitHeightProperty().divide(2))
+				.multiply(-1)
+				.add(nodes.getScene().heightProperty().divide(2));
+		
+		nodes.translateXProperty().bind(translateX);
+		nodes.translateYProperty().bind(translateY);
+		
+		bike.translate(level.getStartX() - bike.getFrame().getFitWidth() / 2, level.getStartY() - bike.getFrame().getFitHeight() / 2);
+		
 		makeTimer();
 		setupKeyMappings();
 		setupGameLoop();
 		playGameLoop();
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent e) {
+				stopGameLoop();
+			}
+		});
 	}
 	
 	public BikeWorld() {
@@ -65,8 +81,8 @@ public class BikeWorld extends World {
 	
 	public void update() {
 		timerLabel.setText(MenuController.millisToString(getTime()));
-		bike.translate(0.5, 0);
-		
+		bike.translate(0.5, 0.333);
+		System.out.println(translateX.getValue() + ", " + translateY.getValue());
 	}
 	
 	public void makeTimer() {
@@ -97,6 +113,7 @@ public class BikeWorld extends World {
 	
 	public void setLevel(Level l) {
 		level = l;
+		
 	}
 	
 	@Override
@@ -192,7 +209,6 @@ public class BikeWorld extends World {
 	
 	public void quit() {
 		stage.close();
-		stopGameLoop();
 	}
 	
 	public void showSettings() {
