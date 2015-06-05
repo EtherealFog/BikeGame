@@ -33,11 +33,11 @@ public class Bike implements WorldObject{
 	}
 
 	@Override
-	public void update(Translation t) {
+	public void update() {
 		updateRotation();
-		frame.update(t);
-		front.update(t.move((int)FRONT_WHEEL_POS.getX(), (int)FRONT_WHEEL_POS.getY()));
-		back.update(t.move((int)BACK_WHEEL_POS.getX(), (int)BACK_WHEEL_POS.getY()));
+		frame.update();
+		front.update();
+		back.update();
 	}
 	
 	public double getRot() {
@@ -46,6 +46,12 @@ public class Bike implements WorldObject{
 	
 	public Frame getFrame() {
 		return frame;
+	}
+	
+	public void setVisible(boolean arg) {
+		front.setVisible(arg);
+		back.setVisible(arg);
+		frame.setVisible(arg);
 	}
 	
 	public void translate(double dx, double dy) {

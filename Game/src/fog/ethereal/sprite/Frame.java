@@ -22,7 +22,7 @@ public class Frame extends Sprite {
 	}
 	
 	@Override
-	public void update(Translation t) {
+	public void update() {
 		
 	}
 	

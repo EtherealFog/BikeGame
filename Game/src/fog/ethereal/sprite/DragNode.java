@@ -21,7 +21,7 @@ import fog.ethereal.util.WorldObject;
 import fog.ethereal.world.Platform;
 import fog.ethereal.world.Section;
 
-public class DragNode implements WorldObject{
+public class DragNode {
 	public static final double DEFAULT_RADIUS = 10;
 	private Platform p1;
 	private Platform p2;
@@ -147,9 +147,4 @@ public class DragNode implements WorldObject{
 		c.toFront();
 	}
 
-	@Override
-	public void update(Translation t) {
-		// TODO Auto-generated method stub
-		
-	}
 }

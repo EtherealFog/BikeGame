@@ -30,7 +30,7 @@ public class Sprite extends ImageView implements WorldObject{
 	}
 	
 	@Override
-	public void update(Translation t) {
+	public void update() {
 		
 	}
 	

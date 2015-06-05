@@ -50,17 +50,17 @@ public class BikeWorld extends World {
 		bike = new Bike(1);
 		bike.addTo(nodes);
 		
-		translateX = bike.getFrame().translateXProperty()
-				.add(bike.getFrame().fitWidthProperty().divide(2))
-				.multiply(-1)
-				.add(nodes.getScene().widthProperty().divide(2));
-		translateY = bike.getFrame().translateYProperty()
-				.add(bike.getFrame().fitHeightProperty().divide(2))
-				.multiply(-1)
-				.add(nodes.getScene().heightProperty().divide(2));
+		translateX = bike.getFrame().translateXProperty()//position of left side of bike
+				.add(bike.getFrame().fitWidthProperty().divide(2))//position of middle of bike
+				.multiply(-1)//inverted
+				.add(nodes.getScene().widthProperty().divide(2));//plus the half the width of the screen.
+		translateY = bike.getFrame().translateYProperty()//position of the top edge of the bike
+				.add(bike.getFrame().fitHeightProperty().divide(2))//position of the middle of the bike
+				.multiply(-1)//inverted
+				.add(nodes.getScene().heightProperty().divide(2));//plus half the height of the screen
 		
-		nodes.translateXProperty().bind(translateX);
-		nodes.translateYProperty().bind(translateY);
+		nodes.translateXProperty().bind(translateX);//bind translation of all of the items of the screen to simulate
+		nodes.translateYProperty().bind(translateY);//movement of the viewport on the whole level, following the bike.
 		
 		bike.translate(level.getStartX() - bike.getFrame().getFitWidth() / 2, level.getStartY() - bike.getFrame().getFitHeight() / 2);
 		
@@ -81,7 +81,7 @@ public class BikeWorld extends World {
 	
 	public void update() {
 		timerLabel.setText(MenuController.millisToString(getTime()));
-		bike.translate(0.5, 0.333);
+		
 		System.out.println(translateX.getValue() + ", " + translateY.getValue());
 	}
 	

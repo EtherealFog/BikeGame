@@ -18,7 +18,7 @@ import fog.ethereal.util.Translation;
 import fog.ethereal.util.VectorCT;
 import fog.ethereal.util.WorldObject;
 
-public class Platform extends Line implements WorldObject{
+public class Platform extends Line{
 	private ContextMenu rightClickMenu;
 	private Section parent;
 	
@@ -34,10 +34,6 @@ public class Platform extends Line implements WorldObject{
 	
 	public Platform(BasicPlatform basic) {
 		this(basic.getStart(), basic.getEnd());
-	}
-	
-	public void update(Translation t) {
-		
 	}
 	
 	public Point getStart() {
