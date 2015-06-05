@@ -1,6 +1,8 @@
 package fog.ethereal.world;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -47,6 +49,8 @@ public class BikeWorld extends World {
 		primaryStage.getIcons().add(new Image("file:resources/assets/bikeicon3.png"));
 		
 		getNodes().getChildren().addAll(level.getAllPlatforms());
+		tree = new Quadtree(0, new java.awt.Rectangle(0, 0, (int)nodes.getWidth(), (int)nodes.getHeight()));
+		
 		bike = new Bike(1);
 		bike.addTo(nodes);
 		
@@ -80,9 +84,12 @@ public class BikeWorld extends World {
 	}
 	
 	public void update() {
-		timerLabel.setText(MenuController.millisToString(getTime()));
-		
-		System.out.println(translateX.getValue() + ", " + translateY.getValue());
+		timerLabel.setText(MenuController.millisToString(getTime()));//Updates timer on screen.
+		List<Platform> platforms = new ArrayList<>();
+		level.getAllPlatforms().parallelStream()//gets all relevant platforms for collision checking.
+							   .filter(p -> p.fitsWithin(bike.getBounds()))
+							   .forEach(p -> platforms.add(p));
+		bike.update(platforms);//gives the Bike relevant platforms for collision checking using Quadtree.
 	}
 	
 	public void makeTimer() {
@@ -127,19 +134,14 @@ public class BikeWorld extends World {
 				} else if(e.getCode().equals(Constants.BRAKE_CODE)) {
 					bike.setBrake(true);
 					bike.setAccel(false);
+					System.out.println("Brake pressed");
 				} else if(e.getCode().equals(Constants.RIGHT_CODE)) {
 					bike.setRight(true);
 					bike.setLeft(false);
 				} else if(e.getCode().equals(Constants.LEFT_CODE)) {
 					bike.setLeft(true);
 					bike.setRight(false);
-				}
-			}
-		});
-		
-		getSurface().setOnKeyPressed(new EventHandler<KeyEvent> () {
-			public void handle(KeyEvent e) {
-				if(e.getCode().equals(Constants.PAUSE_CODE)) {
+				} else if(e.getCode().equals(Constants.PAUSE_CODE)) {
 					if(getTimer().isSuspended()) {
 						resume();
 					} else {

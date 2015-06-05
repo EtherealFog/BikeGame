@@ -3,12 +3,14 @@ package fog.ethereal.sprite;
 import java.awt.Rectangle;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 import fog.ethereal.util.Translation;
 import fog.ethereal.util.WorldObject;
+import fog.ethereal.world.Platform;
 
 
 public class Sprite extends ImageView implements WorldObject{
@@ -30,7 +32,7 @@ public class Sprite extends ImageView implements WorldObject{
 	}
 	
 	@Override
-	public void update() {
+	public void update(List<Platform> platforms) {
 		
 	}
 	

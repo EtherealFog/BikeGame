@@ -1,11 +1,13 @@
 package fog.ethereal.sprite;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import javafx.scene.layout.Pane;
-import fog.ethereal.util.Translation;
 import fog.ethereal.util.WorldObject;
+import fog.ethereal.world.Platform;
 
 public class Bike implements WorldObject{
 	public static final Point FRONT_WHEEL_POS = new Point(183, 88);
@@ -16,6 +18,7 @@ public class Bike implements WorldObject{
 	private double rot;
 	private double rotV;
 	private boolean accel, brake, right, left;
+	private Rectangle bounds;
 	
 	public Bike(int type) {
 		bikeType = type;
@@ -30,18 +33,30 @@ public class Bike implements WorldObject{
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		bounds = new Rectangle();
+		updateBounds();
 	}
 
 	@Override
-	public void update() {
+	public void update(List<Platform> platforms) {
 		updateRotation();
-		frame.update();
-		front.update();
-		back.update();
+		frame.update(platforms);
+		front.update(platforms);
+		back.update(platforms);
 	}
 	
 	public double getRot() {
 		return rot;
+	}
+	
+	public Rectangle getBounds() {
+		updateBounds();
+		return bounds;
+	}
+	
+	public void updateBounds() {
+		bounds.setLocation((int)frame.getX() - 30, (int)frame.getY() - 30);
+		bounds.setSize((int)frame.getFitWidth() + 60, (int)frame.getFitHeight() + 60);
 	}
 	
 	public Frame getFrame() {

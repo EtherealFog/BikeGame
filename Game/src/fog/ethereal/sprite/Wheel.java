@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 
-import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 import fog.ethereal.util.Constants;
 import fog.ethereal.util.Mode;
@@ -23,7 +23,7 @@ public class Wheel extends Sprite{
 	private double radius;
 	private VectorCT center;
 	private Bike parent;
-	private double rot;//current wheel angle (degrees)
+	private Rotate rot;
 	private double rotV;//current speed (m/s)
 	
 	public Wheel(int type, Bike parent, Mode which) throws FileNotFoundException {
@@ -31,6 +31,8 @@ public class Wheel extends Sprite{
 		
 		this.parent = parent;
 		this.which = which;
+		rot = new Rotate(0);
+		getTransforms().add(rot);
 	}
 	
 	public double getRadius() {
@@ -46,21 +48,31 @@ public class Wheel extends Sprite{
 		if(p1.overlaps(p2)) {
 			if(which.equals(FRONT)) {
 				updateRotationFront(p);
-			} else if(which.equals(BACK)) {
-				updateRotationBack();
 			}
 		}
 	}
 	
-	public void update(Translation t) {
-		center.set(getCenter().getX(), getCenter().getY());
+	public void update(List<Platform> platforms) {
+		if(which.equals(BACK))
+			updateRotationBack();
 	}
 	
 	public void updateRotationBack() {
-		rot = (rot + (rotV / 2.16 /*<- approx circumference in meters*/ / Constants.FPS /*<- fps*/ * 360)) % 360;
-		getTransforms().clear();
-		Rotate current = new Rotate(rot);
-		getTransforms().add(current);
+		if(parent.getAccel()) {
+			rotV += Constants.ACCEL / Constants.FPS;
+		} else if(parent.getBrake()) {
+			rotV -= 15 / Constants.FPS;
+			if(rotV < 0) {
+				rotV = 0;
+			}
+		} else {
+			rotV *= 0.995;
+			if(rotV < 0.1)
+				rotV = 0;
+		}
+		rot.setAngle((rot.getAngle() + (rotV / 2.16 /*<- approx circumference in meters*/ / Constants.FPS /*<- fps*/ * 360)) % 360);
+		rot.setPivotX(getCenter().getX());
+		rot.setPivotY(getCenter().getY());
 	}
 	
 	public void updateRotationFront(Platform p) {
