@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Rotate;
 import fog.ethereal.util.WorldObject;
 import fog.ethereal.world.Platform;
 
@@ -16,6 +17,7 @@ public class Bike implements WorldObject{
 	private Wheel front, back;
 	private int bikeType;
 	private double rot;
+	private Rotate rotate;
 	private double rotV;
 	private boolean accel, brake, right, left;
 	private Rectangle bounds;
@@ -34,6 +36,10 @@ public class Bike implements WorldObject{
 			e.printStackTrace();
 		}
 		bounds = new Rectangle();
+		rotate = new Rotate();
+		frame.getTransforms().add(rotate);
+		front.setRotate(rotate);
+		back.setRotate(rotate);
 		updateBounds();
 	}
 
@@ -94,13 +100,28 @@ public class Bike implements WorldObject{
 	}
 	
 	public void rotate(double degrees, double anchorX, double anchorY) {
-		frame.rotate(degrees, anchorX, anchorY);
-		front.rotate(degrees, anchorX, anchorY);
-		back.rotate(degrees, anchorX, anchorY);
+		rotate.setAngle(degrees);
+		rotate.setPivotX(anchorX);
+		rotate.setPivotY(anchorY);
 	}
 	
 	public void updateRotation() {
-		
+		if(right) {
+			rotV += 0.5;
+			if(rotV > 4.5) {
+				rotV = 5;
+			}
+		} else if(left) {
+			rotV -= 0.5;
+			if(rotV < -4.5) {
+				rotV = -5;
+			}
+		} else {
+			rotV *= 0.9;
+		}
+		rotate.setAngle(rotate.getAngle() + rotV);
+		rotate.setPivotX(frame.getCenterX());
+		rotate.setPivotY(frame.getCenterY());
 	}
 	
 	public void setAccel(boolean accel) {

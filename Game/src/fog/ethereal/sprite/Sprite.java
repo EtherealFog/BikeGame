@@ -46,10 +46,10 @@ public class Sprite extends ImageView implements WorldObject{
 	}
 	
 	public double getCenterX() {
-		return getX() + getFitWidth() / 2;
+		return getBoundsInParent().getMinX() + getFitWidth() / 2;
 	}
 	
 	public double getCenterY() {
-		return getY() + getFitHeight() / 2;
+		return getBoundsInParent().getMinY() + getFitHeight() / 2;
 	}
 }
