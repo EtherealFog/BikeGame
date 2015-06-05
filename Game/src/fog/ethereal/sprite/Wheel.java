@@ -88,6 +88,8 @@ public class Wheel extends Sprite{
 			if(rotV < 0.1)
 				rotV = 0;
 		}
+		rot.setPivotX(getCenterX());
+		rot.setPivotY(getCenterY());
 		rot.setAngle((rot.getAngle() + (rotV / 2.16 /*<- approx circumference in meters*/ / Constants.FPS /*<- fps*/ * 360)) % 360);
 		setRotate(rot.getAngle());
 	}
@@ -110,10 +112,10 @@ public class Wheel extends Sprite{
 	}
 	
 	public double getCenterX() {
-		return rotate.deltaTransform(getX() + getFitWidth() / 2, getY() + getFitHeight() / 2).getX();
+		return this.getX() + getRadius();
 	}
 	
 	public double getCenterY() {
-		return rotate.deltaTransform(getX() + getFitWidth() / 2, getY() + getFitHeight() / 2).getY();
+		return this.getY() + getRadius();
 	}
 }
