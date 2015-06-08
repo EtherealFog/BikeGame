@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
@@ -16,7 +17,10 @@
                   <Image url="@../../../../resources/assets/playicon.png" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#resume" prefWidth="150.0" text="Resume" />
+            <Button mnemonicParsing="false" onAction="#resume" prefHeight="35.0" prefWidth="150.0" text="Resume">
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="64.0" prefWidth="400.0" spacing="7.0" styleClass="container-transparent">
@@ -26,7 +30,10 @@
                   <Image url="@../../../../resources/assets/settingsicon.png" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#showSettings" prefWidth="150.0" text="Settings" />
+            <Button mnemonicParsing="false" onAction="#showSettings" prefHeight="35.0" prefWidth="150.0" text="Settings">
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="64.0" prefWidth="254.0" spacing="7.0">
@@ -36,7 +43,10 @@
                   <Image url="@../../../../resources/assets/joystickicon.png" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#showControlSettings" prefHeight="37.0" prefWidth="150.0" text="Controls" />
+            <Button mnemonicParsing="false" onAction="#showControlSettings" prefHeight="35.0" prefWidth="150.0" text="Controls">
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="64.0" prefWidth="249.0" spacing="7.0" styleClass="container-transparent">
@@ -49,7 +59,10 @@
                   <Insets left="6.0" right="4.0" />
                </HBox.margin>
             </ImageView>
-            <Button mnemonicParsing="false" onAction="#quit" prefWidth="150.0" text="Quit" />
+            <Button mnemonicParsing="false" onAction="#quit" prefHeight="35.0" prefWidth="150.0" text="Quit">
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
          </children>
       </HBox>
    </children>

@@ -136,9 +136,12 @@ public class Bike implements WorldObject{
 		rotate.setPivotY(frame.getCenterY());
 		rotate.setAngle(rotate.getAngle() + rotV);
 		
+		Rotate wheels = rotate.clone();
+		wheels.setPivotX(frame.getTranslateX() + frame.getFitWidth() / 2);
+		wheels.setPivotY(frame.getTranslateY() + frame.getFitHeight() / 2);
 		
-		Point2D frontPos = rotate.transform(this.frontPos);
-		Point2D backPos = rotate.transform(this.backPos);
+		Point2D frontPos = wheels.transform(this.frontPos);
+		Point2D backPos = wheels.transform(this.backPos);
 		
 		front.setCenterX(frontPos.getX());
 		front.setCenterY(frontPos.getY());
