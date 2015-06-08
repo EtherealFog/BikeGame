@@ -5,7 +5,9 @@ import java.awt.Rectangle;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Rotate;
 import fog.ethereal.util.WorldObject;
 import fog.ethereal.world.Platform;
@@ -13,6 +15,7 @@ import fog.ethereal.world.Platform;
 public class Bike implements WorldObject{
 	public static final Point FRONT_WHEEL_POS = new Point(183, 88);
 	public static final Point BACK_WHEEL_POS = new Point(34, 88);
+	private Point2D frontPos, backPos; //relative position of front and back wheels to the center of the frame.
 	private Frame frame;
 	private Wheel front, back;
 	private int bikeType;
@@ -37,9 +40,9 @@ public class Bike implements WorldObject{
 		}
 		bounds = new Rectangle();
 		rotate = new Rotate();
+		frontPos = new Point2D(FRONT_WHEEL_POS.getX(), FRONT_WHEEL_POS.getY());
+		backPos = new Point2D(BACK_WHEEL_POS.getX(), BACK_WHEEL_POS.getY());
 		frame.getTransforms().add(rotate);
-		front.setRotate(rotate);
-		back.setRotate(rotate);
 		updateBounds();
 	}
 
@@ -78,10 +81,12 @@ public class Bike implements WorldObject{
 	public void translate(double dx, double dy) {
 		frame.setTranslateX(frame.getTranslateX() + dx);
 		frame.setTranslateY(frame.getTranslateY() + dy);
-		front.setTranslateX(front.getTranslateX() + dx);
-		front.setTranslateY(front.getTranslateY() + dy);
-		back.setTranslateX(back.getTranslateX() + dx);
-		back.setTranslateY(back.getTranslateY() + dy);
+		front.setCenterX(front.getCenterX() + dx);
+		front.setCenterY(front.getCenterY() + dy);
+		frontPos = new Point2D(front.getCenterX(), front.getCenterY());
+		back.setCenterX(back.getCenterX() + dx);
+		back.setCenterY(back.getCenterY() + dy);
+		backPos = new Point2D(back.getCenterX(), back.getCenterY());
 	}
 	
 	public void setLocation(double x, double y) {
@@ -89,8 +94,10 @@ public class Bike implements WorldObject{
 		frame.setTranslateY(y);
 		front.setTranslateX(FRONT_WHEEL_POS.getX() + x);
 		front.setTranslateY(FRONT_WHEEL_POS.getY() + y);
+		frontPos = new Point2D(front.getTranslateX(), front.getTranslateY());
 		back.setTranslateX(BACK_WHEEL_POS.getX() + x);
 		back.setTranslateY(BACK_WHEEL_POS.getY() + y);
+		backPos = new Point2D(back.getTranslateX(), back.getTranslateY());
 	}
 	
 	public void rotate(double degrees) {
@@ -103,6 +110,12 @@ public class Bike implements WorldObject{
 		rotate.setAngle(degrees);
 		rotate.setPivotX(anchorX);
 		rotate.setPivotY(anchorY);
+		Point2D frontRelPos = rotate.deltaTransform(frontPos);
+		Point2D backRelPos = rotate.deltaTransform(backPos);
+		front.setTranslateX(frame.getCenterX() + frontRelPos.getX());
+		front.setTranslateY(frame.getCenterY() + frontRelPos.getY());
+		back.setTranslateX(frame.getCenterX() + backRelPos.getX());
+		back.setTranslateY(frame.getCenterY() + backRelPos.getY());
 	}
 	
 	public void updateRotation() {
@@ -119,9 +132,20 @@ public class Bike implements WorldObject{
 		} else {
 			rotV *= 0.9;
 		}
-		rotate.setAngle(rotate.getAngle() + rotV);
 		rotate.setPivotX(frame.getCenterX());
 		rotate.setPivotY(frame.getCenterY());
+		rotate.setAngle(rotate.getAngle() + rotV);
+		
+		
+		Point2D frontPos = rotate.transform(this.frontPos);
+		Point2D backPos = rotate.transform(this.backPos);
+		
+		front.setCenterX(frontPos.getX());
+		front.setCenterY(frontPos.getY());
+		
+		back.setCenterX(backPos.getX());
+		back.setCenterY(backPos.getY());
+		
 	}
 	
 	public void setAccel(boolean accel) {

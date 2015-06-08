@@ -36,6 +36,7 @@ public class Wheel extends Sprite{
 		this.which = which;
 		rot = new Rotate(0);
 		centerpoint = new Line(getX(), getY(), getX() + getFitWidth(), getY() + getFitHeight());
+		radius = getImage().getWidth() / 2;
 		
 		//getTransforms().add(rot);
 	}
@@ -103,8 +104,16 @@ public class Wheel extends Sprite{
 	}
 	
 	public void setCenter(Point center) {
-		setX(center.getX() - getImage().getWidth() / 2);
-		setY(center.getY() - getImage().getHeight() / 2);
+		setCenterX(center.getX());
+		setCenterY(center.getY());
+	}
+	
+	public void setCenterX(double x) {
+		setTranslateX(x - getRadius());
+	}
+	
+	public void setCenterY(double y) {
+		setTranslateY(y - getRadius());
 	}
 	
 	public void setCenter(Translation t) {
@@ -112,10 +121,10 @@ public class Wheel extends Sprite{
 	}
 	
 	public double getCenterX() {
-		return this.getX() + getRadius();
+		return this.getTranslateX() + getRadius();
 	}
 	
 	public double getCenterY() {
-		return this.getY() + getRadius();
+		return this.getTranslateY() + getRadius();
 	}
 }
