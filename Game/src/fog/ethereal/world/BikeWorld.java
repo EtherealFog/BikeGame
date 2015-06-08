@@ -134,7 +134,6 @@ public class BikeWorld extends World {
 				} else if(e.getCode().equals(Constants.BRAKE_CODE)) {
 					bike.setBrake(true);
 					bike.setAccel(false);
-					System.out.println("Brake pressed");
 				} else if(e.getCode().equals(Constants.RIGHT_CODE)) {
 					bike.setRight(true);
 					bike.setLeft(false);
@@ -170,7 +169,7 @@ public class BikeWorld extends World {
 	public void showPauseMenu() {
 		if(glass == null) {
 			glass = new Rectangle(getSurface().getWidth(), getSurface().getHeight());
-			glass.setFill(Color.rgb(0, 0, 0, 0.8));
+			glass.setFill(Color.rgb(0, 0, 0, 0.6));
 			glass.widthProperty().bind(getSurface().widthProperty());
 			glass.heightProperty().bind(getSurface().heightProperty());
 		}
