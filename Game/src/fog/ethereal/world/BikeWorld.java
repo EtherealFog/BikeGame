@@ -90,6 +90,9 @@ public class BikeWorld extends World {
 							   .filter(p -> p.fitsWithin(bike.getBounds()))
 							   .forEach(p -> platforms.add(p));
 		bike.update(platforms);//gives the Bike relevant platforms for collision checking using Quadtree.
+		if(bike.getBounds().getMinY() > tree.getBounds().getMaxY() + 200) {
+			//death message / respawn
+		}
 	}
 	
 	public void makeTimer() {

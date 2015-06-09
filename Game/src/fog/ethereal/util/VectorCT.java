@@ -26,10 +26,16 @@ public class VectorCT {
 	}
 	
 	public VectorCT unit() {
-		double scal = Math.sqrt(x * x + y * y);
+		double scal = length();
 		double newx = x / scal;
 		double newy = y / scal;
 		return new VectorCT(newx, newy);
+	}
+	
+	public void toUnit() {
+		double scal = length();
+		x /= scal;
+		y /= scal;
 	}
 	
 	public VectorCT avg(VectorCT other) {
@@ -42,13 +48,21 @@ public class VectorCT {
 	}
 	
 	public double dot(VectorCT other) {
-		return x * other.getX() + y * other.getY();
+		return (x * other.getX() + y * other.getY()) / other.length();
+	}
+	
+	public double length() {
+		return Math.sqrt(x * x + y * y);
 	}
 	
 	public VectorCT dotVector(VectorCT other) {//returns 'other' in the length of the dot product.
 		VectorCT newVector = other.unit();
 		newVector.mult(dot(other));
 		return newVector;
+	}
+	
+	public VectorCT clone() {
+		return new VectorCT(x, y);
 	}
 	
 	public void mult(double scalar) {
@@ -62,5 +76,22 @@ public class VectorCT {
 	
 	public double getY() {
 		return y;
+	}
+
+	public void add(VectorCT v) {
+		x += v.getX();
+		y += v.getY();
+	}
+	
+	public void sub(VectorCT v) {
+		x -= v.getX();
+		y -= v.getY();
+	}
+	
+	public void shorten(double amt) {//subtracts a certain amount along the angle of the vector
+		double scal = length();
+		scal -= amt;
+		toUnit();
+		mult(scal);
 	}
 }

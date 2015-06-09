@@ -9,6 +9,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Rotate;
+import fog.ethereal.util.Constants;
+import fog.ethereal.util.VectorCT;
 import fog.ethereal.util.WorldObject;
 import fog.ethereal.world.Platform;
 
@@ -24,6 +26,7 @@ public class Bike implements WorldObject{
 	private double rotV;
 	private boolean accel, brake, right, left;
 	private Rectangle bounds;
+	private VectorCT vector;
 	
 	public Bike(int type) {
 		bikeType = type;
@@ -44,18 +47,30 @@ public class Bike implements WorldObject{
 		backPos = new Point2D(BACK_WHEEL_POS.getX(), BACK_WHEEL_POS.getY());
 		frame.getTransforms().add(rotate);
 		updateBounds();
+		vector = new VectorCT(0, 0);
 	}
 
 	@Override
 	public void update(List<Platform> platforms) {
 		updateRotation();
+		updateBounds();
+		vector.add(new VectorCT(0, Constants.GRAVITY / Constants.FPS));
 		frame.update(platforms);
 		front.update(platforms);
 		back.update(platforms);
+		translate(vector.getX(), vector.getY());
 	}
 	
 	public double getRot() {
 		return rot;
+	}
+	
+	public VectorCT getVector() {
+		return vector;
+	}
+	
+	public void setVector(VectorCT vector) {
+		this.vector = vector;
 	}
 	
 	public Rectangle getBounds() {
@@ -64,8 +79,8 @@ public class Bike implements WorldObject{
 	}
 	
 	public void updateBounds() {
-		bounds.setLocation((int)frame.getX() - 30, (int)frame.getY() - 30);
-		bounds.setSize((int)frame.getFitWidth() + 60, (int)frame.getFitHeight() + 60);
+		bounds.setLocation((int)frame.getX() - 80, (int)frame.getY() - 80);
+		bounds.setSize((int)frame.getFitWidth() + 160, (int)frame.getFitHeight() + 160);
 	}
 	
 	public Frame getFrame() {
