@@ -52,13 +52,13 @@ public class Bike implements WorldObject{
 
 	@Override
 	public void update(List<Platform> platforms) {
-		updateRotation();
-		updateBounds();
-		vector.add(new VectorCT(0, Constants.GRAVITY / Constants.FPS));
+		//vector.add(new VectorCT(0, Constants.GRAVITY / Constants.FPS));
 		frame.update(platforms);
 		front.update(platforms);
 		back.update(platforms);
-		translate(vector.getX(), vector.getY());
+		//translate(vector.getX(), vector.getY());
+		updateRotation();
+		updateBounds();
 	}
 	
 	public double getRot() {

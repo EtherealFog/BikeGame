@@ -84,9 +84,12 @@ public class Wheel extends Sprite{
 	}
 	
 	public void update(List<Platform> platforms) {
-		for(Platform p: platforms) {
-			handleCollision(p);
+		if(which.equals(BACK)) 
+			updateRotationBack();
+		else {
+			//updateRotationFront()
 		}
+		rotate();
 	}
 	
 	public void translate(double dx, double dy) {
@@ -110,7 +113,6 @@ public class Wheel extends Sprite{
 			if(rotV < 0.1)
 				rotV = 0;
 		}
-		rotate();
 	}
 	
 	public void updateRotationFront(Platform p, boolean collide) {
