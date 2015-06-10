@@ -52,7 +52,7 @@ public class Bike implements WorldObject{
 
 	@Override
 	public void update(List<Platform> platforms) {
-		//vector.add(new VectorCT(0, Constants.GRAVITY / Constants.FPS));
+		vector.add(new VectorCT(0, Constants.GRAVITY / Constants.FPS));
 		frame.update(platforms);
 		front.update(platforms);
 		back.update(platforms);
