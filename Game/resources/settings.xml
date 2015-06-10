@@ -3,7 +3,7 @@
     <accel>Up</accel>
     <acceleration>5.36</acceleration>
     <brake>Down</brake>
-    <gravity>9.8</gravity>
+    <gravity>0.0</gravity>
     <left>Left</left>
     <pause>Esc</pause>
     <right>Right</right>
