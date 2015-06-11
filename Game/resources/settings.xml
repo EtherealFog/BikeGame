@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
-    <accel>Up</accel>
+    <accel>W</accel>
     <acceleration>5.36</acceleration>
-    <brake>Down</brake>
+    <brake>S</brake>
     <gravity>9.8</gravity>
-    <left>Left</left>
-    <pause>Esc</pause>
-    <right>Right</right>
+    <left>A</left>
+    <pause>P</pause>
+    <right>D</right>
     <speed>1.0</speed>
 </settings>

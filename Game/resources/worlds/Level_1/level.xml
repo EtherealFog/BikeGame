@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <level>
     <bestTime>0</bestTime>
-    <endX>1165.0</endX>
-    <endY>230.0</endY>
+    <endX>1193.0</endX>
+    <endY>155.0</endY>
     <name>Level 1</name>
     <s>
         <p>
@@ -155,7 +155,19 @@
             <x>574.0</x>
             <y>535.0</y>
         </p>
+        <p>
+            <x>679.0</x>
+            <y>489.0</y>
+        </p>
+        <p>
+            <x>759.0</x>
+            <y>472.0</y>
+        </p>
+        <p>
+            <x>841.0</x>
+            <y>526.0</y>
+        </p>
     </s>
-    <startX>199.0</startX>
-    <startY>188.0</startY>
+    <startX>344.0</startX>
+    <startY>206.0</startY>
 </level>
